@@ -5,7 +5,7 @@ import pizzaHero from "@/assets/pizza-hero.jpg";
 import burgerHero from "@/assets/burger-hero.jpg";
 import kebabHero from "@/assets/kebab-hero.jpg";
 
-type MenuCategory = "pizzas" | "hamburgueres" | "kebab" | "menus";
+type MenuCategory = "pizzas" | "hamburgueres" | "kebab" | "menus" | "massas" | "extras" | "sobremesas";
 
 interface MenuItem {
   name: string;
@@ -21,48 +21,86 @@ const menuData: Record<MenuCategory, { title: string; emoji: string; items: Menu
     title: "Pizzas",
     emoji: "🍕",
     items: [
-      { name: "Margherita", description: "Molho de tomate, mozzarella, manjericão", prices: [{ size: "P", price: "6,50€" }, { size: "M", price: "9,50€" }, { size: "F", price: "13,50€" }], badge: "Popular", image: pizzaHero },
-      { name: "Pepperoni", description: "Molho de tomate, mozzarella, pepperoni", prices: [{ size: "P", price: "7,50€" }, { size: "M", price: "10,50€" }, { size: "F", price: "14,50€" }], badge: "Popular" },
+      { name: "Margherita", description: "Molho de tomate, mozzarella, manjericão", prices: [{ size: "P", price: "6,50€" }, { size: "M", price: "9,50€" }, { size: "F", price: "13,50€" }] },
+      { name: "Pepperoni", description: "Molho de tomate, mozzarella, pepperoni", prices: [{ size: "P", price: "7,50€" }, { size: "M", price: "10,50€" }, { size: "F", price: "14,50€" }] },
       { name: "4 Queijos", description: "Mozzarella, gorgonzola, parmesão, cheddar", prices: [{ size: "P", price: "8,00€" }, { size: "M", price: "11,00€" }, { size: "F", price: "15,00€" }] },
-      { name: "Especial da Casa", description: "Fiambre, cogumelos, bacon, ovo", prices: [{ size: "P", price: "8,50€" }, { size: "M", price: "12,00€" }, { size: "F", price: "16,00€" }], badge: "Especial" },
-      { name: "Atum", description: "Molho de tomate, atum, cebola, azeitonas", prices: [{ size: "P", price: "7,50€" }, { size: "M", price: "10,50€" }, { size: "F", price: "14,50€" }] },
-      { name: "Vegetariana", description: "Pimentos, cogumelos, cebola, tomate, azeitonas", prices: [{ size: "P", price: "7,00€" }, { size: "M", price: "10,00€" }, { size: "F", price: "14,00€" }] },
-      { name: "Frango BBQ", description: "Frango, bacon, cebola, molho BBQ", prices: [{ size: "P", price: "8,50€" }, { size: "M", price: "12,00€" }, { size: "F", price: "16,00€" }] },
-      { name: "Carbonara", description: "Natas, bacon, ovo, queijo parmesão", prices: [{ size: "P", price: "8,00€" }, { size: "M", price: "11,50€" }, { size: "F", price: "15,50€" }] },
+      { name: "Especial da Casa", description: "Fiambre, cogumelos, bacon, ovo, azeitonas", prices: [{ size: "P", price: "8,50€" }, { size: "M", price: "12,00€" }, { size: "F", price: "16,00€" }] },
+      { name: "Atum", description: "Molho de tomate, mozzarella, atum, cebola", prices: [{ size: "P", price: "7,50€" }, { size: "M", price: "10,50€" }, { size: "F", price: "14,50€" }] },
+      { name: "Vegetariana", description: "Pimentos, cogumelos, cebola, azeitonas, tomate", prices: [{ size: "P", price: "7,00€" }, { size: "M", price: "10,00€" }, { size: "F", price: "14,00€" }] },
+      { name: "Frango BBQ", description: "Frango, bacon, cebola caramelizada, molho BBQ", prices: [{ size: "P", price: "8,50€" }, { size: "M", price: "12,00€" }, { size: "F", price: "16,00€" }] },
+      { name: "Carbonara", description: "Natas, bacon, cogumelos, cebola", prices: [{ size: "P", price: "8,00€" }, { size: "M", price: "11,50€" }, { size: "F", price: "15,50€" }] },
     ],
   },
   hamburgueres: {
     title: "Hambúrgueres",
     emoji: "🍔",
     items: [
-      { name: "Hambúrguer Clássico", description: "Carne de vaca 150g, queijo, alface, tomate, cebola", price: "6,50€" },
-      { name: "Duplo Cheese", description: "Hambúrguer 200g, ovo, bacon, queijo, cogumelos", price: "9,00€", badge: "Popular" },
+      { name: "Clássico", description: "Hambúrguer 150g, alface, tomate, cebola, pickles", price: "6,50€", image: burgerHero },
+      { name: "Cheese Burguer", description: "Hambúrguer 150g, queijo cheddar, alface, tomate", price: "7,00€", badge: "Popular" },
+      { name: "Bacon Burguer", description: "Hambúrguer 150g, bacon crocante, queijo, cebola caramelizada", price: "8,00€", badge: "Popular" },
+      { name: "Duplo Cheese", description: "2x Hambúrguer 150g, queijo cheddar duplo, molho especial", price: "10,50€", badge: "Popular" },
+      { name: "Duplo Bacon", description: "2x Hambúrguer 150g, bacon duplo, queijo, cebola frita", price: "11,50€" },
+      { name: "Especial da Casa", description: "Hambúrguer 200g, ovo, bacon, queijo, cogumelos", price: "12,00€", badge: "Novo" },
       { name: "BBQ Burguer", description: "Hambúrguer 150g, cebola roxa, queijo, molho BBQ", price: "8,50€" },
       { name: "Frango Grelhado", description: "Peito de frango grelhado, alface, tomate, maionese", price: "7,50€" },
-      { name: "Hambúrguer Especial", description: "Carne 200g, bacon, ovo, queijo cheddar, molho especial", price: "10,00€", badge: "Especial" },
     ],
   },
   kebab: {
     title: "Kebab & Wraps",
     emoji: "🌯",
     items: [
-      { name: "Kebab Pão", description: "Carne de kebab, salada, molhos", price: "5,50€" },
-      { name: "Kebab Wrap", description: "Carne de kebab em tortilha, salada, molhos", price: "6,00€" },
-      { name: "Kebab Prato", description: "Carne de kebab, arroz, salada, batatas", price: "8,50€" },
-      { name: "Kebab Menu", description: "Kebab pão + batatas + bebida", price: "8,00€", badge: "Popular" },
-      { name: "Wrap Frango", description: "Frango grelhado em tortilha, salada, molhos", price: "6,50€" },
-      { name: "Francesinha", description: "Pão, carnes, queijo, ovo, molho especial", price: "10,50€" },
+      { name: "Kebab no Pão", description: "Carne de vitela, salada, molho", price: "5,50€", image: kebabHero },
+      { name: "Kebab no Prato", description: "Carne de vitela, arroz, batata frita, salada", price: "8,50€", badge: "Popular" },
+      { name: "Durum Kebab", description: "Wrap com carne, salada, molho picante", price: "6,50€" },
+      { name: "Kebab Menu", description: "Kebab + batata frita + bebida", price: "8,00€", badge: "Promo" },
+      { name: "Falafel Wrap", description: "Falafel, húmus, salada, molho tahini", price: "6,00€", badge: "Novo" },
+      { name: "Mix Kebab", description: "Carne de vitela e frango, salada especial", price: "7,50€" },
     ],
   },
   menus: {
     title: "Menus Completos",
     emoji: "🍟",
     items: [
-      { name: "Menu Hambúrguer", description: "Hambúrguer clássico + batatas + bebida", price: "9,50€" },
-      { name: "Menu Duplo", description: "Hambúrguer duplo + batatas + bebida", price: "12,00€", badge: "Popular" },
-      { name: "Menu Kebab", description: "Kebab pão + batatas + bebida", price: "8,00€" },
-      { name: "Menu Frango", description: "Hambúrguer frango + batatas + bebida", price: "10,00€" },
-      { name: "Menu Kids", description: "Mini hambúrguer + batatas + sumo", price: "6,50€" },
+      { name: "Menu Hambúrguer", description: "Hambúrguer à escolha + batata frita + bebida", price: "9,50€", badge: "Promo" },
+      { name: "Menu Duplo", description: "Hambúrguer duplo + batata frita grande + bebida", price: "12,50€", badge: "Popular" },
+      { name: "Menu Infantil", description: "Mini hambúrguer + batata + sumo + surpresa", price: "6,50€" },
+      { name: "Menu Frango", description: "Tiras de frango + batata frita + bebida", price: "8,50€" },
+      { name: "Menu Kebab", description: "Kebab + batata frita + bebida", price: "8,00€" },
+    ],
+  },
+  massas: {
+    title: "Massas & Saladas",
+    emoji: "🍝",
+    items: [
+      { name: "Esparguete Bolonhesa", description: "Massa com molho de carne", price: "7,50€" },
+      { name: "Esparguete Carbonara", description: "Massa com natas, bacon e ovo", price: "8,00€", badge: "Popular" },
+      { name: "Lasanha da Casa", description: "Lasanha tradicional com bechamel", price: "8,50€" },
+      { name: "Salada Caesar", description: "Alface, frango grelhado, croutons, parmesão", price: "7,00€" },
+      { name: "Salada Mista", description: "Alface, tomate, cebola, milho, cenoura", price: "4,50€" },
+    ],
+  },
+  extras: {
+    title: "Extras & Bebidas",
+    emoji: "🥤",
+    items: [
+      { name: "Batata Frita Pequena", price: "2,00€" },
+      { name: "Batata Frita Grande", price: "3,00€" },
+      { name: "Nuggets (6 unid.)", price: "3,50€" },
+      { name: "Aros de Cebola", price: "3,00€" },
+      { name: "Refrigerante", price: "1,50€" },
+      { name: "Água", price: "1,00€" },
+      { name: "Sumo Natural", price: "2,50€" },
+    ],
+  },
+  sobremesas: {
+    title: "Sobremesas",
+    emoji: "🍰",
+    items: [
+      { name: "Gelado (2 bolas)", price: "2,50€" },
+      { name: "Brownie com Gelado", price: "4,00€", badge: "Popular" },
+      { name: "Cheesecake", price: "3,50€" },
+      { name: "Mousse de Chocolate", price: "3,00€" },
+      { name: "Tiramisu", price: "4,00€", badge: "Novo" },
     ],
   },
 };
@@ -72,6 +110,9 @@ const categoryImages: Record<MenuCategory, string> = {
   hamburgueres: burgerHero,
   kebab: kebabHero,
   menus: burgerHero,
+  massas: pizzaHero,
+  extras: burgerHero,
+  sobremesas: pizzaHero,
 };
 
 export const MenuSection = () => {
@@ -92,8 +133,8 @@ export const MenuSection = () => {
 
         {/* Category Tabs - Scrollable */}
         <ScrollReveal delay={100}>
-          <div className="mb-6 overflow-x-auto pb-2">
-            <div className="flex justify-start gap-2 min-w-max md:justify-center">
+          <div className="mb-6 overflow-x-auto pb-2 -mx-4 px-4">
+            <div className="flex gap-2 min-w-max">
               {categories.map((category) => (
                 <button
                   key={category}
@@ -125,28 +166,33 @@ export const MenuSection = () => {
         {/* Menu Items */}
         <div className="space-y-3">
           {menuData[activeCategory].items.map((item, index) => (
-            <ScrollReveal key={`${activeCategory}-${index}`} delay={index * 50}>
+            <ScrollReveal key={`${activeCategory}-${index}`} delay={index * 40}>
               <div className="flex items-center gap-4 rounded-lg bg-card p-4 shadow-sm transition-shadow hover:shadow-md">
                 {/* Item Image (optional) */}
                 {item.image && (
                   <img 
                     src={item.image} 
                     alt={item.name}
-                    className="h-16 w-16 rounded-lg object-cover"
+                    className="h-16 w-16 rounded-lg object-cover shrink-0"
                   />
                 )}
                 
-                <div className="flex-1">
+                <div className="flex-1 min-w-0">
                   <div className="flex items-center gap-2 flex-wrap">
                     <span className="font-semibold text-foreground">{item.name}</span>
                     {item.badge && (
-                      <span className="rounded-full bg-primary/15 px-2 py-0.5 text-xs font-medium text-primary">
+                      <span className={`rounded-full px-2 py-0.5 text-xs font-medium ${
+                        item.badge === "Popular" ? "bg-primary/15 text-primary" :
+                        item.badge === "Novo" ? "bg-accent/15 text-accent" :
+                        item.badge === "Promo" ? "bg-whatsapp/15 text-whatsapp" :
+                        "bg-primary/15 text-primary"
+                      }`}>
                         🔥 {item.badge}
                       </span>
                     )}
                   </div>
                   {item.description && (
-                    <p className="mt-1 text-sm text-muted-foreground">{item.description}</p>
+                    <p className="mt-1 text-sm text-muted-foreground truncate">{item.description}</p>
                   )}
                 </div>
                 <div className="ml-2 text-right shrink-0">
