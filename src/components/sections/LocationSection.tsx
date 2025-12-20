@@ -7,6 +7,9 @@ const schedule = [
   { day: "Domingo", hours: "12:00 - 22:00" },
 ];
 
+// Replace with actual coordinates for Almeirim
+const GOOGLE_MAPS_EMBED_URL = "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d24857.70892561849!2d-8.645!3d39.2094!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd18e95d6c6e7a13%3A0x500ebbde490b5c0!2sAlmeirim%2C%20Portugal!5e0!3m2!1spt-PT!2spt!4v1703001234567!5m2!1spt-PT!2spt";
+
 export const LocationSection = () => {
   return (
     <section className="bg-cream-dark py-16 px-4">
@@ -49,6 +52,21 @@ export const LocationSection = () => {
               </div>
             </div>
           </div>
+        </div>
+
+        {/* Google Maps Embed */}
+        <div className="mb-8 overflow-hidden rounded-xl shadow-lg">
+          <iframe
+            src={GOOGLE_MAPS_EMBED_URL}
+            width="100%"
+            height="300"
+            style={{ border: 0 }}
+            allowFullScreen
+            loading="lazy"
+            referrerPolicy="no-referrer-when-downgrade"
+            title="Localização Pizza Burguer em Almeirim"
+            className="w-full"
+          />
         </div>
 
         {/* CTA */}
