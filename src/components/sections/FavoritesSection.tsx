@@ -1,4 +1,3 @@
-import { Star } from "lucide-react";
 import { WhatsAppButton } from "../WhatsAppButton";
 import { ScrollReveal } from "../ScrollReveal";
 import pizzaHero from "@/assets/pizza-hero.jpg";
@@ -6,10 +5,24 @@ import burgerHero from "@/assets/burger-hero.jpg";
 import kebabHero from "@/assets/kebab-hero.jpg";
 
 const favorites = [
-  { name: "Pizza Especial", emoji: "🍕", image: pizzaHero },
-  { name: "Hambúrguer Clássico", emoji: "🍔", image: burgerHero },
-  { name: "Hambúrguer Duplo", emoji: "🍔", image: burgerHero },
-  { name: "Kebab Menu", emoji: "🌯", image: kebabHero },
+  { 
+    name: "Pizza Especial", 
+    subtitle: "A mais pedida",
+    image: pizzaHero,
+    badge: "Popular"
+  },
+  { 
+    name: "Duplo Cheese", 
+    subtitle: "Irresistível",
+    image: burgerHero,
+    badge: "Popular"
+  },
+  { 
+    name: "Kebab Menu", 
+    subtitle: "Completo e saboroso",
+    image: kebabHero,
+    badge: "Popular"
+  },
 ];
 
 export const FavoritesSection = () => {
@@ -18,26 +31,35 @@ export const FavoritesSection = () => {
       <div className="container mx-auto max-w-4xl">
         <ScrollReveal>
           <div className="mb-6 flex items-center justify-center gap-2">
-            <Star className="h-6 w-6 fill-golden text-golden" />
+            <span className="text-2xl">🔥</span>
             <h2 className="text-2xl font-bold text-foreground md:text-3xl">
               Os favoritos dos clientes
             </h2>
           </div>
         </ScrollReveal>
 
-        <div className="mb-8 grid grid-cols-2 gap-4 md:grid-cols-4">
+        <div className="mb-8 grid grid-cols-1 gap-4 sm:grid-cols-3">
           {favorites.map((item, index) => (
             <ScrollReveal key={index} delay={index * 100}>
               <div className="group relative overflow-hidden rounded-xl bg-card shadow-md transition-transform hover:scale-105">
                 <img
                   src={item.image}
                   alt={item.name}
-                  className="h-28 w-full object-cover md:h-36"
+                  className="h-40 w-full object-cover sm:h-48"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-foreground/80 to-transparent" />
-                <div className="absolute bottom-0 left-0 right-0 p-3 text-center">
-                  <span className="text-lg">{item.emoji}</span>
-                  <p className="text-sm font-semibold text-cream">{item.name}</p>
+                <div className="absolute inset-0 bg-gradient-to-t from-foreground/90 via-foreground/30 to-transparent" />
+                
+                {/* Badge */}
+                <div className="absolute top-3 right-3">
+                  <span className="rounded-full bg-primary px-2 py-1 text-xs font-semibold text-primary-foreground">
+                    🔥 {item.badge}
+                  </span>
+                </div>
+                
+                {/* Content */}
+                <div className="absolute bottom-0 left-0 right-0 p-4">
+                  <h3 className="text-lg font-bold text-cream">{item.name}</h3>
+                  <p className="text-sm text-cream/80">{item.subtitle}</p>
                 </div>
               </div>
             </ScrollReveal>

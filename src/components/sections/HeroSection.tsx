@@ -1,6 +1,6 @@
 import { ChevronDown } from "lucide-react";
 import { Button } from "../ui/button";
-import { WhatsAppButton } from "../WhatsAppButton";
+import { WhatsAppButton, PhoneButton, PHONE_DISPLAY_1 } from "../WhatsAppButton";
 import logo from "@/assets/logo.png";
 import burgerHero from "@/assets/burger-hero.jpg";
 
@@ -23,16 +23,16 @@ export const HeroSection = () => {
         <img
           src={logo}
           alt="Pizza Burguer Logo"
-          className="mb-6 h-24 w-auto animate-fade-in md:h-32"
+          className="mb-6 h-28 w-auto animate-fade-in md:h-36"
         />
 
         {/* Title */}
-        <h1 className="mb-4 text-3xl font-extrabold text-cream text-shadow-lg animate-fade-in md:text-5xl" style={{ animationDelay: "0.1s" }}>
-          Pizza & Burguer em Almeirim
+        <h1 className="mb-4 text-3xl font-extrabold text-primary animate-fade-in md:text-5xl" style={{ animationDelay: "0.1s" }}>
+          Pizza Burguer Almeirim
         </h1>
 
         {/* Subtitle */}
-        <p className="mb-2 text-xl font-semibold text-primary animate-fade-in md:text-2xl" style={{ animationDelay: "0.2s" }}>
+        <p className="mb-2 text-xl font-semibold text-cream animate-fade-in md:text-2xl" style={{ animationDelay: "0.2s" }}>
           Sabor autêntico. Pedido rápido pelo WhatsApp.
         </p>
 
@@ -45,13 +45,18 @@ export const HeroSection = () => {
         {/* CTAs */}
         <div className="flex flex-col gap-3 w-full max-w-xs animate-fade-in" style={{ animationDelay: "0.4s" }}>
           <WhatsAppButton size="lg" className="w-full" />
+          <PhoneButton 
+            text={`Ligar ${PHONE_DISPLAY_1}`}
+            size="lg" 
+            className="w-full" 
+          />
           <Button
             variant="menu"
             size="lg"
             className="w-full"
             asChild
           >
-            <a href="#menu">👁️ Ver Menu</a>
+            <a href="#menu">📋 Ver Menu</a>
           </Button>
         </div>
 

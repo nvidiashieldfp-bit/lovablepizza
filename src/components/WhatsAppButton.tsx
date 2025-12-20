@@ -1,4 +1,4 @@
-import { MessageCircle } from "lucide-react";
+import { MessageCircle, Phone } from "lucide-react";
 import { Button } from "./ui/button";
 
 interface WhatsAppButtonProps {
@@ -8,8 +8,15 @@ interface WhatsAppButtonProps {
   showIcon?: boolean;
 }
 
-const WHATSAPP_NUMBER = "351XXXXXXXXX"; // Replace with actual number
+// Número real do WhatsApp
+const WHATSAPP_NUMBER = "351243046828";
 const WHATSAPP_MESSAGE = encodeURIComponent("Olá 👋 Gostava de fazer um pedido.");
+
+// Números de telefone reais
+export const PHONE_NUMBER_1 = "243046828";
+export const PHONE_NUMBER_2 = "914962991";
+export const PHONE_DISPLAY_1 = "243 046 828";
+export const PHONE_DISPLAY_2 = "914 962 991";
 
 export const WhatsAppButton = ({ 
   text = "Encomendar via WhatsApp", 
@@ -28,6 +35,34 @@ export const WhatsAppButton = ({
     >
       <a href={whatsappUrl} target="_blank" rel="noopener noreferrer">
         {showIcon && <MessageCircle className="mr-1" />}
+        {text}
+      </a>
+    </Button>
+  );
+};
+
+interface PhoneButtonProps {
+  text?: string;
+  size?: "default" | "sm" | "lg" | "xl";
+  className?: string;
+  phoneNumber?: string;
+}
+
+export const PhoneButton = ({ 
+  text = `Ligar ${PHONE_DISPLAY_1}`, 
+  size = "default",
+  className = "",
+  phoneNumber = PHONE_NUMBER_1
+}: PhoneButtonProps) => {
+  return (
+    <Button
+      variant="phone"
+      size={size}
+      className={className}
+      asChild
+    >
+      <a href={`tel:+351${phoneNumber}`}>
+        <Phone className="mr-1" />
         {text}
       </a>
     </Button>
