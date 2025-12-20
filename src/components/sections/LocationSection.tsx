@@ -27,8 +27,8 @@ export const LocationSection = () => {
           {/* Address */}
           <ScrollReveal delay={100}>
             <div className="flex items-start gap-4 rounded-2xl bg-muted/50 p-5">
-              <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-destructive/10">
-                <MapPin className="h-5 w-5 text-destructive" />
+              <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-primary/10">
+                <MapPin className="h-5 w-5 text-primary" />
               </div>
               <div>
                 <h3 className="font-semibold text-foreground mb-1">Morada</h3>
@@ -42,15 +42,15 @@ export const LocationSection = () => {
           {/* Phone */}
           <ScrollReveal delay={200}>
             <div className="flex items-start gap-4 rounded-2xl bg-muted/50 p-5">
-              <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-destructive/10">
-                <Phone className="h-5 w-5 text-destructive" />
+              <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-primary/10">
+                <Phone className="h-5 w-5 text-primary" />
               </div>
               <div>
                 <h3 className="font-semibold text-foreground mb-1">Telefone (toca para ligar)</h3>
                 <p className="text-muted-foreground text-sm">
-                  <a href="tel:+351243046828" className="hover:text-destructive transition-colors">{PHONE_DISPLAY_1}</a>
+                  <a href="tel:+351243046828" className="hover:text-primary transition-colors">{PHONE_DISPLAY_1}</a>
                   {" | "}
-                  <a href="tel:+351914962991" className="hover:text-destructive transition-colors">{PHONE_DISPLAY_2}</a>
+                  <a href="tel:+351914962991" className="hover:text-primary transition-colors">{PHONE_DISPLAY_2}</a>
                 </p>
               </div>
             </div>
@@ -59,8 +59,8 @@ export const LocationSection = () => {
           {/* Hours */}
           <ScrollReveal delay={300}>
             <div className="flex items-start gap-4 rounded-2xl bg-muted/50 p-5">
-              <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-destructive/10">
-                <Clock className="h-5 w-5 text-destructive" />
+              <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-primary/10">
+                <Clock className="h-5 w-5 text-primary" />
               </div>
               <div className="flex-1">
                 <h3 className="font-semibold text-foreground mb-3">Horário</h3>
