@@ -7,11 +7,10 @@ export const CTASection = () => {
     <section className="bg-foreground py-16 px-4">
       <div className="container mx-auto max-w-2xl text-center">
         <ScrollReveal>
-          <img
-            src={logo}
-            alt="Pizza Burguer"
-            className="mx-auto mb-6 h-20 w-auto"
-          />
+          <div className="mb-4 flex justify-center gap-2 text-5xl">
+            <span>🍕</span>
+            <span>🍔</span>
+          </div>
         </ScrollReveal>
         
         <ScrollReveal delay={100}>
