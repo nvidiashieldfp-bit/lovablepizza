@@ -18,7 +18,7 @@ export const LocationSection = () => {
       <div className="container mx-auto max-w-2xl">
         <ScrollReveal>
           <h2 className="mb-8 text-center text-2xl font-bold text-foreground md:text-3xl flex items-center justify-center gap-2">
-            <MapPin className="h-6 w-6 text-primary" />
+            <span className="text-2xl">📍</span>
             Onde estamos
           </h2>
         </ScrollReveal>
@@ -26,8 +26,10 @@ export const LocationSection = () => {
         <div className="mb-6 space-y-4">
           {/* Address */}
           <ScrollReveal delay={100}>
-            <div className="flex items-start gap-4 rounded-xl bg-card p-5 border border-border">
-              <MapPin className="h-5 w-5 shrink-0 text-primary mt-0.5" />
+            <div className="flex items-start gap-4 rounded-2xl bg-muted/50 p-5">
+              <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-destructive/10">
+                <MapPin className="h-5 w-5 text-destructive" />
+              </div>
               <div>
                 <h3 className="font-semibold text-foreground mb-1">Morada</h3>
                 <p className="text-muted-foreground text-sm">
@@ -39,14 +41,16 @@ export const LocationSection = () => {
 
           {/* Phone */}
           <ScrollReveal delay={200}>
-            <div className="flex items-start gap-4 rounded-xl bg-card p-5 border border-border">
-              <Phone className="h-5 w-5 shrink-0 text-primary mt-0.5" />
+            <div className="flex items-start gap-4 rounded-2xl bg-muted/50 p-5">
+              <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-destructive/10">
+                <Phone className="h-5 w-5 text-destructive" />
+              </div>
               <div>
                 <h3 className="font-semibold text-foreground mb-1">Telefone (toca para ligar)</h3>
                 <p className="text-muted-foreground text-sm">
-                  <a href="tel:+351243046828" className="hover:text-primary transition-colors">{PHONE_DISPLAY_1}</a>
+                  <a href="tel:+351243046828" className="hover:text-destructive transition-colors">{PHONE_DISPLAY_1}</a>
                   {" | "}
-                  <a href="tel:+351914962991" className="hover:text-primary transition-colors">{PHONE_DISPLAY_2}</a>
+                  <a href="tel:+351914962991" className="hover:text-destructive transition-colors">{PHONE_DISPLAY_2}</a>
                 </p>
               </div>
             </div>
@@ -54,8 +58,10 @@ export const LocationSection = () => {
 
           {/* Hours */}
           <ScrollReveal delay={300}>
-            <div className="flex items-start gap-4 rounded-xl bg-card p-5 border border-border">
-              <Clock className="h-5 w-5 shrink-0 text-primary mt-0.5" />
+            <div className="flex items-start gap-4 rounded-2xl bg-muted/50 p-5">
+              <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-destructive/10">
+                <Clock className="h-5 w-5 text-destructive" />
+              </div>
               <div className="flex-1">
                 <h3 className="font-semibold text-foreground mb-3">Horário</h3>
                 <div className="space-y-1.5">
