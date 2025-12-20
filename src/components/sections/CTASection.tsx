@@ -1,10 +1,9 @@
 import { WhatsAppButton } from "../WhatsAppButton";
 import { ScrollReveal } from "../ScrollReveal";
-import logo from "@/assets/logo.png";
 
 export const CTASection = () => {
   return (
-    <section className="bg-foreground py-16 px-4">
+    <section className="bg-cream py-16 px-4">
       <div className="container mx-auto max-w-2xl text-center">
         <ScrollReveal>
           <div className="mb-4 flex justify-center gap-2 text-5xl">
@@ -14,7 +13,7 @@ export const CTASection = () => {
         </ScrollReveal>
         
         <ScrollReveal delay={100}>
-          <h2 className="mb-6 text-2xl font-bold text-cream md:text-3xl">
+          <h2 className="mb-6 text-2xl font-bold text-foreground md:text-3xl">
             Já sabes o que vais comer hoje?
           </h2>
         </ScrollReveal>
