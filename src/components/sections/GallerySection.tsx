@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Camera, X } from "lucide-react";
+import { ScrollReveal } from "../ScrollReveal";
 import pizzaHero from "@/assets/pizza-hero.jpg";
 import burgerHero from "@/assets/burger-hero.jpg";
 import kebabHero from "@/assets/kebab-hero.jpg";
@@ -25,30 +26,33 @@ export const GallerySection = () => {
     <>
       <section className="bg-background py-16 px-4">
         <div className="container mx-auto max-w-4xl">
-          <div className="mb-6 flex items-center justify-center gap-2">
-            <Camera className="h-6 w-6 text-primary" />
-            <h2 className="text-2xl font-bold text-foreground md:text-3xl">
-              Galeria
-            </h2>
-          </div>
-          <p className="mb-8 text-center text-muted-foreground">
-            Veja os nossos pratos e o nosso espaço
-          </p>
+          <ScrollReveal>
+            <div className="mb-6 flex items-center justify-center gap-2">
+              <Camera className="h-6 w-6 text-primary" />
+              <h2 className="text-2xl font-bold text-foreground md:text-3xl">
+                Galeria
+              </h2>
+            </div>
+            <p className="mb-8 text-center text-muted-foreground">
+              Veja os nossos pratos e o nosso espaço
+            </p>
+          </ScrollReveal>
 
           <div className="grid grid-cols-2 gap-3 md:grid-cols-3 lg:grid-cols-4">
             {galleryImages.map((image, index) => (
-              <button
-                key={index}
-                onClick={() => setSelectedImage(image.src)}
-                className="group relative aspect-square overflow-hidden rounded-xl focus:outline-none focus:ring-2 focus:ring-primary"
-              >
-                <img
-                  src={image.src}
-                  alt={image.alt}
-                  className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-110"
-                />
-                <div className="absolute inset-0 bg-foreground/0 transition-colors duration-300 group-hover:bg-foreground/20" />
-              </button>
+              <ScrollReveal key={index} delay={index * 75}>
+                <button
+                  onClick={() => setSelectedImage(image.src)}
+                  className="group relative aspect-square w-full overflow-hidden rounded-xl focus:outline-none focus:ring-2 focus:ring-primary"
+                >
+                  <img
+                    src={image.src}
+                    alt={image.alt}
+                    className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-110"
+                  />
+                  <div className="absolute inset-0 bg-foreground/0 transition-colors duration-300 group-hover:bg-foreground/20" />
+                </button>
+              </ScrollReveal>
             ))}
           </div>
         </div>
