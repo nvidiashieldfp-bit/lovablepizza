@@ -3,12 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pizza Burger Almeirim - Pizzas, Hambúrgueres e Kebabs</title>
-    <meta name="description" content="Pizza Burger Almeirim - Pizzas artesanais, hambúrgueres suculentos e kebabs saborosos. Encomende pelo WhatsApp. Take-away e delivery em Almeirim.">
+    <title>Pizza Burguer em Almeirim | Encomendas via WhatsApp</title>
+    <meta name="description" content="Pizzas e hambúrgueres em Almeirim. Take-away e delivery com pedidos rápidos via WhatsApp.">
     <meta name="author" content="Pizza Burger Almeirim">
+    <link rel="canonical" href="https://pizzaburguer.pt">
     
     <!-- Open Graph -->
-    <meta property="og:title" content="Pizza Burger Almeirim">
+    <meta property="og:title" content="Pizza Burguer Almeirim">
     <meta property="og:description" content="Pizzas artesanais e hambúrgueres feitos na hora. Take-away e delivery todos os dias.">
     <meta property="og:type" content="website">
     <meta property="og:image" content="images/logo.png">
@@ -38,16 +39,9 @@
         </div>
         <div class="hero-overlay"></div>
         
-        <!-- Slide Indicators -->
-        <div class="hero-indicators">
-            <button class="indicator active" data-index="0"></button>
-            <button class="indicator" data-index="1"></button>
-            <button class="indicator" data-index="2"></button>
-        </div>
-        
         <!-- Content -->
         <div class="hero-content">
-            <img src="images/logo.png" alt="Pizza Burger Logo" class="hero-logo animate-fade-in">
+            <img src="images/logo.png" alt="Pizza Burguer Logo" class="hero-logo animate-fade-in">
             
             <h1 class="hero-title animate-fade-in" style="animation-delay: 0.1s">
                 Pizza Burguer Almeirim
@@ -77,6 +71,13 @@
             </div>
         </div>
         
+        <!-- Slide Indicators -->
+        <div class="hero-indicators">
+            <button class="indicator active" data-index="0"></button>
+            <button class="indicator" data-index="1"></button>
+            <button class="indicator" data-index="2"></button>
+        </div>
+        
         <!-- Scroll Indicator -->
         <a href="#quem-somos" class="scroll-indicator">
             <i data-lucide="chevron-down"></i>
@@ -95,6 +96,44 @@
             <p class="about-text scroll-reveal" data-delay="200">
                 Na <span class="text-primary font-semibold">Pizza Burguer</span> apostamos em ingredientes de qualidade, receitas simples e atendimento rápido. Queremos que faças o teu pedido em segundos e desfrutes de uma refeição incrível.
             </p>
+        </div>
+    </section>
+
+    <!-- Menu Section -->
+    <section class="menu-section" id="menu">
+        <div class="container container-lg">
+            <h2 class="section-title scroll-reveal">📋 O nosso menu</h2>
+            <p class="section-subtitle scroll-reveal">Toca numa categoria para ver os produtos</p>
+            
+            <!-- Category Tabs -->
+            <div class="menu-tabs scroll-reveal" data-delay="100">
+                <button class="menu-tab active" data-category="pizzas">🍕 Pizzas</button>
+                <button class="menu-tab" data-category="hamburgueres">🍔 Hambúrgueres</button>
+                <button class="menu-tab" data-category="kebab">🌯 Kebab & Wraps</button>
+                <button class="menu-tab" data-category="menus">🍟 Menus Completos</button>
+                <button class="menu-tab" data-category="massas">🍝 Massas & Saladas</button>
+                <button class="menu-tab" data-category="extras">🥤 Extras & Bebidas</button>
+                <button class="menu-tab" data-category="sobremesas">🍰 Sobremesas</button>
+            </div>
+            
+            <!-- Size Legend (for pizzas) -->
+            <div class="size-legend scroll-reveal" id="sizeLegend">
+                <span class="font-medium">P</span> = Pequena &nbsp;|&nbsp; 
+                <span class="font-medium">M</span> = Média &nbsp;|&nbsp; 
+                <span class="font-medium">F</span> = Familiar
+            </div>
+            
+            <!-- Menu Items Container -->
+            <div class="menu-items" id="menuItems">
+                <!-- Items will be inserted by JavaScript -->
+            </div>
+            
+            <div class="text-center scroll-reveal" data-delay="300">
+                <a href="https://wa.me/351243046828?text=Ol%C3%A1%20%F0%9F%91%8B%20Gostava%20de%20fazer%20um%20pedido." class="btn btn-whatsapp btn-lg" target="_blank">
+                    <i data-lucide="message-circle"></i>
+                    Fazer pedido pelo WhatsApp
+                </a>
+            </div>
         </div>
     </section>
 
@@ -147,40 +186,37 @@
         </div>
     </section>
 
-    <!-- Menu Section -->
-    <section class="menu-section" id="menu">
+    <!-- Gallery Section -->
+    <section class="gallery-section">
         <div class="container container-lg">
-            <h2 class="section-title scroll-reveal">📋 O nosso menu</h2>
-            <p class="section-subtitle scroll-reveal">Toca numa categoria para ver os produtos</p>
-            
-            <!-- Category Tabs -->
-            <div class="menu-tabs scroll-reveal" data-delay="100">
-                <button class="menu-tab active" data-category="pizzas">🍕 Pizzas</button>
-                <button class="menu-tab" data-category="hamburgueres">🍔 Hambúrgueres</button>
-                <button class="menu-tab" data-category="kebab">🌯 Kebab & Wraps</button>
-                <button class="menu-tab" data-category="menus">🍟 Menus Completos</button>
-                <button class="menu-tab" data-category="massas">🍝 Massas & Saladas</button>
-                <button class="menu-tab" data-category="extras">🥤 Extras & Bebidas</button>
-                <button class="menu-tab" data-category="sobremesas">🍰 Sobremesas</button>
+            <div class="section-header scroll-reveal">
+                <i data-lucide="camera"></i>
+                <h2>Galeria</h2>
             </div>
+            <p class="section-subtitle scroll-reveal">Veja os nossos pratos e o nosso espaço</p>
             
-            <!-- Size Legend (for pizzas) -->
-            <div class="size-legend scroll-reveal" id="sizeLegend">
-                <span class="font-medium">P</span> = Pequena &nbsp;|&nbsp; 
-                <span class="font-medium">M</span> = Média &nbsp;|&nbsp; 
-                <span class="font-medium">F</span> = Familiar
-            </div>
-            
-            <!-- Menu Items Container -->
-            <div class="menu-items" id="menuItems">
-                <!-- Items will be inserted by JavaScript -->
-            </div>
-            
-            <div class="text-center scroll-reveal" data-delay="300">
-                <a href="https://wa.me/351243046828?text=Ol%C3%A1%20%F0%9F%91%8B%20Gostava%20de%20fazer%20um%20pedido." class="btn btn-whatsapp btn-lg" target="_blank">
-                    <i data-lucide="message-circle"></i>
-                    Fazer pedido pelo WhatsApp
-                </a>
+            <div class="gallery-grid">
+                <div class="gallery-item scroll-reveal" data-delay="0">
+                    <img src="images/gallery-table.jpg" alt="Mesa com pizzas italianas">
+                </div>
+                <div class="gallery-item scroll-reveal" data-delay="75">
+                    <img src="images/pizza-hero.jpg" alt="Pizza Margherita">
+                </div>
+                <div class="gallery-item scroll-reveal" data-delay="150">
+                    <img src="images/burger-hero.jpg" alt="Hambúrguer gourmet">
+                </div>
+                <div class="gallery-item scroll-reveal" data-delay="225">
+                    <img src="images/kebab-hero.jpg" alt="Kebab">
+                </div>
+                <div class="gallery-item scroll-reveal" data-delay="300">
+                    <img src="images/gallery-fries.jpg" alt="Batatas fritas">
+                </div>
+                <div class="gallery-item scroll-reveal" data-delay="375">
+                    <img src="images/gallery-pasta.jpg" alt="Esparguete Carbonara">
+                </div>
+                <div class="gallery-item scroll-reveal" data-delay="450">
+                    <img src="images/gallery-dessert.jpg" alt="Brownie com gelado">
+                </div>
             </div>
         </div>
     </section>
@@ -235,41 +271,6 @@
             
             <div class="carousel-dots" id="carouselDots">
                 <!-- Dots will be inserted by JavaScript -->
-            </div>
-        </div>
-    </section>
-
-    <!-- Gallery Section -->
-    <section class="gallery-section">
-        <div class="container container-lg">
-            <div class="section-header scroll-reveal">
-                <i data-lucide="camera"></i>
-                <h2>Galeria</h2>
-            </div>
-            <p class="section-subtitle scroll-reveal">Veja os nossos pratos e o nosso espaço</p>
-            
-            <div class="gallery-grid">
-                <div class="gallery-item scroll-reveal" data-delay="0">
-                    <img src="images/gallery-table.jpg" alt="Mesa com pizzas italianas">
-                </div>
-                <div class="gallery-item scroll-reveal" data-delay="75">
-                    <img src="images/pizza-hero.jpg" alt="Pizza Margherita">
-                </div>
-                <div class="gallery-item scroll-reveal" data-delay="150">
-                    <img src="images/burger-hero.jpg" alt="Hambúrguer gourmet">
-                </div>
-                <div class="gallery-item scroll-reveal" data-delay="225">
-                    <img src="images/kebab-hero.jpg" alt="Kebab">
-                </div>
-                <div class="gallery-item scroll-reveal" data-delay="300">
-                    <img src="images/gallery-fries.jpg" alt="Batatas fritas">
-                </div>
-                <div class="gallery-item scroll-reveal" data-delay="375">
-                    <img src="images/gallery-pasta.jpg" alt="Esparguete Carbonara">
-                </div>
-                <div class="gallery-item scroll-reveal" data-delay="450">
-                    <img src="images/gallery-dessert.jpg" alt="Brownie com gelado">
-                </div>
             </div>
         </div>
     </section>
@@ -400,13 +401,13 @@
     <!-- Footer -->
     <footer class="footer">
         <div class="container">
-            <p class="footer-title">Pizza Burguer © <span id="currentYear"></span></p>
-            <p class="footer-subtitle">Todos os direitos reservados</p>
+            <p class="footer-brand">Pizza Burguer © <span id="currentYear"></span></p>
+            <p class="footer-rights">Todos os direitos reservados</p>
         </div>
     </footer>
 
-    <!-- Sticky WhatsApp Button -->
-    <a href="https://wa.me/351243046828?text=Ol%C3%A1%20%F0%9F%91%8B%20Gostava%20de%20fazer%20um%20pedido." class="sticky-whatsapp" target="_blank" aria-label="Encomendar via WhatsApp">
+    <!-- Floating WhatsApp Button -->
+    <a href="https://wa.me/351243046828?text=Ol%C3%A1%20%F0%9F%91%8B%20Gostava%20de%20fazer%20um%20pedido." class="whatsapp-float" target="_blank" aria-label="Contactar via WhatsApp">
         <i data-lucide="message-circle"></i>
     </a>
 
