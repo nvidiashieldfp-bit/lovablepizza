@@ -245,7 +245,7 @@ function initMenu() {
 }
 
 /**
- * Reviews Carousel
+ * Reviews Data and Carousel
  */
 const reviews = [
     { text: "Comida excelente e atendimento rápido! Recomendo a todos.", author: "Maria S.", rating: 5 },
