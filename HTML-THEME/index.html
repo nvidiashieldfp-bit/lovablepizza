@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pizza Burguer em Almeirim | Encomendas via WhatsApp</title>
-    <meta name="description" content="Pizzas e hambúrgueres em Almeirim. Take-away e delivery com pedidos rápidos via WhatsApp.">
-    <meta name="author" content="Pizza Burger Almeirim">
+    <title>Pizza Burguer Almeirim | Pizzas, Hambúrgueres e Massas</title>
+    <meta name="description" content="Pizza Burguer Almeirim - Pizzas artesanais, hambúrgueres suculentos e massas deliciosas. Encomende pelo WhatsApp. Take-away e delivery em Almeirim.">
+    <meta name="author" content="Pizza Burguer Almeirim">
     <link rel="canonical" href="https://pizzaburguer.pt">
     
     <!-- Open Graph -->
@@ -14,8 +14,9 @@
     <meta property="og:type" content="website">
     <meta property="og:image" content="images/logo.png">
     
-    <!-- Favicon -->
-    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <!-- Favicon - using the logo -->
+    <link rel="icon" type="image/png" href="favicon.png">
+    <link rel="apple-touch-icon" href="favicon.png">
     
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -52,18 +53,18 @@
             </p>
             
             <p class="hero-description animate-fade-in" style="animation-delay: 0.3s">
-                Pizzas artesanais e hambúrgueres feitos na hora.<br>
+                Pizzas artesanais, hambúrgueres e massas feitos na hora.<br>
                 Take-away e delivery todos os dias.
             </p>
             
             <div class="hero-ctas animate-fade-in" style="animation-delay: 0.4s">
-                <a href="https://wa.me/351243046828?text=Ol%C3%A1%20%F0%9F%91%8B%20Gostava%20de%20fazer%20um%20pedido." class="btn btn-whatsapp btn-lg" target="_blank">
+                <a href="https://wa.me/351243592058?text=Ol%C3%A1%20%F0%9F%91%8B%20Gostava%20de%20fazer%20um%20pedido." class="btn btn-whatsapp btn-lg" target="_blank">
                     <i data-lucide="message-circle"></i>
                     Encomendar via WhatsApp
                 </a>
-                <a href="tel:+351243046828" class="btn btn-phone btn-lg">
+                <a href="tel:+351243592058" class="btn btn-phone btn-lg">
                     <i data-lucide="phone"></i>
-                    Ligar 243 046 828
+                    Ligar 243 592 058
                 </a>
                 <a href="#menu" class="btn btn-menu btn-lg">
                     📋 Ver Menu
@@ -99,6 +100,58 @@
         </div>
     </section>
 
+    <!-- Special Menus Section -->
+    <section class="menus-especiais-section" id="menus-especiais">
+        <div class="container container-lg">
+            <h2 class="section-title scroll-reveal">🍽️ Menus Especiais</h2>
+            <p class="section-subtitle scroll-reveal">Disponíveis apenas em loja</p>
+            
+            <div class="menus-grid scroll-reveal" data-delay="100">
+                <div class="menu-especial-card">
+                    <div class="menu-especial-badge">MENU 1</div>
+                    <h3>Pizza Individual + Bebida</h3>
+                    <p>Pizza individual com 2 ingredientes à escolha + Bebida 0,33cl</p>
+                    <span class="menu-especial-price">7,00€</span>
+                </div>
+                
+                <div class="menu-especial-card">
+                    <div class="menu-especial-badge">MENU 2</div>
+                    <h3>Hambúrguer + Batata + Bebida</h3>
+                    <p>Hambúrguer c/ queijo + Batata frita + Bebida 0,33cl</p>
+                    <span class="menu-especial-price">7,00€</span>
+                </div>
+                
+                <div class="menu-especial-card">
+                    <div class="menu-especial-badge">MENU 3</div>
+                    <h3>Massa + Bebida</h3>
+                    <p>Massa c/ 2 ingredientes à escolha + Bebida 0,33cl</p>
+                    <span class="menu-especial-price">7,20€</span>
+                </div>
+                
+                <div class="menu-especial-card">
+                    <div class="menu-especial-badge">MENU 4</div>
+                    <h3>Massa + Bebida</h3>
+                    <p>Massa c/ 2 ingredientes à escolha + Bebida 0,33cl</p>
+                    <span class="menu-especial-price">7,20€</span>
+                </div>
+                
+                <div class="menu-especial-card">
+                    <div class="menu-especial-badge">MENU 5</div>
+                    <h3>Pizza Burguer</h3>
+                    <p>A nossa especialidade da casa!</p>
+                    <span class="menu-especial-price">7,50€</span>
+                </div>
+                
+                <div class="menu-especial-card highlight">
+                    <div class="menu-especial-badge">MENU 6</div>
+                    <h3>Menu Infantil</h3>
+                    <p>Hambúrguer c/ queijo + Batata frita + Bongo 200ml + 1 Brinquedo</p>
+                    <span class="menu-especial-price">7,50€</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- Menu Section -->
     <section class="menu-section" id="menu">
         <div class="container container-lg">
@@ -109,9 +162,7 @@
             <div class="menu-tabs scroll-reveal" data-delay="100">
                 <button class="menu-tab active" data-category="pizzas">🍕 Pizzas</button>
                 <button class="menu-tab" data-category="hamburgueres">🍔 Hambúrgueres</button>
-                <button class="menu-tab" data-category="kebab">🌯 Kebab & Wraps</button>
-                <button class="menu-tab" data-category="menus">🍟 Menus Completos</button>
-                <button class="menu-tab" data-category="massas">🍝 Massas & Saladas</button>
+                <button class="menu-tab" data-category="massas">🍝 Massas</button>
                 <button class="menu-tab" data-category="extras">🥤 Extras & Bebidas</button>
                 <button class="menu-tab" data-category="sobremesas">🍰 Sobremesas</button>
             </div>
@@ -129,7 +180,7 @@
             </div>
             
             <div class="text-center scroll-reveal" data-delay="300">
-                <a href="https://wa.me/351243046828?text=Ol%C3%A1%20%F0%9F%91%8B%20Gostava%20de%20fazer%20um%20pedido." class="btn btn-whatsapp btn-lg" target="_blank">
+                <a href="https://wa.me/351243592058?text=Ol%C3%A1%20%F0%9F%91%8B%20Gostava%20de%20fazer%20um%20pedido." class="btn btn-whatsapp btn-lg" target="_blank">
                     <i data-lucide="message-circle"></i>
                     Fazer pedido pelo WhatsApp
                 </a>
@@ -147,38 +198,38 @@
             
             <div class="favorites-grid">
                 <div class="favorite-card scroll-reveal" data-delay="0">
-                    <img src="images/pizza-hero.jpg" alt="Pizza Especial">
+                    <img src="images/logo-site.png" alt="Pizza Clássica">
                     <div class="favorite-overlay"></div>
                     <span class="favorite-badge">🔥 Popular</span>
                     <div class="favorite-content">
-                        <h3>Pizza Especial</h3>
-                        <p>A mais pedida</p>
+                        <h3>Pizza Clássica</h3>
+                        <p>Fiambre</p>
                     </div>
                 </div>
                 
                 <div class="favorite-card scroll-reveal" data-delay="100">
-                    <img src="images/burger-hero.jpg" alt="Duplo Cheese">
+                    <img src="images/pizzas-menu.png" alt="Pizza Bacon">
                     <div class="favorite-overlay"></div>
                     <span class="favorite-badge">🔥 Popular</span>
                     <div class="favorite-content">
-                        <h3>Duplo Cheese</h3>
-                        <p>Irresistível</p>
+                        <h3>Pizza Bacon</h3>
+                        <p>Bacon crocante</p>
                     </div>
                 </div>
                 
                 <div class="favorite-card scroll-reveal" data-delay="200">
-                    <img src="images/kebab-hero.jpg" alt="Kebab Menu">
+                    <img src="images/pizzas-menu2.png" alt="Pizza Margarita">
                     <div class="favorite-overlay"></div>
                     <span class="favorite-badge">🔥 Popular</span>
                     <div class="favorite-content">
-                        <h3>Kebab Menu</h3>
-                        <p>Completo e saboroso</p>
+                        <h3>Pizza Margarita</h3>
+                        <p>Queijo</p>
                     </div>
                 </div>
             </div>
             
             <div class="text-center scroll-reveal" data-delay="400">
-                <a href="https://wa.me/351243046828?text=Ol%C3%A1%20%F0%9F%91%8B%20Gostava%20de%20fazer%20um%20pedido." class="btn btn-whatsapp btn-lg" target="_blank">
+                <a href="https://wa.me/351243592058?text=Ol%C3%A1%20%F0%9F%91%8B%20Gostava%20de%20fazer%20um%20pedido." class="btn btn-whatsapp btn-lg" target="_blank">
                     <i data-lucide="message-circle"></i>
                     Pedir agora
                 </a>
@@ -193,29 +244,26 @@
                 <i data-lucide="camera"></i>
                 <h2>Galeria</h2>
             </div>
-            <p class="section-subtitle scroll-reveal">Veja os nossos pratos e o nosso espaço</p>
+            <p class="section-subtitle scroll-reveal">Veja os nossos pratos</p>
             
             <div class="gallery-grid">
                 <div class="gallery-item scroll-reveal" data-delay="0">
-                    <img src="images/gallery-table.jpg" alt="Mesa com pizzas italianas">
+                    <img src="images/logo-site.png" alt="Pizza Clássica">
                 </div>
                 <div class="gallery-item scroll-reveal" data-delay="75">
-                    <img src="images/pizza-hero.jpg" alt="Pizza Margherita">
+                    <img src="images/pizzas-menu.png" alt="Pizza Bacon">
                 </div>
                 <div class="gallery-item scroll-reveal" data-delay="150">
-                    <img src="images/burger-hero.jpg" alt="Hambúrguer gourmet">
+                    <img src="images/pizzas-menu2.png" alt="Pizza Margarita">
                 </div>
                 <div class="gallery-item scroll-reveal" data-delay="225">
-                    <img src="images/kebab-hero.jpg" alt="Kebab">
+                    <img src="images/pizza-hero.jpg" alt="Pizza">
                 </div>
                 <div class="gallery-item scroll-reveal" data-delay="300">
-                    <img src="images/gallery-fries.jpg" alt="Batatas fritas">
+                    <img src="images/burger-hero.jpg" alt="Hambúrguer">
                 </div>
                 <div class="gallery-item scroll-reveal" data-delay="375">
-                    <img src="images/gallery-pasta.jpg" alt="Esparguete Carbonara">
-                </div>
-                <div class="gallery-item scroll-reveal" data-delay="450">
-                    <img src="images/gallery-dessert.jpg" alt="Brownie com gelado">
+                    <img src="images/gallery-pasta.jpg" alt="Massa">
                 </div>
             </div>
         </div>
@@ -286,7 +334,7 @@
                 Já sabes o que vais comer hoje?
             </h2>
             <div class="scroll-reveal" data-delay="200">
-                <a href="https://wa.me/351243046828?text=Ol%C3%A1%20%F0%9F%91%8B%20Gostava%20de%20fazer%20um%20pedido." class="btn btn-whatsapp btn-xl" target="_blank">
+                <a href="https://wa.me/351243592058?text=Ol%C3%A1%20%F0%9F%91%8B%20Gostava%20de%20fazer%20um%20pedido." class="btn btn-whatsapp btn-xl" target="_blank">
                     <i data-lucide="message-circle"></i>
                     Encomendar agora pelo WhatsApp
                 </a>
@@ -310,7 +358,7 @@
                     </div>
                     <div class="location-info">
                         <h3>Morada</h3>
-                        <p>Avenida Dom João I LT 48, 2080-014 Almeirim</p>
+                        <p>Almeirim, Portugal</p>
                     </div>
                 </div>
                 
@@ -322,9 +370,7 @@
                     <div class="location-info">
                         <h3>Telefone (toca para ligar)</h3>
                         <p>
-                            <a href="tel:+351243046828">243 046 828</a>
-                            <span class="separator">|</span>
-                            <a href="tel:+351914962991">914 962 991</a>
+                            <a href="tel:+351243592058">243 592 058</a>
                         </p>
                     </div>
                 </div>
@@ -373,24 +419,24 @@
             <!-- Map -->
             <div class="map-container scroll-reveal" data-delay="400">
                 <iframe
-                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3112.5!2d-8.6283!3d39.1947!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd18e5d5e5e5e5e5%3A0x5e5e5e5e5e5e5e5e!2sAv.%20Dom%20Jo%C3%A3o%20I%2C%20Almeirim!5e0!3m2!1spt-PT!2spt!4v1234567890"
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d12450.5!2d-8.6283!3d39.1947!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd18e4f5c5c5c5c5%3A0x5c5c5c5c5c5c5c5c!2sAlmeirim!5e0!3m2!1spt-PT!2spt!4v1234567890"
                     width="100%"
                     height="200"
                     style="border:0;"
                     allowfullscreen=""
                     loading="lazy"
                     referrerpolicy="no-referrer-when-downgrade"
-                    title="Localização Pizza Burger">
+                    title="Localização Pizza Burguer">
                 </iframe>
             </div>
             
             <!-- CTAs -->
             <div class="location-ctas scroll-reveal" data-delay="500">
-                <a href="https://wa.me/351243046828?text=Ol%C3%A1%20%F0%9F%91%8B%20Gostava%20de%20fazer%20um%20pedido." class="btn btn-whatsapp btn-lg btn-full" target="_blank">
+                <a href="https://wa.me/351243592058?text=Ol%C3%A1%20%F0%9F%91%8B%20Gostava%20de%20fazer%20um%20pedido." class="btn btn-whatsapp btn-lg btn-full" target="_blank">
                     <i data-lucide="message-circle"></i>
                     Falar connosco agora
                 </a>
-                <a href="tel:+351243046828" class="btn btn-phone btn-lg btn-full">
+                <a href="tel:+351243592058" class="btn btn-phone btn-lg btn-full">
                     <i data-lucide="phone"></i>
                     Ligar agora
                 </a>
@@ -403,11 +449,12 @@
         <div class="container">
             <p class="footer-brand">Pizza Burguer © <span id="currentYear"></span></p>
             <p class="footer-rights">Todos os direitos reservados</p>
+            <p class="footer-link"><a href="https://pizzaburguer.pt" target="_blank">pizzaburguer.pt</a></p>
         </div>
     </footer>
 
     <!-- Floating WhatsApp Button -->
-    <a href="https://wa.me/351243046828?text=Ol%C3%A1%20%F0%9F%91%8B%20Gostava%20de%20fazer%20um%20pedido." class="whatsapp-float" target="_blank" aria-label="Contactar via WhatsApp">
+    <a href="https://wa.me/351243592058?text=Ol%C3%A1%20%F0%9F%91%8B%20Gostava%20de%20fazer%20um%20pedido." class="whatsapp-float" target="_blank" aria-label="Contactar via WhatsApp">
         <i data-lucide="message-circle"></i>
     </a>
 

@@ -1,6 +1,7 @@
 /**
- * Pizza Burger Almeirim - JavaScript
+ * Pizza Burguer Almeirim - JavaScript
  * ===================================
+ * Website: pizzaburguer.pt
  */
 
 // Wait for DOM to be ready
@@ -82,69 +83,44 @@ function initScrollReveal() {
 }
 
 /**
- * Menu Data and Functionality
+ * Menu Data - Based on pizzaburguer.pt
  */
 const menuData = {
     pizzas: {
         title: "Pizzas",
         emoji: "🍕",
         items: [
-            { name: "Margherita", description: "Molho de tomate, mozzarella, manjericão", prices: [{ size: "P", price: "6,50€" }, { size: "M", price: "9,50€" }, { size: "F", price: "13,50€" }] },
-            { name: "Pepperoni", description: "Molho de tomate, mozzarella, pepperoni", prices: [{ size: "P", price: "7,50€" }, { size: "M", price: "10,50€" }, { size: "F", price: "14,50€" }] },
-            { name: "4 Queijos", description: "Mozzarella, gorgonzola, parmesão, cheddar", prices: [{ size: "P", price: "8,00€" }, { size: "M", price: "11,00€" }, { size: "F", price: "15,00€" }] },
-            { name: "Especial da Casa", description: "Fiambre, cogumelos, bacon, ovo, azeitonas", prices: [{ size: "P", price: "8,50€" }, { size: "M", price: "12,00€" }, { size: "F", price: "16,00€" }], badge: "Popular" },
-            { name: "Atum", description: "Molho de tomate, mozzarella, atum, cebola", prices: [{ size: "P", price: "7,50€" }, { size: "M", price: "10,50€" }, { size: "F", price: "14,50€" }] },
-            { name: "Vegetariana", description: "Pimentos, cogumelos, cebola, azeitonas, tomate", prices: [{ size: "P", price: "7,00€" }, { size: "M", price: "10,00€" }, { size: "F", price: "14,00€" }] },
-            { name: "Frango BBQ", description: "Frango, bacon, cebola caramelizada, molho BBQ", prices: [{ size: "P", price: "8,50€" }, { size: "M", price: "12,00€" }, { size: "F", price: "16,00€" }] },
-            { name: "Carbonara", description: "Natas, bacon, cogumelos, cebola", prices: [{ size: "P", price: "8,00€" }, { size: "M", price: "11,50€" }, { size: "F", price: "15,50€" }] }
+            { name: "Pizza Clássica", description: "Fiambre", prices: [{ size: "P", price: "6,00€" }, { size: "M", price: "9,00€" }, { size: "F", price: "13,00€" }], badge: "Popular" },
+            { name: "Pizza Bacon", description: "Bacon crocante", prices: [{ size: "P", price: "6,50€" }, { size: "M", price: "9,50€" }, { size: "F", price: "13,50€" }], badge: "Popular" },
+            { name: "Pizza Margarita", description: "Queijo mozzarella", prices: [{ size: "P", price: "5,50€" }, { size: "M", price: "8,50€" }, { size: "F", price: "12,50€" }] },
+            { name: "Pizza Pepperoni", description: "Pepperoni picante", prices: [{ size: "P", price: "6,50€" }, { size: "M", price: "9,50€" }, { size: "F", price: "13,50€" }] },
+            { name: "Pizza 4 Queijos", description: "Mozzarella, gorgonzola, parmesão, cheddar", prices: [{ size: "P", price: "7,00€" }, { size: "M", price: "10,00€" }, { size: "F", price: "14,00€" }] },
+            { name: "Pizza Atum", description: "Atum, cebola, azeitonas", prices: [{ size: "P", price: "6,50€" }, { size: "M", price: "9,50€" }, { size: "F", price: "13,50€" }] },
+            { name: "Pizza Vegetariana", description: "Pimentos, cogumelos, cebola, azeitonas", prices: [{ size: "P", price: "6,00€" }, { size: "M", price: "9,00€" }, { size: "F", price: "13,00€" }] },
+            { name: "Pizza Especial", description: "Fiambre, cogumelos, bacon, ovo", prices: [{ size: "P", price: "7,50€" }, { size: "M", price: "10,50€" }, { size: "F", price: "14,50€" }], badge: "Especial" }
         ]
     },
     hamburgueres: {
         title: "Hambúrgueres",
         emoji: "🍔",
         items: [
-            { name: "Clássico", description: "Hambúrguer 150g, alface, tomate, cebola, pickles", price: "6,50€" },
-            { name: "Cheese Burguer", description: "Hambúrguer 150g, queijo cheddar, alface, tomate", price: "7,00€", badge: "Popular" },
-            { name: "Bacon Burguer", description: "Hambúrguer 150g, bacon crocante, queijo, cebola caramelizada", price: "8,00€", badge: "Popular" },
-            { name: "Duplo Cheese", description: "2x Hambúrguer 150g, queijo cheddar duplo, molho especial", price: "10,50€", badge: "Popular" },
-            { name: "Duplo Bacon", description: "2x Hambúrguer 150g, bacon duplo, queijo, cebola frita", price: "11,50€" },
-            { name: "Especial da Casa", description: "Hambúrguer 200g, ovo, bacon, queijo, cogumelos", price: "12,00€", badge: "Novo" },
-            { name: "BBQ Burguer", description: "Hambúrguer 150g, cebola roxa, queijo, molho BBQ", price: "8,50€" },
-            { name: "Frango Grelhado", description: "Peito de frango grelhado, alface, tomate, maionese", price: "7,50€" }
-        ]
-    },
-    kebab: {
-        title: "Kebab & Wraps",
-        emoji: "🌯",
-        items: [
-            { name: "Kebab no Pão", description: "Carne de vitela, salada, molho", price: "5,50€" },
-            { name: "Kebab no Prato", description: "Carne de vitela, arroz, batata frita, salada", price: "8,50€", badge: "Popular" },
-            { name: "Durum Kebab", description: "Wrap com carne, salada, molho picante", price: "6,50€" },
-            { name: "Kebab Menu", description: "Kebab + batata frita + bebida", price: "8,00€", badge: "Promo" },
-            { name: "Falafel Wrap", description: "Falafel, húmus, salada, molho tahini", price: "6,00€", badge: "Novo" },
-            { name: "Mix Kebab", description: "Carne de vitela e frango, salada especial", price: "7,50€" }
-        ]
-    },
-    menus: {
-        title: "Menus Completos",
-        emoji: "🍟",
-        items: [
-            { name: "Menu Hambúrguer", description: "Hambúrguer à escolha + batata frita + bebida", price: "9,50€", badge: "Promo" },
-            { name: "Menu Duplo", description: "Hambúrguer duplo + batata frita grande + bebida", price: "12,50€", badge: "Popular" },
-            { name: "Menu Infantil", description: "Mini hambúrguer + batata + sumo + surpresa", price: "6,50€" },
-            { name: "Menu Frango", description: "Tiras de frango + batata frita + bebida", price: "8,50€" },
-            { name: "Menu Kebab", description: "Kebab + batata frita + bebida", price: "8,00€" }
+            { name: "Hambúrguer Simples", description: "Hambúrguer, alface, tomate", price: "4,50€" },
+            { name: "Hambúrguer c/ Queijo", description: "Hambúrguer, queijo cheddar", price: "5,00€", badge: "Popular" },
+            { name: "Hambúrguer c/ Bacon", description: "Hambúrguer, bacon, queijo", price: "5,50€", badge: "Popular" },
+            { name: "Hambúrguer Duplo", description: "2x Hambúrguer, queijo duplo", price: "7,00€" },
+            { name: "Hambúrguer Especial", description: "Hambúrguer, ovo, bacon, queijo, cogumelos", price: "7,50€", badge: "Especial" },
+            { name: "Hambúrguer Frango", description: "Peito de frango grelhado", price: "5,50€" }
         ]
     },
     massas: {
-        title: "Massas & Saladas",
+        title: "Massas",
         emoji: "🍝",
         items: [
-            { name: "Esparguete Bolonhesa", description: "Massa com molho de carne", price: "7,50€" },
-            { name: "Esparguete Carbonara", description: "Massa com natas, bacon e ovo", price: "8,00€", badge: "Popular" },
-            { name: "Lasanha da Casa", description: "Lasanha tradicional com bechamel", price: "8,50€" },
-            { name: "Salada Caesar", description: "Alface, frango grelhado, croutons, parmesão", price: "7,00€" },
-            { name: "Salada Mista", description: "Alface, tomate, cebola, milho, cenoura", price: "4,50€" }
+            { name: "Esparguete Bolonhesa", description: "Massa com molho de carne", price: "6,50€" },
+            { name: "Esparguete Carbonara", description: "Massa com natas, bacon e ovo", price: "7,00€", badge: "Popular" },
+            { name: "Lasanha", description: "Lasanha tradicional com bechamel", price: "7,50€" },
+            { name: "Massa c/ 2 Ingredientes", description: "Escolha 2 ingredientes", price: "6,00€" },
+            { name: "Cannelloni", description: "Cannelloni recheado", price: "7,00€" }
         ]
     },
     extras: {
@@ -154,10 +130,9 @@ const menuData = {
             { name: "Batata Frita Pequena", price: "2,00€" },
             { name: "Batata Frita Grande", price: "3,00€" },
             { name: "Nuggets (6 unid.)", price: "3,50€" },
-            { name: "Aros de Cebola", price: "3,00€" },
-            { name: "Refrigerante", price: "1,50€" },
-            { name: "Água", price: "1,00€" },
-            { name: "Sumo Natural", price: "2,50€" }
+            { name: "Pepsi / Sumol / Frutea 0,33cl", price: "1,50€" },
+            { name: "Água 0,50L", price: "1,00€" },
+            { name: "Bongo 200ml", price: "1,00€" }
         ]
     },
     sobremesas: {
@@ -167,8 +142,7 @@ const menuData = {
             { name: "Gelado (2 bolas)", price: "2,50€" },
             { name: "Brownie com Gelado", price: "4,00€", badge: "Popular" },
             { name: "Cheesecake", price: "3,50€" },
-            { name: "Mousse de Chocolate", price: "3,00€" },
-            { name: "Tiramisu", price: "4,00€", badge: "Novo" }
+            { name: "Mousse de Chocolate", price: "3,00€" }
         ]
     }
 };
@@ -213,7 +187,7 @@ function initMenu() {
             let badgeHTML = '';
             if (item.badge) {
                 const badgeClass = item.badge === 'Popular' ? 'popular' : 
-                                   item.badge === 'Novo' ? 'novo' : 'promo';
+                                   item.badge === 'Especial' ? 'especial' : 'promo';
                 badgeHTML = `<span class="menu-item-badge ${badgeClass}">🔥 ${item.badge}</span>`;
             }
 
@@ -245,19 +219,19 @@ function initMenu() {
 }
 
 /**
- * Reviews Data and Carousel
+ * Reviews Data
  */
 const reviews = [
-    { text: "Comida excelente e atendimento rápido! Recomendo a todos.", author: "Maria S.", rating: 5 },
-    { text: "As melhores pizzas da zona! Sempre fresquinhas e saborosas.", author: "João P.", rating: 5 },
-    { text: "Hambúrgueres fantásticos, muito suculentos. Voltarei com certeza!", author: "Ana R.", rating: 5 },
-    { text: "O Kebab é simplesmente incrível! Melhor que já comi em Portugal.", author: "Carlos M.", rating: 5 },
-    { text: "Entrega super rápida e comida sempre quentinha. Top!", author: "Sofia L.", rating: 5 },
-    { text: "Preços justos e qualidade excelente. A pizza 4 queijos é divinal!", author: "Pedro F.", rating: 5 },
-    { text: "Ambiente familiar e simpático. A francesinha é das melhores!", author: "Rita C.", rating: 5 },
+    { text: "Pizzas excelentes! Muito saborosas e fresquinhas.", author: "Maria S.", rating: 5 },
+    { text: "Os hambúrgueres são fantásticos, suculentos e bem servidos.", author: "João P.", rating: 5 },
+    { text: "Menu infantil perfeito para as crianças. Adoraram o brinquedo!", author: "Ana R.", rating: 5 },
+    { text: "Entrega super rápida e comida sempre quentinha. Top!", author: "Carlos M.", rating: 5 },
+    { text: "A Pizza Clássica é a minha favorita. Sempre boa!", author: "Sofia L.", rating: 5 },
+    { text: "Preços justos e qualidade excelente. Recomendo!", author: "Pedro F.", rating: 5 },
+    { text: "As massas são deliciosas. A carbonara é divinal!", author: "Rita C.", rating: 5 },
     { text: "Descobri há pouco e já sou cliente fiel. Tudo muito bom!", author: "Miguel A.", rating: 5 },
-    { text: "O menu duplo é perfeito para partilhar. Adoramos!", author: "Teresa B.", rating: 5 },
-    { text: "Serviço impecável via WhatsApp. Muito prático e eficiente!", author: "António G.", rating: 5 }
+    { text: "O Menu 1 é perfeito - pizza + bebida por 7€!", author: "Teresa B.", rating: 5 },
+    { text: "Serviço impecável via WhatsApp. Muito prático!", author: "António G.", rating: 5 }
 ];
 
 function initReviewsCarousel() {
