@@ -1,13 +1,16 @@
 import { MapPin, Clock, Phone } from "lucide-react";
 import { WhatsAppButton, PhoneButton, PHONE_DISPLAY_1, PHONE_DISPLAY_2 } from "../WhatsAppButton";
 import { ScrollReveal } from "../ScrollReveal";
+import { useBusinessHours } from "@/hooks/useBusinessHours";
 
 const scheduleData = [
-  { day: "Todos os dias", hours: "12:00 - 15:00" },
-  { day: "Todos os dias", hours: "19:00 - 23:30" },
+  { day: "Todos os dias", hours: "12:00 – 15:00" },
+  { day: "Todos os dias", hours: "19:00 – 23:30" },
 ];
 
 export const LocationSection = () => {
+  const { isOpen } = useBusinessHours();
+
   return (
     <section className="bg-background py-16 px-4">
       <div className="container mx-auto max-w-2xl">
@@ -60,12 +63,33 @@ export const LocationSection = () => {
               <div className="flex-1">
                 <h3 className="font-semibold text-foreground mb-3">Horário</h3>
                 <div className="space-y-1.5">
-                  {scheduleData.map((item) => (
-                    <div key={item.day} className="flex justify-between text-sm">
+                  {scheduleData.map((item, index) => (
+                    <div key={index} className="flex justify-between text-sm">
                       <span className="text-muted-foreground">{item.day}</span>
                       <span className="text-foreground font-medium">{item.hours}</span>
                     </div>
                   ))}
+                  <div className="flex justify-between text-sm pt-1">
+                    <span className="text-muted-foreground">Feriados</span>
+                    <span className="text-foreground font-medium">Encerrado</span>
+                  </div>
+                </div>
+                {/* Open/Closed Status */}
+                <div className="mt-3 pt-3 border-t border-border/50">
+                  {isOpen ? (
+                    <div className="flex items-center gap-2">
+                      <span className="relative flex h-3 w-3">
+                        <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-accent opacity-75"></span>
+                        <span className="relative inline-flex rounded-full h-3 w-3 bg-accent"></span>
+                      </span>
+                      <span className="text-accent font-semibold text-sm">Aberto agora</span>
+                    </div>
+                  ) : (
+                    <div className="flex items-center gap-2">
+                      <span className="inline-flex rounded-full h-3 w-3 bg-destructive"></span>
+                      <span className="text-destructive font-semibold text-sm">Fechado (Feriado)</span>
+                    </div>
+                  )}
                 </div>
               </div>
             </div>

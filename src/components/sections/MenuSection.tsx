@@ -180,18 +180,18 @@ export const MenuSection = () => {
           </p>
         </ScrollReveal>
 
-        {/* Category Tabs - Scrollable */}
+        {/* Category Tabs - Scrollable with improved animation */}
         <ScrollReveal delay={100}>
-          <div className="mb-6 overflow-x-auto pb-2 -mx-4 px-4">
+          <div className="mb-6 overflow-x-auto pb-2 -mx-4 px-4 scrollbar-hide">
             <div className="flex gap-2 min-w-max">
               {categories.map((category) => (
                 <button
                   key={category}
                   onClick={() => setActiveCategory(category)}
-                  className={`rounded-full px-4 py-2 text-sm font-medium transition-all duration-200 whitespace-nowrap ${
+                  className={`rounded-full px-4 py-2 text-sm font-medium transition-all duration-300 whitespace-nowrap transform ${
                     activeCategory === category
-                      ? "bg-primary text-primary-foreground shadow-md"
-                      : "bg-card text-foreground hover:bg-primary/10"
+                      ? "bg-primary text-primary-foreground shadow-lg scale-105"
+                      : "bg-card text-foreground hover:bg-primary/10 hover:scale-102 active:scale-95"
                   }`}
                 >
                   {menuData[category].emoji} {menuData[category].title}
@@ -204,7 +204,7 @@ export const MenuSection = () => {
         {/* Size Legend for Pizzas */}
         {activeCategory === "pizzas" && (
           <ScrollReveal>
-            <div className="mb-4 rounded-lg bg-card p-3 text-center text-sm text-muted-foreground">
+            <div className="mb-4 rounded-lg bg-card p-3 text-center text-sm text-muted-foreground animate-fade-in">
               <span className="font-medium">P</span> = Pequena &nbsp;|&nbsp; 
               <span className="font-medium">M</span> = Média &nbsp;|&nbsp; 
               <span className="font-medium">F</span> = Familiar
@@ -212,28 +212,33 @@ export const MenuSection = () => {
           </ScrollReveal>
         )}
 
-        {/* Menu Items */}
+        {/* Menu Items with enhanced animations */}
         <div className="space-y-3">
           {menuData[activeCategory].items.map((item, index) => (
-            <ScrollReveal key={`${activeCategory}-${index}`} delay={index * 40}>
-              <div className="flex items-center gap-4 rounded-lg bg-card p-4 shadow-sm transition-shadow hover:shadow-md">
+            <div 
+              key={`${activeCategory}-${index}`} 
+              className="menu-item-animate"
+              style={{ animationDelay: `${index * 50}ms` }}
+            >
+              <div className="group flex items-center gap-4 rounded-xl bg-card p-4 shadow-sm transition-all duration-300 hover:shadow-lg hover:scale-[1.02] hover:bg-card/80 cursor-pointer border border-transparent hover:border-primary/20">
                 {/* Item Image (optional) */}
                 {item.image && (
                   <img 
                     src={item.image} 
                     alt={item.name}
-                    className="h-16 w-16 rounded-lg object-cover shrink-0"
+                    className="h-16 w-16 rounded-lg object-cover shrink-0 transition-transform duration-300 group-hover:scale-110"
                   />
                 )}
                 
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center gap-2 flex-wrap">
-                    <span className="font-semibold text-foreground">{item.name}</span>
+                    <span className="font-semibold text-foreground transition-colors group-hover:text-primary">{item.name}</span>
                     {item.badge && (
-                      <span className={`rounded-full px-2 py-0.5 text-xs font-medium ${
+                      <span className={`rounded-full px-2 py-0.5 text-xs font-medium transition-transform group-hover:scale-110 ${
                         item.badge === "Popular" ? "bg-primary/15 text-primary" :
                         item.badge === "Novo" ? "bg-accent/15 text-accent" :
                         item.badge === "Promo" ? "bg-whatsapp/15 text-whatsapp" :
+                        item.badge === "Especial" ? "bg-golden/15 text-golden" :
                         "bg-primary/15 text-primary"
                       }`}>
                         🔥 {item.badge}
@@ -248,18 +253,18 @@ export const MenuSection = () => {
                   {item.prices ? (
                     <div className="flex gap-2">
                       {item.prices.map((p) => (
-                        <div key={p.size} className="text-center">
+                        <div key={p.size} className="text-center transition-transform group-hover:scale-105">
                           <div className="text-xs text-muted-foreground">{p.size}</div>
                           <div className="font-bold text-primary">{p.price}</div>
                         </div>
                       ))}
                     </div>
                   ) : (
-                    <span className="text-lg font-bold text-primary">{item.price}</span>
+                    <span className="text-lg font-bold text-primary transition-transform inline-block group-hover:scale-110">{item.price}</span>
                   )}
                 </div>
               </div>
-            </ScrollReveal>
+            </div>
           ))}
         </div>
 

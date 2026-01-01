@@ -1,6 +1,32 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap');
 
 @tailwind base;
+
+/* Menu item animation */
+@keyframes menuItemSlide {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.menu-item-animate {
+  animation: menuItemSlide 0.4s ease-out forwards;
+  opacity: 0;
+}
+
+/* Hide scrollbar for menu tabs */
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
 @tailwind components;
 @tailwind utilities;
 
