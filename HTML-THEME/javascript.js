@@ -416,13 +416,13 @@ function initCurrentYear() {
    ========================= */
 
 const openingHours = {
-    0: [{ start: 19, end: 23.5 }], // Domingo jantar
-    1: [{ start: 12, end: 15 }, { start: 19, end: 23.5 }],
-    2: [{ start: 12, end: 15 }, { start: 19, end: 23.5 }],
-    3: [{ start: 12, end: 15 }, { start: 19, end: 23.5 }],
-    4: [{ start: 12, end: 15 }, { start: 19, end: 23.5 }],
-    5: [{ start: 12, end: 15 }, { start: 19, end: 23.5 }],
-    6: [{ start: 12, end: 15 }, { start: 19, end: 23.5 }]
+    0: [{ start: 12, end: 15 }, { start: 19, end: 23.5 }], // Domingo
+    1: [{ start: 12, end: 15 }, { start: 19, end: 23.5 }], // Segunda
+    2: [{ start: 12, end: 15 }, { start: 19, end: 23.5 }], // Terça
+    3: [{ start: 12, end: 15 }, { start: 19, end: 23.5 }], // Quarta
+    4: [{ start: 12, end: 15 }, { start: 19, end: 23.5 }], // Quinta
+    5: [{ start: 12, end: 15 }, { start: 19, end: 23.5 }], // Sexta
+    6: [{ start: 12, end: 15 }, { start: 19, end: 23.5 }]  // Sábado
 };
 
 function nowDecimal() {

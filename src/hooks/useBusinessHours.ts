@@ -74,11 +74,12 @@ export interface BusinessHoursState {
   isDateClosed: (date: Date) => boolean;
 }
 
-// Horários de funcionamento
+// Horários de funcionamento: 12:00-15:00 e 19:00-23:30
 const LUNCH_OPEN = 12;
 const LUNCH_CLOSE = 15;
 const DINNER_OPEN = 19;
-const DINNER_CLOSE = 23;
+const DINNER_CLOSE_HOUR = 23;
+const DINNER_CLOSE_MINUTES = 30;
 const CLOSING_WARNING_MINUTES = 30;
 
 export function useBusinessHours(): BusinessHoursState {
@@ -174,7 +175,7 @@ export function useBusinessHours(): BusinessHoursState {
   const lunchOpenMinutes = LUNCH_OPEN * 60;
   const lunchCloseMinutes = LUNCH_CLOSE * 60;
   const dinnerOpenMinutes = DINNER_OPEN * 60;
-  const dinnerCloseMinutes = DINNER_CLOSE * 60;
+  const dinnerCloseMinutes = DINNER_CLOSE_HOUR * 60 + DINNER_CLOSE_MINUTES; // 23:30 = 1410 min
 
   // Verificar se está aberto
   const isInLunchHours = totalMinutes >= lunchOpenMinutes && totalMinutes < lunchCloseMinutes;

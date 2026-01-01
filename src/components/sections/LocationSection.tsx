@@ -3,13 +3,8 @@ import { WhatsAppButton, PhoneButton, PHONE_DISPLAY_1, PHONE_DISPLAY_2 } from ".
 import { ScrollReveal } from "../ScrollReveal";
 
 const scheduleData = [
-  { day: "Segunda-feira", hours: "18:00 - 23:00" },
-  { day: "Terça-feira", hours: "18:00 - 23:00" },
-  { day: "Quarta-feira", hours: "18:00 - 23:00" },
-  { day: "Quinta-feira", hours: "18:00 - 23:00" },
-  { day: "Sexta-feira", hours: "18:00 - 00:00" },
-  { day: "Sábado", hours: "18:00 - 00:00" },
-  { day: "Domingo", hours: "18:00 - 23:00" },
+  { day: "Todos os dias", hours: "12:00 - 15:00" },
+  { day: "Todos os dias", hours: "19:00 - 23:30" },
 ];
 
 export const LocationSection = () => {
