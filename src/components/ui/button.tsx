@@ -16,6 +16,7 @@ const buttonVariants = cva(
         ghost: "hover:bg-accent hover:text-accent-foreground",
         link: "text-primary underline-offset-4 hover:underline",
         whatsapp: "bg-whatsapp text-accent-foreground hover:bg-whatsapp-hover shadow-lg hover:shadow-xl active:scale-[0.98]",
+        "whatsapp-closing": "bg-whatsapp-closing text-primary-foreground hover:bg-whatsapp-closing-hover shadow-lg hover:shadow-xl active:scale-[0.98] animate-pulse",
         phone: "bg-[hsl(200,80%,50%)] text-primary-foreground hover:bg-[hsl(200,80%,45%)] shadow-lg hover:shadow-xl active:scale-[0.98]",
         menu: "bg-foreground/80 text-cream border border-cream/30 hover:bg-foreground/90 shadow-md hover:shadow-lg backdrop-blur-sm",
       },
