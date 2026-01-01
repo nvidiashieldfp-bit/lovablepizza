@@ -508,13 +508,24 @@ function updateWhatsApp() {
             }
         });
 
-        // Atualizar status
+        // Atualizar status com animação
         if (statusEl) {
             if (open) {
-                statusEl.textContent = '🟢 Aberto agora';
+                statusEl.innerHTML = `
+                    <span class="status-indicator status-open">
+                        <span class="status-ping"></span>
+                        <span class="status-dot"></span>
+                    </span>
+                    <span class="status-text">Aberto agora</span>
+                `;
                 statusEl.className = 'open-status open';
             } else {
-                statusEl.textContent = '🔴 Fechado agora';
+                statusEl.innerHTML = `
+                    <span class="status-indicator status-closed">
+                        <span class="status-dot"></span>
+                    </span>
+                    <span class="status-text">Fechado</span>
+                `;
                 statusEl.className = 'open-status closed';
             }
         }

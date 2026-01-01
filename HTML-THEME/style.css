@@ -119,8 +119,31 @@ a {
     50% { transform: scale(1.05); }
 }
 
+@keyframes menuItemSlide {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes ping {
+    75%, 100% {
+        transform: scale(2);
+        opacity: 0;
+    }
+}
+
 .animate-fade-in {
     animation: fade-in 0.5s ease-out forwards;
+    opacity: 0;
+}
+
+.menu-item-animate {
+    animation: menuItemSlide 0.4s ease-out forwards;
     opacity: 0;
 }
 
@@ -1232,31 +1255,57 @@ a {
 
 .open-status {
     margin-top: 0.75rem;
-    padding: 0.5rem 1rem;
-    border-radius: 9999px;
+    padding-top: 0.75rem;
+    border-top: 1px solid rgba(0, 0, 0, 0.08);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
     font-size: 0.875rem;
     font-weight: 600;
-    display: inline-block;
 }
 
-.open-status.open {
-    background-color: rgba(34, 197, 94, 0.15);
-    color: hsl(142, 70%, 35%);
+.status-indicator {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 0.75rem;
+    height: 0.75rem;
 }
 
-.open-status.warning {
-    background-color: rgba(239, 108, 50, 0.15);
-    color: var(--primary);
+.status-dot {
+    position: relative;
+    display: inline-flex;
+    width: 0.75rem;
+    height: 0.75rem;
+    border-radius: 9999px;
 }
 
-.open-status.closed {
-    background-color: rgba(239, 68, 68, 0.15);
+.status-open .status-dot {
+    background-color: var(--accent);
+}
+
+.status-closed .status-dot {
+    background-color: hsl(0, 70%, 50%);
+}
+
+.status-ping {
+    position: absolute;
+    display: inline-flex;
+    width: 100%;
+    height: 100%;
+    border-radius: 9999px;
+    background-color: var(--accent);
+    opacity: 0.75;
+    animation: ping 1s cubic-bezier(0, 0, 0.2, 1) infinite;
+}
+
+.open-status.open .status-text {
+    color: var(--accent);
+}
+
+.open-status.closed .status-text {
     color: hsl(0, 70%, 50%);
-}
-
-.open-status.holiday {
-    background-color: rgba(168, 85, 247, 0.15);
-    color: hsl(270, 70%, 50%);
 }
 
 .map-container {

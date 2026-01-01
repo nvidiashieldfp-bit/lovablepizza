@@ -6,6 +6,7 @@ import { useBusinessHours } from "@/hooks/useBusinessHours";
 const scheduleData = [
   { day: "Todos os dias", hours: "12:00 – 15:00" },
   { day: "Todos os dias", hours: "19:00 – 23:30" },
+  { day: "Feriados", hours: "Encerrado" },
 ];
 
 export const LocationSection = () => {
@@ -69,10 +70,6 @@ export const LocationSection = () => {
                       <span className="text-foreground font-medium">{item.hours}</span>
                     </div>
                   ))}
-                  <div className="flex justify-between text-sm pt-1">
-                    <span className="text-muted-foreground">Feriados</span>
-                    <span className="text-foreground font-medium">Encerrado</span>
-                  </div>
                 </div>
                 {/* Open/Closed Status */}
                 <div className="mt-3 pt-3 border-t border-border/50">
@@ -87,7 +84,7 @@ export const LocationSection = () => {
                   ) : (
                     <div className="flex items-center gap-2">
                       <span className="inline-flex rounded-full h-3 w-3 bg-destructive"></span>
-                      <span className="text-destructive font-semibold text-sm">Fechado (Feriado)</span>
+                      <span className="text-destructive font-semibold text-sm">Fechado</span>
                     </div>
                   )}
                 </div>
