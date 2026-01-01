@@ -15,8 +15,8 @@ document.addEventListener('DOMContentLoaded', function () {
     initReviewsCarousel();
     initCurrentYear();
     
-    updateSiteStatus();
-    setInterval(updateSiteStatus, 60000);
+    updateWhatsApp();
+    setInterval(updateWhatsApp, 60000);
 });
 
 /**
@@ -83,7 +83,7 @@ function initScrollReveal() {
 }
 
 /**
- * Menu Data
+ * Menu Data - UPDATED
  */
 const menuData = {
     pizzas: {
@@ -149,18 +149,18 @@ const menuData = {
         title: "Entradas & Diversos",
         emoji: "🥣",
         items: [
-            { name: "Pão de Alho Simples", description: "Pão torrado com alho e manteiga", price: "3,90€", badge: "🍞 Entrada" },
-            { name: "Pão de Alho com Queijo", description: "Pão torrado com alho e queijo", price: "4,90€", badge: "🔥 Popular" },
-            { name: "Pão de Alho com Bacon", description: "Pão torrado com alho, queijo e bacon", price: "5,50€", badge: "🔥 Popular" },
-            { name: "Pão de Alho com Kebab", description: "Pão torrado com alho, queijo e carne kebab", price: "6,50€", badge: "⭐ Especial" },
-            { name: "Guacamole", description: "Abacate, tomate, cebola e limão", price: "5,50€", badge: "🌮 Mexicano" },
-            { name: "Asas de Frango", description: "Asas de frango temperadas e fritas", price: "4,20€", badge: "👑 Top" },
-            { name: "Sopa do Dia", description: "Sopa caseira do dia", price: "2,50€", badge: "⏰ Do Dia" },
-            { name: "Francesinha", description: "Sanduíche com carnes, queijo e molho especial", price: "11,90€", badge: "⭐ Especial" },
-            { name: "6 Nuggets", description: "Nuggets de frango (6 unidades)", price: "2,90€", badge: "🍗 Entrada" },
-            { name: "12 Nuggets", description: "Nuggets de frango (12 unidades)", price: "4,90€", badge: "🍗 Entrada" },
-            { name: "Dose de Batatas Fritas", description: "Batatas fritas crocantes", price: "3,50€", badge: "➕ Extra" },
-            { name: "Molho Extra", description: "Molho adicional à escolha", price: "0,30€", badge: "➕ Extra" }
+            { name: "Pão de Alho Simples", description: "Pão torrado com alho e manteiga", price: "3,90€" },
+            { name: "Pão de Alho com Queijo", description: "Pão torrado com alho e queijo", price: "4,90€", badge: "Popular" },
+            { name: "Pão de Alho com Bacon", description: "Pão torrado com alho, queijo e bacon", price: "5,50€", badge: "Popular" },
+            { name: "Pão de Alho com Kebab", description: "Pão torrado com alho, queijo e carne kebab", price: "6,50€" },
+            { name: "Guacamole", description: "Abacate, tomate, cebola e limão", price: "5,50€" },
+            { name: "Asas de Frango", description: "Asas de frango temperadas e fritas", price: "4,20€" },
+            { name: "Sopa do Dia", description: "Sopa caseira do dia", price: "2,50€" },
+            { name: "Francesinha", description: "Sanduíche com carnes, queijo e molho especial", price: "11,90€", badge: "Especial" },
+            { name: "6 Nuggets", description: "Nuggets de frango (6 unidades)", price: "2,90€" },
+            { name: "12 Nuggets", description: "Nuggets de frango (12 unidades)", price: "4,90€" },
+            { name: "Dose de Batatas Fritas", description: "Batatas fritas crocantes", price: "3,50€" },
+            { name: "Molho Extra", description: "Molho adicional à escolha", price: "0,30€" }
         ]
     },
     massas: {
@@ -197,16 +197,15 @@ const menuData = {
         ]
     },
     extras: {
-        title: "Extras & Bebidas",
+        title: "Bebidas",
         emoji: "🥤",
         items: [
-            { name: "Batata Frita Pequena", price: "2,00€" },
-            { name: "Batata Frita Grande", price: "3,00€" },
-            { name: "Nuggets (6 unid.)", price: "3,50€" },
-            { name: "Aros de Cebola", price: "3,00€" },
-            { name: "Refrigerante", price: "1,50€" },
-            { name: "Água", price: "1,00€" },
-            { name: "Sumo Natural", price: "2,50€" }
+            { name: "Água 0,5L", price: "1,00€" },
+            { name: "Refrigerante 0,33cl", price: "1,50€" },
+            { name: "Refrigerante 1,5L", price: "2,50€" },
+            { name: "Sumo Natural", price: "2,50€" },
+            { name: "Cerveja", price: "1,50€" },
+            { name: "Vinho (copo)", price: "1,50€" }
         ]
     },
     sobremesas: {
@@ -413,171 +412,112 @@ function initCurrentYear() {
 }
 
 /* =========================
-   HORÁRIOS + FERIADOS + STATUS
+   WHATSAPP SCHEDULER
    ========================= */
 
-// Feriados fixos portugueses (DD-MM)
-const PT_HOLIDAYS_FIXED = [
-    "01-01", "25-04", "01-05", "10-06",
-    "15-08", "05-10", "01-11",
-    "01-12", "08-12", "25-12"
-];
+const openingHours = {
+    0: [{ start: 19, end: 23.5 }], // Domingo jantar
+    1: [{ start: 12, end: 15 }, { start: 19, end: 23.5 }],
+    2: [{ start: 12, end: 15 }, { start: 19, end: 23.5 }],
+    3: [{ start: 12, end: 15 }, { start: 19, end: 23.5 }],
+    4: [{ start: 12, end: 15 }, { start: 19, end: 23.5 }],
+    5: [{ start: 12, end: 15 }, { start: 19, end: 23.5 }],
+    6: [{ start: 12, end: 15 }, { start: 19, end: 23.5 }]
+};
 
-// Calcular Páscoa (algoritmo de computus)
-function getEasterDate(year) {
-    const a = year % 19;
-    const b = Math.floor(year / 100);
-    const c = year % 100;
-    const d = Math.floor(b / 4);
-    const e = b % 4;
-    const f = Math.floor((b + 8) / 25);
-    const g = Math.floor((b - f + 1) / 3);
-    const h = (19 * a + b - d - g + 15) % 30;
-    const i = Math.floor(c / 4);
-    const k = c % 4;
-    const l = (32 + 2 * e + 2 * i - h - k) % 7;
-    const m = Math.floor((a + 11 * h + 22 * l) / 451);
-    const month = Math.floor((h + l - 7 * m + 114) / 31);
-    const day = ((h + l - 7 * m + 114) % 31) + 1;
-    return new Date(year, month - 1, day);
+function nowDecimal() {
+    const d = new Date();
+    return d.getHours() + d.getMinutes() / 60;
 }
 
-// Verificar se é feriado
-function isHoliday(date) {
-    const year = date.getFullYear();
-    const day = String(date.getDate()).padStart(2, '0');
-    const month = String(date.getMonth() + 1).padStart(2, '0');
-    const dateStr = `${day}-${month}`;
-    
-    if (PT_HOLIDAYS_FIXED.includes(dateStr)) return true;
-    
-    const easter = getEasterDate(year);
-    const goodFriday = new Date(easter);
-    goodFriday.setDate(easter.getDate() - 2);
-    const corpusChristi = new Date(easter);
-    corpusChristi.setDate(easter.getDate() + 60);
-    
-    const mobileHolidays = [goodFriday, corpusChristi];
-    
-    for (const holiday of mobileHolidays) {
-        if (date.getDate() === holiday.getDate() && 
-            date.getMonth() === holiday.getMonth() && 
-            date.getFullYear() === holiday.getFullYear()) {
-            return true;
+function formatHour(h) {
+    return String(Math.floor(h)).padStart(2, "0") + ":00";
+}
+
+function nextSlot() {
+    const now = new Date();
+    const t = nowDecimal();
+    const todaySlots = openingHours[now.getDay()] || [];
+
+    for (const s of todaySlots) {
+        if (t < s.start) {
+            return { label: "hoje", time: formatHour(s.start) };
         }
     }
-    
-    return false;
+
+    for (let i = 1; i <= 7; i++) {
+        const d = new Date(now);
+        d.setDate(now.getDate() + i);
+        const slots = openingHours[d.getDay()] || [];
+        if (slots.length) {
+            return {
+                label: d.toLocaleDateString("pt-PT", { weekday: "long" }),
+                time: formatHour(slots[0].start)
+            };
+        }
+    }
+    return null;
 }
 
-// Determinar estado do botão
-function getButtonState(now) {
-    const hours = now.getHours();
-    const minutes = now.getMinutes();
-    const time = hours + minutes / 60;
-    
-    if (isHoliday(now)) {
-        return { state: 'holiday', message: '🎉 Feriado · Horário especial' };
-    }
-    
-    // 🟢 Aberto: 19:00 → 22:59
-    if (time >= 19 && time < 23) {
-        return { state: 'open', message: '🟢 Estamos abertos · Encomende agora' };
-    }
-    
-    // 🟠 A encerrar: 23:00 → 23:30 (countdown sem segundos)
-    if (time >= 23 && time < 23.5) {
-        const minutesLeft = Math.ceil((23.5 - time) * 60);
-        return { 
-            state: 'warning', 
-            message: `⏰ A encerrar · fecha em ${minutesLeft} min`
-        };
-    }
-    
-    // 🔴 Fechado: 23:30 → 18:59
-    return { state: 'closed', message: '⛔ Fechado · Abrimos às 19:00' };
+function isOpenNow() {
+    const now = new Date();
+    const t = nowDecimal();
+    return (openingHours[now.getDay()] || []).some(
+        s => t >= s.start && t < s.end
+    );
 }
 
-// Verificar se está no período não clicável (23:00 → 12:00)
-function isNonClickablePeriod(now) {
-    const hours = now.getHours();
-    return hours >= 23 || hours < 12;
-}
-
-// Links WhatsApp
-const WA_PHONE = '351243046828';
-const WA_LINK_OPEN = `https://wa.me/${WA_PHONE}?text=${encodeURIComponent('Olá 👋 Gostava de fazer um pedido.')}`;
-const WA_LINK_CLOSED = `https://wa.me/${WA_PHONE}?text=${encodeURIComponent('Olá 👋 Vi que estão fechados agora.\nPodem confirmar disponibilidade amanhã?')}`;
-
-function updateSiteStatus() {
+function updateWhatsApp() {
     try {
-        const now = new Date();
-        const { state, message } = getButtonState(now);
-        const nonClickable = isNonClickablePeriod(now);
-        
-        const whatsappBtns = document.querySelectorAll('.btn-whatsapp, .sticky-whatsapp');
-        const phoneBtns = document.querySelectorAll('.btn-phone');
+        const open = isOpenNow();
+        const next = nextSlot();
         const statusEl = document.getElementById('openStatus');
-        
-        // Atualizar status element
+
+        document.querySelectorAll(".btn-whatsapp").forEach(btn => {
+            if (!btn.dataset.original) btn.dataset.original = btn.innerHTML;
+
+            if (open) {
+                btn.innerHTML = btn.dataset.original;
+                btn.style.pointerEvents = "auto";
+                btn.style.opacity = "1";
+            } else {
+                btn.innerHTML = `<i data-lucide="message-circle"></i> ⛔ Fechado · Abre ${next.label} às ${next.time}`;
+                btn.style.pointerEvents = "none";
+                btn.style.opacity = "0.6";
+                lucide.createIcons();
+            }
+        });
+
+        // Atualizar botões de telefone
+        document.querySelectorAll(".btn-phone").forEach(btn => {
+            if (open) {
+                btn.style.pointerEvents = "auto";
+                btn.style.opacity = "1";
+            } else {
+                btn.style.pointerEvents = "none";
+                btn.style.opacity = "0.6";
+            }
+        });
+
+        // Atualizar sticky WhatsApp
+        document.querySelectorAll(".sticky-whatsapp").forEach(btn => {
+            if (open) {
+                btn.classList.remove('disabled');
+            } else {
+                btn.classList.add('disabled');
+            }
+        });
+
+        // Atualizar status
         if (statusEl) {
-            if (state === 'open') {
+            if (open) {
                 statusEl.textContent = '🟢 Aberto agora';
                 statusEl.className = 'open-status open';
-            } else if (state === 'warning') {
-                statusEl.textContent = '🟠 A encerrar';
-                statusEl.className = 'open-status warning';
-            } else if (state === 'holiday') {
-                statusEl.textContent = '🎉 Feriado';
-                statusEl.className = 'open-status holiday';
             } else {
                 statusEl.textContent = '🔴 Fechado agora';
                 statusEl.className = 'open-status closed';
             }
         }
-        
-        // Atualizar botões WhatsApp
-        whatsappBtns.forEach(btn => {
-            btn.classList.remove('open', 'warning', 'closed', 'holiday', 'non-clickable');
-            btn.classList.add(state);
-            
-            // Atualizar texto (não para sticky)
-            if (!btn.classList.contains('sticky-whatsapp')) {
-                // Guardar ícone
-                const iconEl = btn.querySelector('[data-lucide], svg');
-                const iconHTML = iconEl ? iconEl.outerHTML : '<i data-lucide="message-circle"></i>';
-                
-                // Extrair texto sem emoji
-                const textContent = message.replace(/^[🟢⏰⛔🎉]\s*/, '');
-                
-                // Atualizar conteúdo preservando ícone
-                btn.innerHTML = iconHTML + ' ' + textContent;
-                lucide.createIcons();
-            }
-            
-            // Clicabilidade e href
-            if (nonClickable) {
-                btn.classList.add('non-clickable');
-                btn.href = WA_LINK_CLOSED;
-                btn.style.pointerEvents = 'none';
-            } else {
-                btn.href = state === 'closed' ? WA_LINK_CLOSED : WA_LINK_OPEN;
-                btn.style.pointerEvents = 'auto';
-            }
-        });
-        
-        // Atualizar botões de telefone
-        phoneBtns.forEach(btn => {
-            btn.classList.remove('non-clickable');
-            
-            if (nonClickable) {
-                btn.classList.add('non-clickable');
-                btn.style.pointerEvents = 'none';
-            } else {
-                btn.style.pointerEvents = 'auto';
-            }
-        });
-        
     } catch (e) {
         // Falha silenciosa
     }
