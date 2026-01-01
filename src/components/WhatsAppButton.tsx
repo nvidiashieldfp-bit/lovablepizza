@@ -1,11 +1,13 @@
 import { MessageCircle, Phone } from "lucide-react";
 import { Button } from "./ui/button";
+import { useBusinessHours } from "@/hooks/useBusinessHours";
 
 interface WhatsAppButtonProps {
   text?: string;
   size?: "default" | "sm" | "lg" | "xl";
   className?: string;
   showIcon?: boolean;
+  showStatus?: boolean;
 }
 
 // Número real do WhatsApp
@@ -19,23 +21,27 @@ export const PHONE_DISPLAY_1 = "243 046 828";
 export const PHONE_DISPLAY_2 = "914 962 991";
 
 export const WhatsAppButton = ({ 
-  text = "Encomendar via WhatsApp", 
+  text, 
   size = "default",
   className = "",
-  showIcon = true
+  showIcon = true,
+  showStatus = true
 }: WhatsAppButtonProps) => {
+  const { statusMessage, buttonVariant } = useBusinessHours();
   const whatsappUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${WHATSAPP_MESSAGE}`;
+
+  const displayText = showStatus ? statusMessage : (text || "Encomendar via WhatsApp");
 
   return (
     <Button
-      variant="whatsapp"
+      variant={buttonVariant}
       size={size}
       className={className}
       asChild
     >
       <a href={whatsappUrl} target="_blank" rel="noopener noreferrer">
         {showIcon && <MessageCircle className="mr-1" />}
-        {text}
+        {displayText}
       </a>
     </Button>
   );
@@ -70,14 +76,19 @@ export const PhoneButton = ({
 };
 
 export const StickyWhatsAppButton = () => {
+  const { buttonVariant, isClosingVeryLate } = useBusinessHours();
   const whatsappUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${WHATSAPP_MESSAGE}`;
+
+  const bgClass = isClosingVeryLate 
+    ? "bg-whatsapp-closing hover:bg-whatsapp-closing-hover" 
+    : "bg-whatsapp hover:bg-whatsapp-hover";
 
   return (
     <a
       href={whatsappUrl}
       target="_blank"
       rel="noopener noreferrer"
-      className="fixed bottom-6 right-6 z-50 flex h-14 w-14 items-center justify-center rounded-full bg-whatsapp text-accent-foreground shadow-lg transition-all duration-200 hover:scale-110 hover:bg-whatsapp-hover hover:shadow-xl md:h-16 md:w-16"
+      className={`fixed bottom-6 right-6 z-50 flex h-14 w-14 items-center justify-center rounded-full text-accent-foreground shadow-lg transition-all duration-200 hover:scale-110 hover:shadow-xl md:h-16 md:w-16 ${bgClass} ${isClosingVeryLate ? 'animate-pulse' : ''}`}
       aria-label="Encomendar via WhatsApp"
     >
       <MessageCircle className="h-7 w-7 md:h-8 md:w-8" />

@@ -53,6 +53,8 @@ export default {
         whatsapp: {
           DEFAULT: "hsl(var(--whatsapp))",
           hover: "hsl(var(--whatsapp-hover))",
+          closing: "hsl(var(--whatsapp-closing))",
+          "closing-hover": "hsl(var(--whatsapp-closing-hover))",
         },
         cream: {
           DEFAULT: "hsl(var(--cream))",

@@ -15,6 +15,10 @@ document.addEventListener('DOMContentLoaded', function() {
     initMenu();
     initReviewsCarousel();
     initCurrentYear();
+    initBusinessHours();
+    
+    // Update business hours every minute
+    setInterval(updateWhatsAppButtons, 60000);
 });
 
 /**
@@ -344,4 +348,186 @@ function initCurrentYear() {
     if (yearEl) {
         yearEl.textContent = new Date().getFullYear();
     }
+}
+
+/**
+ * Business Hours & WhatsApp Button Logic
+ * =======================================
+ * - Botões ficam laranja das 23h às 23:30
+ * - Mensagens dinâmicas baseadas no horário
+ * - Suporte a feriados portugueses
+ */
+
+// Feriados portugueses fixos
+const FIXED_HOLIDAYS = [
+    { day: 1, month: 1, name: "Ano Novo" },
+    { day: 25, month: 4, name: "Dia da Liberdade" },
+    { day: 1, month: 5, name: "Dia do Trabalhador" },
+    { day: 10, month: 6, name: "Dia de Portugal" },
+    { day: 15, month: 8, name: "Assunção de Nossa Senhora" },
+    { day: 5, month: 10, name: "Implantação da República" },
+    { day: 1, month: 11, name: "Todos os Santos" },
+    { day: 1, month: 12, name: "Restauração da Independência" },
+    { day: 8, month: 12, name: "Imaculada Conceição" },
+    { day: 25, month: 12, name: "Natal" }
+];
+
+// Calcular data da Páscoa
+function getEasterDate(year) {
+    const a = year % 19;
+    const b = Math.floor(year / 100);
+    const c = year % 100;
+    const d = Math.floor(b / 4);
+    const e = b % 4;
+    const f = Math.floor((b + 8) / 25);
+    const g = Math.floor((b - f + 1) / 3);
+    const h = (19 * a + b - d - g + 15) % 30;
+    const i = Math.floor(c / 4);
+    const k = c % 4;
+    const l = (32 + 2 * e + 2 * i - h - k) % 7;
+    const m = Math.floor((a + 11 * h + 22 * l) / 451);
+    const month = Math.floor((h + l - 7 * m + 114) / 31);
+    const day = ((h + l - 7 * m + 114) % 31) + 1;
+    return new Date(year, month - 1, day);
+}
+
+// Feriados móveis
+function getMovableHolidays(year) {
+    const easter = getEasterDate(year);
+    
+    // Sexta-feira Santa (2 dias antes da Páscoa)
+    const goodFriday = new Date(easter);
+    goodFriday.setDate(easter.getDate() - 2);
+    
+    // Corpo de Deus (60 dias após Páscoa)
+    const corpusChristi = new Date(easter);
+    corpusChristi.setDate(easter.getDate() + 60);
+    
+    return [
+        { date: goodFriday, name: "Sexta-feira Santa" },
+        { date: new Date(easter), name: "Páscoa" },
+        { date: corpusChristi, name: "Corpo de Deus" }
+    ];
+}
+
+// Verificar se hoje é feriado
+function getTodayHoliday() {
+    const today = new Date();
+    const year = today.getFullYear();
+    
+    // Verificar feriados fixos
+    const fixedHoliday = FIXED_HOLIDAYS.find(h => 
+        h.day === today.getDate() && h.month === today.getMonth() + 1
+    );
+    if (fixedHoliday) return fixedHoliday.name;
+    
+    // Verificar feriados móveis
+    const movable = getMovableHolidays(year);
+    const movableHoliday = movable.find(h => 
+        h.date.getDate() === today.getDate() && 
+        h.date.getMonth() === today.getMonth()
+    );
+    if (movableHoliday) return movableHoliday.name;
+    
+    return null;
+}
+
+// Obter estado do horário
+function getBusinessHoursState() {
+    const now = new Date();
+    const hours = now.getHours();
+    const minutes = now.getMinutes();
+    const totalMinutes = hours * 60 + minutes;
+    
+    // Horários
+    const LUNCH_OPEN = 12 * 60;      // 12:00
+    const LUNCH_CLOSE = 15 * 60;     // 15:00
+    const DINNER_OPEN = 19 * 60;     // 19:00
+    const DINNER_CLOSE = 23 * 60;    // 23:00
+    const CLOSING_WARNING = 30;       // minutos antes de fechar
+    
+    // Verificar estado
+    const isInLunch = totalMinutes >= LUNCH_OPEN && totalMinutes < LUNCH_CLOSE;
+    const isInDinner = totalMinutes >= DINNER_OPEN && totalMinutes < DINNER_CLOSE;
+    const isOpen = isInLunch || isInDinner;
+    
+    // Quase a fechar
+    const isLunchClosingSoon = totalMinutes >= (LUNCH_CLOSE - CLOSING_WARNING) && totalMinutes < LUNCH_CLOSE;
+    const isDinnerClosingSoon = totalMinutes >= (DINNER_CLOSE - CLOSING_WARNING) && totalMinutes < DINNER_CLOSE;
+    const isClosingSoon = isLunchClosingSoon || isDinnerClosingSoon;
+    
+    // Após as 23h (botão laranja)
+    const isClosingVeryLate = hours >= 23;
+    
+    // Calcular minutos restantes
+    let minutesLeft = 0;
+    if (isLunchClosingSoon) {
+        minutesLeft = LUNCH_CLOSE - totalMinutes;
+    } else if (isDinnerClosingSoon) {
+        minutesLeft = DINNER_CLOSE - totalMinutes;
+    }
+    
+    // Determinar mensagem
+    let statusMessage = "Encomendar via WhatsApp";
+    const holiday = getTodayHoliday();
+    
+    if (holiday) {
+        statusMessage = `🎉 ${holiday} - Verifique horário`;
+    } else if (isClosingVeryLate) {
+        statusMessage = "⚠️ Estamos a fechar!";
+    } else if (isClosingSoon) {
+        statusMessage = `⏰ Fechamos em ${minutesLeft} min!`;
+    } else if (isOpen) {
+        statusMessage = "✅ Estamos abertos!";
+    } else if (hours < 12) {
+        statusMessage = "Abrimos às 12h";
+    } else if (hours >= 15 && hours < 19) {
+        statusMessage = "Reabrimos às 19h";
+    } else {
+        statusMessage = "Abrimos às 12h";
+    }
+    
+    return {
+        isOpen,
+        isClosingSoon,
+        isClosingVeryLate,
+        statusMessage,
+        isHoliday: !!holiday,
+        holidayName: holiday
+    };
+}
+
+// Atualizar botões WhatsApp
+function updateWhatsAppButtons() {
+    const state = getBusinessHoursState();
+    const buttons = document.querySelectorAll('.btn-whatsapp');
+    const stickyButton = document.querySelector('.sticky-whatsapp');
+    
+    buttons.forEach(btn => {
+        // Atualizar texto do primeiro span ou do botão
+        const textEl = btn.querySelector('.whatsapp-status') || btn;
+        if (textEl.classList.contains('whatsapp-status')) {
+            textEl.textContent = state.statusMessage;
+        }
+        
+        // Atualizar classe para cor
+        if (state.isClosingVeryLate) {
+            btn.classList.add('closing');
+        } else {
+            btn.classList.remove('closing');
+        }
+    });
+    
+    // Atualizar botão sticky
+    if (stickyButton) {
+        if (state.isClosingVeryLate) {
+            stickyButton.classList.add('closing');
+        } else {
+            stickyButton.classList.remove('closing');
+        }
+    }
+}
+
+function initBusinessHours() {
+    updateWhatsAppButtons();
 }

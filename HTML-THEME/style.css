@@ -22,6 +22,8 @@
     --cream-dark: hsl(35, 50%, 92%);
     --whatsapp: hsl(142, 70%, 45%);
     --whatsapp-hover: hsl(142, 70%, 38%);
+    --whatsapp-closing: hsl(24, 85%, 55%);
+    --whatsapp-closing-hover: hsl(24, 85%, 48%);
     --phone-bg: hsl(24, 85%, 55%);
     --phone-hover: hsl(24, 85%, 48%);
     --golden: hsl(40, 90%, 50%);
@@ -162,11 +164,21 @@ a {
 .btn-whatsapp {
     background-color: var(--whatsapp);
     color: white;
+    transition: all 0.3s ease;
 }
 
 .btn-whatsapp:hover {
     background-color: var(--whatsapp-hover);
     transform: scale(1.02);
+}
+
+.btn-whatsapp.closing {
+    background-color: var(--whatsapp-closing);
+    animation: pulse-soft 1.5s ease-in-out infinite;
+}
+
+.btn-whatsapp.closing:hover {
+    background-color: var(--whatsapp-closing-hover);
 }
 
 .btn-phone {
@@ -1202,6 +1214,7 @@ a {
 /* ============================================
    Sticky WhatsApp Button
    ============================================ */
+.whatsapp-float,
 .sticky-whatsapp {
     position: fixed;
     bottom: 1.5rem;
@@ -1220,24 +1233,39 @@ a {
 }
 
 @media (min-width: 768px) {
+    .whatsapp-float,
     .sticky-whatsapp {
         width: 4rem;
         height: 4rem;
     }
 }
 
+.whatsapp-float:hover,
 .sticky-whatsapp:hover {
     transform: scale(1.1);
     background-color: var(--whatsapp-hover);
     box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
 }
 
+.whatsapp-float.closing,
+.sticky-whatsapp.closing {
+    background-color: var(--whatsapp-closing);
+    animation: pulse-soft 1.5s ease-in-out infinite;
+}
+
+.whatsapp-float.closing:hover,
+.sticky-whatsapp.closing:hover {
+    background-color: var(--whatsapp-closing-hover);
+}
+
+.whatsapp-float svg,
 .sticky-whatsapp svg {
     width: 1.75rem;
     height: 1.75rem;
 }
 
 @media (min-width: 768px) {
+    .whatsapp-float svg,
     .sticky-whatsapp svg {
         width: 2rem;
         height: 2rem;
