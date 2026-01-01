@@ -1,17 +1,19 @@
-import { useState, useEffect, useMemo } from "react";
+import { useState, useEffect, useMemo, useCallback } from "react";
 
-// Feriados portugueses fixos (dia/mês)
-const FIXED_HOLIDAYS = [
-  { day: 1, month: 1, name: "Ano Novo" },
-  { day: 25, month: 4, name: "Dia da Liberdade" },
-  { day: 1, month: 5, name: "Dia do Trabalhador" },
-  { day: 10, month: 6, name: "Dia de Portugal" },
-  { day: 15, month: 8, name: "Assunção de Nossa Senhora" },
-  { day: 5, month: 10, name: "Implantação da República" },
-  { day: 1, month: 11, name: "Todos os Santos" },
-  { day: 1, month: 12, name: "Restauração da Independência" },
-  { day: 8, month: 12, name: "Imaculada Conceição" },
-  { day: 25, month: 12, name: "Natal" },
+// Feriados portugueses fixos (dia/mês) - podem ser configurados
+export const FIXED_HOLIDAYS = [
+  { day: 1, month: 1, name: "Ano Novo", closed: true },
+  { day: 25, month: 4, name: "Dia da Liberdade", closed: true },
+  { day: 1, month: 5, name: "Dia do Trabalhador", closed: true },
+  { day: 10, month: 6, name: "Dia de Portugal", closed: true },
+  { day: 15, month: 8, name: "Assunção de Nossa Senhora", closed: true },
+  { day: 5, month: 10, name: "Implantação da República", closed: true },
+  { day: 1, month: 11, name: "Todos os Santos", closed: true },
+  { day: 1, month: 12, name: "Restauração da Independência", closed: true },
+  { day: 8, month: 12, name: "Imaculada Conceição", closed: true },
+  { day: 25, month: 12, name: "Natal", closed: true },
+  { day: 24, month: 12, name: "Véspera de Natal", closed: true },
+  { day: 31, month: 12, name: "Véspera de Ano Novo", closed: true },
 ];
 
 // Feriados móveis - calculados anualmente
@@ -33,7 +35,7 @@ function getEasterDate(year: number): Date {
   return new Date(year, month - 1, day);
 }
 
-function getMovableHolidays(year: number): { date: Date; name: string }[] {
+function getMovableHolidays(year: number): { date: Date; name: string; closed: boolean }[] {
   const easter = getEasterDate(year);
   
   // Sexta-feira Santa (2 dias antes da Páscoa)
@@ -48,9 +50,9 @@ function getMovableHolidays(year: number): { date: Date; name: string }[] {
   corpusChristi.setDate(easter.getDate() + 60);
   
   return [
-    { date: goodFriday, name: "Sexta-feira Santa" },
-    { date: easterSunday, name: "Páscoa" },
-    { date: corpusChristi, name: "Corpo de Deus" },
+    { date: goodFriday, name: "Sexta-feira Santa", closed: true },
+    { date: easterSunday, name: "Páscoa", closed: true },
+    { date: corpusChristi, name: "Corpo de Deus", closed: true },
   ];
 }
 
@@ -64,10 +66,13 @@ export interface BusinessHoursState {
   isClosingSoon: boolean;
   isClosingVeryLate: boolean;
   statusMessage: string;
+  countdownMessage: string | null;
+  minutesUntilClose: number | null;
   buttonVariant: "whatsapp" | "whatsapp-closing";
   currentTime: Date;
   isHoliday: boolean;
   holidayName?: string;
+  isClosed: boolean;
   closedDays: ClosedDay[];
   addClosedDay: (date: Date, reason: string) => void;
   removeClosedDay: (date: Date) => void;
@@ -118,6 +123,7 @@ export function useBusinessHours(): BusinessHoursState {
     const fixedDates = FIXED_HOLIDAYS.map((h) => ({
       date: new Date(year, h.month - 1, h.day),
       name: h.name,
+      closed: h.closed,
     }));
     const movable = getMovableHolidays(year);
     return [...fixedDates, ...movable];
@@ -135,6 +141,7 @@ export function useBusinessHours(): BusinessHoursState {
 
   const isHoliday = !!todayHoliday;
   const holidayName = todayHoliday?.name;
+  const isHolidayClosed = todayHoliday?.closed ?? false;
 
   // Verificar se uma data está nos dias fechados
   const isDateClosed = (date: Date): boolean => {
@@ -177,18 +184,37 @@ export function useBusinessHours(): BusinessHoursState {
   const dinnerOpenMinutes = DINNER_OPEN * 60;
   const dinnerCloseMinutes = DINNER_CLOSE_HOUR * 60 + DINNER_CLOSE_MINUTES; // 23:30 = 1410 min
 
+  // Verificar se está fechado (feriado ou dia excecional)
+  const isClosed = isDateClosed(currentTime) || isHolidayClosed;
+
   // Verificar se está aberto
   const isInLunchHours = totalMinutes >= lunchOpenMinutes && totalMinutes < lunchCloseMinutes;
   const isInDinnerHours = totalMinutes >= dinnerOpenMinutes && totalMinutes < dinnerCloseMinutes;
-  const isOpen = isInLunchHours || isInDinnerHours;
+  const isOpen = !isClosed && (isInLunchHours || isInDinnerHours);
+
+  // Calcular minutos até fechar
+  let minutesUntilClose: number | null = null;
+  if (isOpen) {
+    if (isInLunchHours) {
+      minutesUntilClose = lunchCloseMinutes - totalMinutes;
+    } else if (isInDinnerHours) {
+      minutesUntilClose = dinnerCloseMinutes - totalMinutes;
+    }
+  }
 
   // Verificar se está quase a fechar (últimos 30 minutos)
   const isLunchClosingSoon = totalMinutes >= (lunchCloseMinutes - CLOSING_WARNING_MINUTES) && totalMinutes < lunchCloseMinutes;
   const isDinnerClosingSoon = totalMinutes >= (dinnerCloseMinutes - CLOSING_WARNING_MINUTES) && totalMinutes < dinnerCloseMinutes;
-  const isClosingSoon = isLunchClosingSoon || isDinnerClosingSoon;
+  const isClosingSoon = !isClosed && (isLunchClosingSoon || isDinnerClosingSoon);
 
-  // Verificar se está após as 23h (botão laranja)
-  const isClosingVeryLate = hours >= 23;
+  // Verificar se está após as 23h (botão laranja/urgente)
+  const isClosingVeryLate = !isClosed && hours >= 23 && totalMinutes < dinnerCloseMinutes;
+
+  // Contagem regressiva específica para 23:00-23:30
+  let countdownMessage: string | null = null;
+  if (isClosingVeryLate && minutesUntilClose !== null) {
+    countdownMessage = `Fecha em ${minutesUntilClose} min`;
+  }
 
   // Determinar variante do botão
   const buttonVariant: "whatsapp" | "whatsapp-closing" = isClosingVeryLate ? "whatsapp-closing" : "whatsapp";
@@ -203,15 +229,12 @@ export function useBusinessHours(): BusinessHoursState {
         d.date.getMonth() === currentTime.getMonth()
     );
     statusMessage = closedInfo?.reason || "Fechado hoje";
-  } else if (isHoliday) {
-    statusMessage = `🎉 ${holidayName} - Verifique horário`;
-  } else if (isClosingVeryLate) {
-    statusMessage = "⚠️ Estamos a fechar!";
-  } else if (isClosingSoon) {
-    const minutesLeft = isLunchClosingSoon 
-      ? lunchCloseMinutes - totalMinutes 
-      : dinnerCloseMinutes - totalMinutes;
-    statusMessage = `⏰ Fechamos em ${minutesLeft} min!`;
+  } else if (isHolidayClosed) {
+    statusMessage = `🎄 ${holidayName} - Fechado`;
+  } else if (isClosingVeryLate && minutesUntilClose !== null) {
+    statusMessage = `⏰ Fecha em ${minutesUntilClose} min!`;
+  } else if (isClosingSoon && minutesUntilClose !== null) {
+    statusMessage = `⏰ Fechamos em ${minutesUntilClose} min!`;
   } else if (isOpen) {
     statusMessage = "✅ Estamos abertos!";
   } else if (hours < LUNCH_OPEN) {
@@ -227,10 +250,13 @@ export function useBusinessHours(): BusinessHoursState {
     isClosingSoon,
     isClosingVeryLate,
     statusMessage,
+    countdownMessage,
+    minutesUntilClose,
     buttonVariant,
     currentTime,
     isHoliday,
     holidayName,
+    isClosed,
     closedDays,
     addClosedDay,
     removeClosedDay,
