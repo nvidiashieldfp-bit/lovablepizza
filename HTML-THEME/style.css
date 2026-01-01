@@ -1,10 +1,10 @@
 /* ============================================
    Pizza Burger Almeirim - Theme Styles
+   Responsive: Mobile, Tablet, Desktop
    ============================================ */
 
 /* CSS Variables */
 :root {
-    /* Colors */
     --background: hsl(35, 80%, 96%);
     --foreground: hsl(20, 20%, 15%);
     --card: hsl(35, 60%, 98%);
@@ -22,12 +22,10 @@
     --cream-dark: hsl(35, 50%, 92%);
     --whatsapp: hsl(142, 70%, 45%);
     --whatsapp-hover: hsl(142, 70%, 38%);
-    --whatsapp-closing: hsl(24, 85%, 55%);
-    --whatsapp-closing-hover: hsl(24, 85%, 48%);
     --phone-bg: hsl(24, 85%, 55%);
     --phone-hover: hsl(24, 85%, 48%);
     --golden: hsl(40, 90%, 50%);
-    
+
     /* Sizing */
     --radius: 0.75rem;
     --container-max: 42rem;
@@ -35,7 +33,10 @@
     --container-xl: 72rem;
 }
 
-/* Reset & Base */
+/* ============================================
+   RESET & BASE
+   ============================================ */
+
 *, *::before, *::after {
     box-sizing: border-box;
     margin: 0;
@@ -66,7 +67,10 @@ a {
     color: inherit;
 }
 
-/* Container */
+/* ============================================
+   CONTAINER
+   ============================================ */
+
 .container {
     max-width: var(--container-max);
     margin: 0 auto;
@@ -81,13 +85,19 @@ a {
     max-width: var(--container-xl);
 }
 
-/* Utilities */
+/* ============================================
+   UTILITIES
+   ============================================ */
+
 .text-center { text-align: center; }
 .text-primary { color: var(--primary); }
 .font-semibold { font-weight: 600; }
 .font-medium { font-weight: 500; }
 
-/* Animations */
+/* ============================================
+   ANIMATIONS
+   ============================================ */
+
 @keyframes fade-in {
     from {
         opacity: 0;
@@ -114,7 +124,10 @@ a {
     opacity: 0;
 }
 
-/* Scroll Reveal */
+/* ============================================
+   SCROLL REVEAL
+   ============================================ */
+
 .scroll-reveal {
     opacity: 0;
     transform: translateY(20px);
@@ -126,7 +139,10 @@ a {
     transform: translateY(0);
 }
 
-/* Buttons */
+/* ============================================
+   BUTTONS
+   ============================================ */
+
 .btn {
     display: inline-flex;
     align-items: center;
@@ -164,70 +180,11 @@ a {
 .btn-whatsapp {
     background-color: var(--whatsapp);
     color: white;
-    transition: all 0.3s ease;
 }
 
 .btn-whatsapp:hover {
     background-color: var(--whatsapp-hover);
     transform: scale(1.02);
-}
-
-/* Estados dos botões WhatsApp */
-.btn-whatsapp.open {
-    background-color: var(--whatsapp);
-}
-
-.btn-whatsapp.warning {
-    background-color: var(--whatsapp-closing);
-}
-
-.btn-whatsapp.closed {
-    background-color: hsl(0, 0%, 55%);
-}
-
-.btn-whatsapp.holiday {
-    background-color: var(--whatsapp-closing);
-}
-
-/* Botões não clicáveis (23:00-12:00) */
-.btn-whatsapp.non-clickable,
-.btn-phone.non-clickable {
-    opacity: 0.7;
-    cursor: not-allowed;
-}
-
-.sticky-whatsapp.non-clickable {
-    opacity: 0.5;
-}
-
-/* Status indicator */
-.open-status {
-    margin-top: 0.75rem;
-    padding: 0.5rem 1rem;
-    border-radius: 9999px;
-    font-size: 0.875rem;
-    font-weight: 600;
-    display: inline-block;
-}
-
-.open-status.open {
-    background-color: rgba(34, 197, 94, 0.15);
-    color: hsl(142, 70%, 35%);
-}
-
-.open-status.warning {
-    background-color: rgba(239, 108, 50, 0.15);
-    color: var(--primary);
-}
-
-.open-status.closed {
-    background-color: rgba(239, 68, 68, 0.15);
-    color: hsl(0, 70%, 50%);
-}
-
-.open-status.holiday {
-    background-color: rgba(168, 85, 247, 0.15);
-    color: hsl(270, 70%, 50%);
 }
 
 .btn-phone {
@@ -252,8 +209,9 @@ a {
 }
 
 /* ============================================
-   Hero Section
+   HERO SECTION
    ============================================ */
+
 .hero-section {
     position: relative;
     min-height: 100vh;
@@ -463,8 +421,9 @@ a {
 }
 
 /* ============================================
-   About Section
+   ABOUT SECTION
    ============================================ */
+
 .about-section {
     background-color: var(--background);
     padding: 4rem 1rem;
@@ -514,8 +473,9 @@ a {
 }
 
 /* ============================================
-   Favorites Section
+   FAVORITES SECTION
    ============================================ */
+
 .favorites-section {
     background-color: var(--background);
     padding: 4rem 1rem;
@@ -639,8 +599,9 @@ a {
 }
 
 /* ============================================
-   Menu Section
+   MENU SECTION
    ============================================ */
+
 .menu-section {
     background-color: var(--cream-dark);
     padding: 4rem 1rem;
@@ -798,6 +759,12 @@ a {
     text-overflow: ellipsis;
 }
 
+@media (min-width: 640px) {
+    .menu-item-description {
+        white-space: normal;
+    }
+}
+
 .menu-item-prices {
     display: flex;
     gap: 0.5rem;
@@ -828,8 +795,9 @@ a {
 }
 
 /* ============================================
-   How to Order Section
+   HOW TO ORDER SECTION
    ============================================ */
+
 .how-to-order-section {
     background-color: var(--cream-dark);
     padding: 4rem 1rem;
@@ -841,6 +809,13 @@ a {
     gap: 1rem;
 }
 
+@media (min-width: 768px) {
+    .steps {
+        flex-direction: row;
+        gap: 1.5rem;
+    }
+}
+
 .step {
     display: flex;
     align-items: center;
@@ -849,6 +824,14 @@ a {
     padding: 1.25rem;
     border-radius: var(--radius);
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+@media (min-width: 768px) {
+    .step {
+        flex: 1;
+        flex-direction: column;
+        text-align: center;
+    }
 }
 
 .step-number {
@@ -871,6 +854,12 @@ a {
     gap: 0.75rem;
 }
 
+@media (min-width: 768px) {
+    .step-content {
+        flex-direction: column;
+    }
+}
+
 .step-content svg {
     width: 1.5rem;
     height: 1.5rem;
@@ -883,9 +872,16 @@ a {
     color: var(--foreground);
 }
 
+@media (min-width: 768px) {
+    .step-content span {
+        font-size: 1rem;
+    }
+}
+
 /* ============================================
-   Reviews Section
+   REVIEWS SECTION
    ============================================ */
+
 .reviews-section {
     background-color: var(--background);
     padding: 3rem 1rem;
@@ -1053,8 +1049,9 @@ a {
 }
 
 /* ============================================
-   Gallery Section
+   GALLERY SECTION
    ============================================ */
+
 .gallery-section {
     background-color: var(--cream-dark);
     padding: 4rem 1rem;
@@ -1109,8 +1106,9 @@ a {
 }
 
 /* ============================================
-   CTA Section
+   CTA SECTION
    ============================================ */
+
 .cta-section {
     background-color: var(--cream);
     padding: 4rem 1rem;
@@ -1139,8 +1137,9 @@ a {
 }
 
 /* ============================================
-   Location Section
+   LOCATION SECTION
    ============================================ */
+
 .location-section {
     background-color: var(--background);
     padding: 4rem 1rem;
@@ -1179,6 +1178,10 @@ a {
     color: var(--primary);
 }
 
+.location-info {
+    width: 100%;
+}
+
 .location-info h3 {
     font-weight: 600;
     color: var(--foreground);
@@ -1209,9 +1212,11 @@ a {
 }
 
 .schedule-row {
-    display: flex;
-    justify-content: space-between;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: center;
     font-size: 0.875rem;
+    gap: 1rem;
 }
 
 .schedule-row span:first-child {
@@ -1221,13 +1226,50 @@ a {
 .schedule-row .hours {
     font-weight: 500;
     color: var(--foreground);
+    text-align: right;
+    white-space: nowrap;
+}
+
+.open-status {
+    margin-top: 0.75rem;
+    padding: 0.5rem 1rem;
+    border-radius: 9999px;
+    font-size: 0.875rem;
+    font-weight: 600;
+    display: inline-block;
+}
+
+.open-status.open {
+    background-color: rgba(34, 197, 94, 0.15);
+    color: hsl(142, 70%, 35%);
+}
+
+.open-status.warning {
+    background-color: rgba(239, 108, 50, 0.15);
+    color: var(--primary);
+}
+
+.open-status.closed {
+    background-color: rgba(239, 68, 68, 0.15);
+    color: hsl(0, 70%, 50%);
+}
+
+.open-status.holiday {
+    background-color: rgba(168, 85, 247, 0.15);
+    color: hsl(270, 70%, 50%);
 }
 
 .map-container {
     border-radius: var(--radius);
     overflow: hidden;
     border: 1px solid var(--border);
-    margin-bottom: 1.5rem;
+    margin-bottom: 3rem;
+}
+
+@media (min-width: 768px) {
+    .map-container {
+        margin-bottom: 4.5rem;
+    }
 }
 
 .map-container iframe {
@@ -1238,11 +1280,56 @@ a {
     display: flex;
     flex-direction: column;
     gap: 0.75rem;
+    margin-top: 2.5rem;
+}
+
+@media (max-width: 768px) {
+    .location-ctas {
+        margin-top: 2rem;
+    }
 }
 
 /* ============================================
-   Footer
+   STICKY WHATSAPP
    ============================================ */
+
+.sticky-whatsapp {
+    position: fixed;
+    right: 24px;
+    bottom: 110px;
+    width: 56px;
+    height: 56px;
+    background-color: var(--whatsapp);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+    z-index: 1000;
+    transition: background-color 0.2s, transform 0.2s, opacity 0.2s;
+}
+
+.sticky-whatsapp svg {
+    width: 28px;
+    height: 28px;
+    stroke: white;
+}
+
+.sticky-whatsapp:hover {
+    background-color: var(--whatsapp-hover);
+    transform: scale(1.05);
+}
+
+.sticky-whatsapp.disabled {
+    opacity: 0;
+    pointer-events: none;
+    transform: scale(0.9);
+}
+
+/* ============================================
+   FOOTER
+   ============================================ */
+
 .footer {
     background-color: var(--foreground);
     padding: 1.5rem 1rem;
@@ -1261,385 +1348,24 @@ a {
 }
 
 /* ============================================
-   Sticky WhatsApp Button
-   ============================================ */
-.whatsapp-float,
-.sticky-whatsapp {
-    position: fixed;
-    bottom: 1.5rem;
-    right: 1.5rem;
-    z-index: 50;
-    width: 3.5rem;
-    height: 3.5rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 9999px;
-    background-color: var(--whatsapp);
-    color: white;
-    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
-    transition: all 0.2s ease;
-}
-
-@media (min-width: 768px) {
-    .whatsapp-float,
-    .sticky-whatsapp {
-        width: 4rem;
-        height: 4rem;
-    }
-}
-
-.whatsapp-float:hover,
-.sticky-whatsapp:hover {
-    transform: scale(1.1);
-    background-color: var(--whatsapp-hover);
-    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
-}
-
-.whatsapp-float.closing,
-.sticky-whatsapp.closing {
-    background-color: var(--whatsapp-closing);
-    animation: pulse-soft 1.5s ease-in-out infinite;
-}
-
-.whatsapp-float.closing:hover,
-.sticky-whatsapp.closing:hover {
-    background-color: var(--whatsapp-closing-hover);
-}
-
-.whatsapp-float svg,
-.sticky-whatsapp svg {
-    width: 1.75rem;
-    height: 1.75rem;
-}
-
-@media (min-width: 768px) {
-    .whatsapp-float svg,
-    .sticky-whatsapp svg {
-        width: 2rem;
-        height: 2rem;
-    }
-}
-
-/* ============================================
-   Button States (open/warning/closed)
+   SEO TEXT
    ============================================ */
 
-/* Open state - Green */
-.btn-whatsapp.open,
-.btn-phone.open {
-    background-color: var(--whatsapp);
+.seo-text {
+    font-size: 0.85rem;
+    color: #666;
+    line-height: 1.5;
+    margin: 40px 0;
 }
 
-.btn-whatsapp.open:hover,
-.btn-phone.open:hover {
-    background-color: var(--whatsapp-hover);
+.seo-text p {
+    max-width: 900px;
+    margin: 0 auto;
 }
 
-/* Warning state - Orange, pulsing */
-.btn-whatsapp.warning,
-.btn-phone.warning {
-    background-color: var(--whatsapp-closing);
-    animation: pulse-soft 1.5s ease-in-out infinite;
-}
-
-.btn-whatsapp.warning:hover,
-.btn-phone.warning:hover {
-    background-color: var(--whatsapp-closing-hover);
-}
-
-.sticky-whatsapp.warning {
-    background-color: var(--whatsapp-closing);
-    animation: pulse-soft 1.5s ease-in-out infinite;
-}
-
-/* Closed state - Gray */
-.btn-whatsapp.closed,
-.btn-phone.closed {
-    background-color: hsl(0, 0%, 50%);
-}
-
-.btn-whatsapp.closed:hover,
-.btn-phone.closed:hover {
-    background-color: hsl(0, 0%, 40%);
-}
-
-.sticky-whatsapp.closed {
-    background-color: hsl(0, 0%, 50%);
-}
-
-.sticky-whatsapp.closed:hover {
-    background-color: hsl(0, 0%, 40%);
-}
-
-/* ============================================
-   Shopping Cart UI
-   ============================================ */
-
-/* Cart floating button */
-.cart-float {
-    position: fixed;
-    bottom: 6rem;
-    right: 1.5rem;
-    z-index: 49;
-    width: 3.5rem;
-    height: 3.5rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 9999px;
-    background-color: var(--primary);
-    color: white;
-    border: none;
-    cursor: pointer;
-    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.2);
-    transition: all 0.3s ease;
-    opacity: 0;
-    transform: scale(0.8);
-    pointer-events: none;
-}
-
-.cart-float.visible {
-    opacity: 1;
-    transform: scale(1);
-    pointer-events: auto;
-}
-
-.cart-float:hover {
-    transform: scale(1.1);
-    background-color: var(--phone-hover);
-}
-
-.cart-float.pulse {
-    animation: cart-pulse 0.3s ease;
-}
-
-@keyframes cart-pulse {
-    0%, 100% { transform: scale(1); }
-    50% { transform: scale(1.2); }
-}
-
-.cart-float svg {
-    width: 1.5rem;
-    height: 1.5rem;
-}
-
-.cart-count {
-    position: absolute;
-    top: -0.25rem;
-    right: -0.25rem;
-    background-color: var(--accent);
-    color: white;
-    font-size: 0.75rem;
-    font-weight: 700;
-    width: 1.25rem;
-    height: 1.25rem;
-    border-radius: 9999px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-/* Cart modal */
-.cart-modal {
-    position: fixed;
-    inset: 0;
-    z-index: 100;
-    display: flex;
-    align-items: flex-end;
-    justify-content: center;
-    background-color: rgba(0, 0, 0, 0.5);
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 0.3s ease;
-}
-
-.cart-modal.visible {
-    opacity: 1;
-    pointer-events: auto;
-}
-
-.cart-modal-content {
-    background-color: var(--card);
-    width: 100%;
-    max-width: 28rem;
-    max-height: 80vh;
-    border-radius: var(--radius) var(--radius) 0 0;
-    display: flex;
-    flex-direction: column;
-    transform: translateY(100%);
-    transition: transform 0.3s ease;
-}
-
-.cart-modal.visible .cart-modal-content {
-    transform: translateY(0);
-}
-
-@media (min-width: 640px) {
-    .cart-modal {
-        align-items: center;
+@media (max-width: 768px) {
+    .seo-text {
+        font-size: 0.75rem;
+        color: #777;
     }
-    
-    .cart-modal-content {
-        border-radius: var(--radius);
-        max-height: 70vh;
-    }
-}
-
-.cart-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 1rem 1.5rem;
-    border-bottom: 1px solid var(--border);
-}
-
-.cart-header h3 {
-    font-size: 1.125rem;
-    font-weight: 700;
-    color: var(--foreground);
-}
-
-.cart-close {
-    background: none;
-    border: none;
-    font-size: 1.25rem;
-    cursor: pointer;
-    color: var(--muted-foreground);
-    padding: 0.25rem;
-}
-
-.cart-close:hover {
-    color: var(--foreground);
-}
-
-.cart-items {
-    flex: 1;
-    overflow-y: auto;
-    padding: 1rem 1.5rem;
-}
-
-.cart-empty {
-    text-align: center;
-    color: var(--muted-foreground);
-    padding: 2rem 0;
-}
-
-.cart-item {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 0.75rem 0;
-    border-bottom: 1px solid var(--border);
-}
-
-.cart-item:last-child {
-    border-bottom: none;
-}
-
-.cart-item-info {
-    display: flex;
-    flex-direction: column;
-    gap: 0.25rem;
-}
-
-.cart-item-name {
-    font-weight: 600;
-    font-size: 0.9rem;
-    color: var(--foreground);
-}
-
-.cart-item-price {
-    font-size: 0.8rem;
-    color: var(--muted-foreground);
-}
-
-.cart-item-controls {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-}
-
-.cart-qty-btn {
-    width: 1.75rem;
-    height: 1.75rem;
-    border-radius: var(--radius);
-    border: 1px solid var(--border);
-    background-color: var(--background);
-    color: var(--foreground);
-    font-size: 1rem;
-    font-weight: 700;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: all 0.2s ease;
-}
-
-.cart-qty-btn:hover {
-    background-color: var(--secondary);
-}
-
-.cart-qty {
-    min-width: 1.5rem;
-    text-align: center;
-    font-weight: 600;
-}
-
-.cart-remove {
-    background: none;
-    border: none;
-    cursor: pointer;
-    font-size: 1rem;
-    opacity: 0.6;
-    transition: opacity 0.2s ease;
-}
-
-.cart-remove:hover {
-    opacity: 1;
-}
-
-.cart-footer {
-    padding: 1rem 1.5rem;
-    border-top: 1px solid var(--border);
-    display: flex;
-    flex-direction: column;
-    gap: 0.75rem;
-}
-
-.cart-total {
-    display: flex;
-    justify-content: space-between;
-    font-size: 1.125rem;
-    font-weight: 700;
-    color: var(--foreground);
-}
-
-/* Menu item add button */
-.menu-item-actions {
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
-}
-
-.btn-add-cart {
-    width: 2rem;
-    height: 2rem;
-    border-radius: 9999px;
-    border: none;
-    background-color: var(--primary);
-    color: white;
-    font-size: 1.25rem;
-    font-weight: 700;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: all 0.2s ease;
-    flex-shrink: 0;
-}
-
-.btn-add-cart:hover {
-    background-color: var(--phone-hover);
-    transform: scale(1.1);
 }
