@@ -27,22 +27,34 @@ export const WhatsAppButton = ({
   showIcon = true,
   showStatus = true
 }: WhatsAppButtonProps) => {
-  const { statusMessage, buttonVariant } = useBusinessHours();
+  const { statusMessage, countdownMessage, buttonVariant, isClosingVeryLate, isClosed } = useBusinessHours();
   const whatsappUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${WHATSAPP_MESSAGE}`;
 
-  const displayText = showStatus ? statusMessage : (text || "Encomendar via WhatsApp");
+  // Prioridade: contagem regressiva > status > texto personalizado
+  let displayText = text || "Encomendar via WhatsApp";
+  if (showStatus) {
+    displayText = isClosingVeryLate && countdownMessage ? countdownMessage : statusMessage;
+  }
 
   return (
     <Button
       variant={buttonVariant}
       size={size}
-      className={className}
-      asChild
+      className={`${className} ${isClosingVeryLate ? 'animate-pulse' : ''}`}
+      disabled={isClosed}
+      asChild={!isClosed}
     >
-      <a href={whatsappUrl} target="_blank" rel="noopener noreferrer">
-        {showIcon && <MessageCircle className="mr-1" />}
-        {displayText}
-      </a>
+      {isClosed ? (
+        <span className="flex items-center">
+          {showIcon && <MessageCircle className="mr-1" />}
+          {displayText}
+        </span>
+      ) : (
+        <a href={whatsappUrl} target="_blank" rel="noopener noreferrer">
+          {showIcon && <MessageCircle className="mr-1" />}
+          {displayText}
+        </a>
+      )}
     </Button>
   );
 };
@@ -76,22 +88,33 @@ export const PhoneButton = ({
 };
 
 export const StickyWhatsAppButton = () => {
-  const { buttonVariant, isClosingVeryLate } = useBusinessHours();
+  const { isClosingVeryLate, countdownMessage, isClosed } = useBusinessHours();
   const whatsappUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${WHATSAPP_MESSAGE}`;
+
+  if (isClosed) return null;
 
   const bgClass = isClosingVeryLate 
     ? "bg-whatsapp-closing hover:bg-whatsapp-closing-hover" 
     : "bg-whatsapp hover:bg-whatsapp-hover";
 
   return (
-    <a
-      href={whatsappUrl}
-      target="_blank"
-      rel="noopener noreferrer"
-      className={`fixed bottom-6 right-6 z-50 flex h-14 w-14 items-center justify-center rounded-full text-accent-foreground shadow-lg transition-all duration-200 hover:scale-110 hover:shadow-xl md:h-16 md:w-16 ${bgClass} ${isClosingVeryLate ? 'animate-pulse' : ''}`}
-      aria-label="Encomendar via WhatsApp"
-    >
-      <MessageCircle className="h-7 w-7 md:h-8 md:w-8" />
-    </a>
+    <div className="fixed bottom-6 right-6 z-50 flex flex-col items-end gap-2">
+      {/* Countdown badge */}
+      {isClosingVeryLate && countdownMessage && (
+        <div className="bg-whatsapp-closing text-white text-xs font-bold px-3 py-1.5 rounded-full shadow-lg animate-pulse">
+          ⏰ {countdownMessage}
+        </div>
+      )}
+      {/* WhatsApp button */}
+      <a
+        href={whatsappUrl}
+        target="_blank"
+        rel="noopener noreferrer"
+        className={`flex h-14 w-14 items-center justify-center rounded-full text-accent-foreground shadow-lg transition-all duration-200 hover:scale-110 hover:shadow-xl md:h-16 md:w-16 ${bgClass} ${isClosingVeryLate ? 'animate-pulse' : ''}`}
+        aria-label="Encomendar via WhatsApp"
+      >
+        <MessageCircle className="h-7 w-7 md:h-8 md:w-8" />
+      </a>
+    </div>
   );
 };
