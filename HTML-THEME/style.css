@@ -172,13 +172,62 @@ a {
     transform: scale(1.02);
 }
 
-.btn-whatsapp.closing {
-    background-color: var(--whatsapp-closing);
-    animation: pulse-soft 1.5s ease-in-out infinite;
+/* Estados dos botões WhatsApp */
+.btn-whatsapp.open {
+    background-color: var(--whatsapp);
 }
 
-.btn-whatsapp.closing:hover {
-    background-color: var(--whatsapp-closing-hover);
+.btn-whatsapp.warning {
+    background-color: var(--whatsapp-closing);
+}
+
+.btn-whatsapp.closed {
+    background-color: hsl(0, 0%, 55%);
+}
+
+.btn-whatsapp.holiday {
+    background-color: var(--whatsapp-closing);
+}
+
+/* Botões não clicáveis (23:00-12:00) */
+.btn-whatsapp.non-clickable,
+.btn-phone.non-clickable {
+    opacity: 0.7;
+    cursor: not-allowed;
+}
+
+.sticky-whatsapp.non-clickable {
+    opacity: 0.5;
+}
+
+/* Status indicator */
+.open-status {
+    margin-top: 0.75rem;
+    padding: 0.5rem 1rem;
+    border-radius: 9999px;
+    font-size: 0.875rem;
+    font-weight: 600;
+    display: inline-block;
+}
+
+.open-status.open {
+    background-color: rgba(34, 197, 94, 0.15);
+    color: hsl(142, 70%, 35%);
+}
+
+.open-status.warning {
+    background-color: rgba(239, 108, 50, 0.15);
+    color: var(--primary);
+}
+
+.open-status.closed {
+    background-color: rgba(239, 68, 68, 0.15);
+    color: hsl(0, 70%, 50%);
+}
+
+.open-status.holiday {
+    background-color: rgba(168, 85, 247, 0.15);
+    color: hsl(270, 70%, 50%);
 }
 
 .btn-phone {
