@@ -3,7 +3,7 @@
 ==========================================
 
 Website oficial: https://pizzaburguer.pt
-Versão: 2.0
+Versão: 3.0
 Data: 2025
 
 ------------------------------------------
@@ -14,7 +14,8 @@ HTML-THEME/
 ├── index.html          - Página principal
 ├── style.css           - Estilos CSS
 ├── javascript.js       - Funcionalidades JavaScript
-├── favicon.png         - Ícone do site (logo)
+├── favicon.ico         - Ícone do site
+├── favicon.png         - Ícone do site (PNG)
 ├── README.txt          - Este ficheiro
 └── images/             - Pasta de imagens
     ├── logo.png            - Logo do restaurante
@@ -40,26 +41,88 @@ HTML-THEME/
 ------------------------------------------
 
 TELEFONE:
-243 592 058
+243 046 828 / 914 962 991
 
 WHATSAPP:
-+351 243 592 058
++351 243 046 828
 
 LOCALIZAÇÃO:
-Almeirim, Portugal
+Avenida Dom João I LT 48, 2080-014 Almeirim
 
-MENUS ESPECIAIS (Apenas em loja):
-- Menu 1: Pizza individual + 2 ingredientes + Bebida 0,33cl = 7,00€
-- Menu 2: Hambúrguer c/ queijo + Batata + Bebida 0,33cl = 7,00€
-- Menu 3: Massa c/ 2 ingredientes + Bebida 0,33cl = 7,20€
-- Menu 4: Massa c/ 2 ingredientes + Bebida 0,33cl = 7,20€
-- Menu 5: Pizza Burguer = 7,50€
-- Menu 6 (Infantil): Hambúrguer + Batata + Bongo + Brinquedo = 7,50€
+HORÁRIO:
+- Todos os dias: 12:00 - 15:00
+- Todos os dias: 19:00 - 23:30
+- Intervalo: 15:00 - 19:00 (fechado)
+- Feriados: Encerrado
 
-PIZZAS PRINCIPAIS:
-- Pizza Clássica (Fiambre)
-- Pizza Bacon
-- Pizza Margarita (Queijo)
+------------------------------------------
+ FUNCIONALIDADES v3.0
+------------------------------------------
+
+✓ Slider automático no hero (5 segundos)
+✓ Animações de scroll reveal
+✓ Menu com categorias interativas
+✓ Secção de Menus Especiais destacada
+✓ Carousel de avaliações
+✓ Galeria de imagens com hover
+✓ Botão WhatsApp fixo
+✓ Design responsivo (mobile-first)
+✓ Links de telefone clicáveis
+✓ Favicon personalizado com logo
+
+NOVAS FUNCIONALIDADES:
+✓ Indicador Aberto/Fechado animado com ping
+✓ Sistema de feriados portugueses automático
+✓ Contagem regressiva das 23:00 às 23:30
+✓ Badge "Fecha em X min" no botão WhatsApp
+✓ Feriados móveis (Páscoa, Sexta-feira Santa, Corpo de Deus)
+✓ Botão WhatsApp oculto quando fechado
+
+------------------------------------------
+ SISTEMA DE FERIADOS
+------------------------------------------
+
+O tema inclui automaticamente os feriados portugueses:
+
+FERIADOS FIXOS (fechado):
+- 1 Janeiro - Ano Novo
+- 25 Abril - Dia da Liberdade
+- 1 Maio - Dia do Trabalhador
+- 10 Junho - Dia de Portugal
+- 15 Agosto - Assunção de Nossa Senhora
+- 5 Outubro - Implantação da República
+- 1 Novembro - Dia de Todos os Santos
+- 1 Dezembro - Restauração da Independência
+- 8 Dezembro - Imaculada Conceição
+- 25 Dezembro - Natal
+- 26 Dezembro - Dia seguinte ao Natal
+
+FERIADOS MÓVEIS (calculados automaticamente):
+- Sexta-feira Santa
+- Páscoa
+- Corpo de Deus
+
+Para ADICIONAR ou REMOVER feriados, edite o array
+FIXED_HOLIDAYS no ficheiro javascript.js:
+
+const FIXED_HOLIDAYS = [
+    { day: 1, month: 1, name: "Ano Novo", closed: true },
+    // ... adicione ou remova conforme necessário
+];
+
+Para NÃO fechar num feriado, altere closed: false
+
+------------------------------------------
+ CONTAGEM REGRESSIVA
+------------------------------------------
+
+Das 23:00 às 23:30, o sistema mostra:
+- "⏱️ Fecha em X min" no indicador de status
+- Badge animado no botão WhatsApp flutuante
+- Texto de urgência nos botões de encomenda
+
+Isto incentiva os clientes a fazerem pedidos
+antes do fecho das encomendas.
 
 ------------------------------------------
  INSTALAÇÃO
@@ -72,12 +135,28 @@ PIZZAS PRINCIPAIS:
 3. Personalize o conteúdo em index.html se necessário:
    - Altere os números de telefone
    - Altere a morada
-   - Altere os horários
+   - Altere os horários (no javascript.js)
    - Atualize o link do Google Maps
 
 4. O favicon já está configurado usando o logo
 
 5. Pronto! O site está funcional.
+
+------------------------------------------
+ PERSONALIZAÇÃO DO HORÁRIO
+------------------------------------------
+
+Para alterar o horário de funcionamento, edite
+o objeto openingHours no ficheiro javascript.js:
+
+const openingHours = {
+    0: [{ start: 12, end: 15 }, { start: 19, end: 23.5 }], // Domingo
+    1: [{ start: 12, end: 15 }, { start: 19, end: 23.5 }], // Segunda
+    // ... continua para todos os dias (0=Domingo a 6=Sábado)
+};
+
+Formato: { start: HORA_INICIO, end: HORA_FIM }
+Use decimais para minutos (23.5 = 23:30)
 
 ------------------------------------------
  DEPENDÊNCIAS EXTERNAS (CDN)
@@ -94,10 +173,9 @@ O tema utiliza recursos externos via CDN:
 Não é necessário instalar nada localmente.
 
 ------------------------------------------
- PERSONALIZAÇÃO
+ PERSONALIZAÇÃO DE CORES
 ------------------------------------------
 
-CORES:
 As cores podem ser alteradas no ficheiro style.css,
 nas variáveis CSS (:root):
 
@@ -107,33 +185,6 @@ nas variáveis CSS (:root):
 - --foreground: cor do texto
 - etc.
 
-MENU:
-Os itens do menu estão definidos no ficheiro javascript.js
-no objeto "menuData". Altere conforme necessário.
-
-AVALIAÇÕES:
-As avaliações de clientes estão no array "reviews" 
-no ficheiro javascript.js.
-
-FAVICON:
-O favicon usa o logo do site (favicon.png).
-Para alterar, substitua o ficheiro favicon.png.
-
-------------------------------------------
- FUNCIONALIDADES
-------------------------------------------
-
-✓ Slider automático no hero (5 segundos)
-✓ Animações de scroll reveal
-✓ Menu com categorias interativas
-✓ Secção de Menus Especiais destacada
-✓ Carousel de avaliações
-✓ Galeria de imagens com hover
-✓ Botão WhatsApp fixo
-✓ Design responsivo (mobile-first)
-✓ Links de telefone clicáveis
-✓ Favicon personalizado com logo
-
 ------------------------------------------
  NÚMEROS DE TELEFONE E WHATSAPP
 ------------------------------------------
@@ -141,11 +192,11 @@ Para alterar, substitua o ficheiro favicon.png.
 Para alterar os números, procure no index.html:
 
 1. WhatsApp: 
-   wa.me/351243592058
-   (altere 351243592058 para o seu número)
+   wa.me/351243046828
+   (altere 351243046828 para o seu número)
 
 2. Telefone:
-   tel:+351243592058
+   tel:+351243046828
    (altere para o seu número)
 
 Formato do número WhatsApp:

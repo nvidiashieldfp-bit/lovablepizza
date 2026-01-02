@@ -412,7 +412,7 @@ function initCurrentYear() {
 }
 
 /* =========================
-   WHATSAPP SCHEDULER
+   WHATSAPP SCHEDULER COM FERIADOS E CONTAGEM REGRESSIVA
    ========================= */
 
 const openingHours = {
@@ -425,29 +425,135 @@ const openingHours = {
     6: [{ start: 12, end: 15 }, { start: 19, end: 23.5 }]  // Sábado
 };
 
+// Feriados fixos portugueses (dia, mês, nome, fechado)
+const FIXED_HOLIDAYS = [
+    { day: 1, month: 1, name: "Ano Novo", closed: true },
+    { day: 25, month: 4, name: "Dia da Liberdade", closed: true },
+    { day: 1, month: 5, name: "Dia do Trabalhador", closed: true },
+    { day: 10, month: 6, name: "Dia de Portugal", closed: true },
+    { day: 15, month: 8, name: "Assunção de Nossa Senhora", closed: true },
+    { day: 5, month: 10, name: "Implantação da República", closed: true },
+    { day: 1, month: 11, name: "Dia de Todos os Santos", closed: true },
+    { day: 1, month: 12, name: "Restauração da Independência", closed: true },
+    { day: 8, month: 12, name: "Imaculada Conceição", closed: true },
+    { day: 25, month: 12, name: "Natal", closed: true },
+    { day: 26, month: 12, name: "Dia seguinte ao Natal", closed: true }
+];
+
+// Calcular Páscoa (algoritmo de Gauss)
+function getEasterDate(year) {
+    const a = year % 19;
+    const b = Math.floor(year / 100);
+    const c = year % 100;
+    const d = Math.floor(b / 4);
+    const e = b % 4;
+    const f = Math.floor((b + 8) / 25);
+    const g = Math.floor((b - f + 1) / 3);
+    const h = (19 * a + b - d - g + 15) % 30;
+    const i = Math.floor(c / 4);
+    const k = c % 4;
+    const l = (32 + 2 * e + 2 * i - h - k) % 7;
+    const m = Math.floor((a + 11 * h + 22 * l) / 451);
+    const month = Math.floor((h + l - 7 * m + 114) / 31);
+    const day = ((h + l - 7 * m + 114) % 31) + 1;
+    return new Date(year, month - 1, day);
+}
+
+// Feriados móveis baseados na Páscoa
+function getMovableHolidays(year) {
+    const easter = getEasterDate(year);
+    const holidays = [];
+    
+    // Sexta-feira Santa (2 dias antes da Páscoa)
+    const goodFriday = new Date(easter);
+    goodFriday.setDate(easter.getDate() - 2);
+    holidays.push({ 
+        day: goodFriday.getDate(), 
+        month: goodFriday.getMonth() + 1, 
+        name: "Sexta-feira Santa",
+        closed: true 
+    });
+    
+    // Páscoa
+    holidays.push({ 
+        day: easter.getDate(), 
+        month: easter.getMonth() + 1, 
+        name: "Páscoa",
+        closed: true 
+    });
+    
+    // Corpo de Deus (60 dias após Páscoa)
+    const corpusChristi = new Date(easter);
+    corpusChristi.setDate(easter.getDate() + 60);
+    holidays.push({ 
+        day: corpusChristi.getDate(), 
+        month: corpusChristi.getMonth() + 1, 
+        name: "Corpo de Deus",
+        closed: true 
+    });
+    
+    return holidays;
+}
+
+// Verificar se é feriado
+function getHolidayInfo(date) {
+    const day = date.getDate();
+    const month = date.getMonth() + 1;
+    const year = date.getFullYear();
+    
+    // Verificar feriados fixos
+    const fixedHoliday = FIXED_HOLIDAYS.find(h => h.day === day && h.month === month);
+    if (fixedHoliday) {
+        return fixedHoliday;
+    }
+    
+    // Verificar feriados móveis
+    const movableHolidays = getMovableHolidays(year);
+    const movableHoliday = movableHolidays.find(h => h.day === day && h.month === month);
+    if (movableHoliday) {
+        return movableHoliday;
+    }
+    
+    return null;
+}
+
 function nowDecimal() {
     const d = new Date();
     return d.getHours() + d.getMinutes() / 60;
 }
 
 function formatHour(h) {
-    return String(Math.floor(h)).padStart(2, "0") + ":00";
+    const hours = Math.floor(h);
+    const mins = Math.round((h - hours) * 60);
+    return String(hours).padStart(2, "0") + ":" + String(mins).padStart(2, "0");
 }
 
 function nextSlot() {
     const now = new Date();
     const t = nowDecimal();
     const todaySlots = openingHours[now.getDay()] || [];
-
-    for (const s of todaySlots) {
-        if (t < s.start) {
-            return { label: "hoje", time: formatHour(s.start) };
+    
+    // Verificar se hoje é feriado fechado
+    const todayHoliday = getHolidayInfo(now);
+    if (!todayHoliday || !todayHoliday.closed) {
+        for (const s of todaySlots) {
+            if (t < s.start) {
+                return { label: "hoje", time: formatHour(s.start) };
+            }
         }
     }
 
-    for (let i = 1; i <= 7; i++) {
+    // Procurar próximo dia aberto
+    for (let i = 1; i <= 14; i++) {
         const d = new Date(now);
         d.setDate(now.getDate() + i);
+        
+        // Verificar se é feriado fechado
+        const holiday = getHolidayInfo(d);
+        if (holiday && holiday.closed) {
+            continue;
+        }
+        
         const slots = openingHours[d.getDay()] || [];
         if (slots.length) {
             return {
@@ -459,64 +565,149 @@ function nextSlot() {
     return null;
 }
 
-function isOpenNow() {
+function getBusinessHoursState() {
     const now = new Date();
     const t = nowDecimal();
-    return (openingHours[now.getDay()] || []).some(
-        s => t >= s.start && t < s.end
-    );
+    const todaySlots = openingHours[now.getDay()] || [];
+    
+    // Verificar se é feriado
+    const holiday = getHolidayInfo(now);
+    const isHolidayClosed = holiday && holiday.closed;
+    
+    // Verificar se está aberto (ignorando feriados)
+    let isOpen = false;
+    let minutesUntilClose = null;
+    let isClosingVeryLate = false;
+    
+    if (!isHolidayClosed) {
+        for (const slot of todaySlots) {
+            if (t >= slot.start && t < slot.end) {
+                isOpen = true;
+                minutesUntilClose = Math.round((slot.end - t) * 60);
+                
+                // Período das 23:00 às 23:30 - últimos 30 minutos
+                if (slot.end === 23.5 && t >= 23) {
+                    isClosingVeryLate = true;
+                }
+                break;
+            }
+        }
+    }
+    
+    // Calcular mensagem de contagem regressiva
+    let countdownMessage = null;
+    if (isClosingVeryLate && minutesUntilClose !== null) {
+        countdownMessage = `⏱️ Fecha em ${minutesUntilClose} min`;
+    }
+    
+    const next = nextSlot();
+    
+    return {
+        isOpen,
+        isClosed: isHolidayClosed || !isOpen,
+        isHoliday: !!holiday,
+        holidayName: holiday ? holiday.name : null,
+        isHolidayClosed,
+        isClosingVeryLate,
+        minutesUntilClose,
+        countdownMessage,
+        nextSlot: next
+    };
 }
 
 function updateWhatsApp() {
     try {
-        const open = isOpenNow();
-        const next = nextSlot();
+        const state = getBusinessHoursState();
         const statusEl = document.getElementById('openStatus');
 
         document.querySelectorAll(".btn-whatsapp").forEach(btn => {
             if (!btn.dataset.original) btn.dataset.original = btn.innerHTML;
 
-            if (open) {
+            if (state.isClosed) {
+                // Fechado
+                let closedText = "Fechado";
+                if (state.isHolidayClosed) {
+                    closedText = `⛔ Fechado (${state.holidayName})`;
+                } else if (state.nextSlot) {
+                    closedText = `⛔ Fechado · Abre ${state.nextSlot.label} às ${state.nextSlot.time}`;
+                }
+                btn.innerHTML = `<i data-lucide="message-circle"></i> ${closedText}`;
+                btn.style.pointerEvents = "none";
+                btn.style.opacity = "0.6";
+                btn.classList.add('disabled');
+                lucide.createIcons();
+            } else if (state.isClosingVeryLate && state.countdownMessage) {
+                // Aberto mas a fechar em breve
+                btn.innerHTML = `<i data-lucide="message-circle"></i> Encomendar agora ${state.countdownMessage}`;
+                btn.style.pointerEvents = "auto";
+                btn.style.opacity = "1";
+                btn.classList.remove('disabled');
+                btn.classList.add('closing-soon');
+                lucide.createIcons();
+            } else {
+                // Aberto normalmente
                 btn.innerHTML = btn.dataset.original;
                 btn.style.pointerEvents = "auto";
                 btn.style.opacity = "1";
-            } else {
-                btn.innerHTML = `<i data-lucide="message-circle"></i> ⛔ Fechado · Abre ${next.label} às ${next.time}`;
-                btn.style.pointerEvents = "none";
-                btn.style.opacity = "0.6";
-                lucide.createIcons();
+                btn.classList.remove('disabled', 'closing-soon');
             }
         });
 
         // Atualizar botões de telefone
         document.querySelectorAll(".btn-phone").forEach(btn => {
-            if (open) {
-                btn.style.pointerEvents = "auto";
-                btn.style.opacity = "1";
-            } else {
+            if (state.isClosed) {
                 btn.style.pointerEvents = "none";
                 btn.style.opacity = "0.6";
+            } else {
+                btn.style.pointerEvents = "auto";
+                btn.style.opacity = "1";
             }
         });
 
         // Atualizar sticky WhatsApp
         document.querySelectorAll(".sticky-whatsapp").forEach(btn => {
-            if (open) {
-                btn.classList.remove('disabled');
-            } else {
+            // Remover badge anterior
+            const existingBadge = btn.querySelector('.countdown-badge');
+            if (existingBadge) existingBadge.remove();
+            
+            if (state.isClosed) {
                 btn.classList.add('disabled');
+                btn.style.display = 'none';
+            } else {
+                btn.classList.remove('disabled');
+                btn.style.display = 'flex';
+                
+                // Adicionar badge de contagem regressiva
+                if (state.isClosingVeryLate && state.countdownMessage) {
+                    const badge = document.createElement('span');
+                    badge.className = 'countdown-badge';
+                    badge.textContent = state.countdownMessage;
+                    btn.appendChild(badge);
+                }
             }
         });
 
         // Atualizar status com animação
         if (statusEl) {
-            if (open) {
+            if (state.isHolidayClosed) {
+                statusEl.innerHTML = `
+                    <span class="status-indicator status-closed">
+                        <span class="status-dot"></span>
+                    </span>
+                    <span class="status-text">Fechado (${state.holidayName})</span>
+                `;
+                statusEl.className = 'open-status closed';
+            } else if (state.isOpen) {
+                let statusText = 'Aberto agora';
+                if (state.isClosingVeryLate && state.countdownMessage) {
+                    statusText = `Aberto · ${state.countdownMessage}`;
+                }
                 statusEl.innerHTML = `
                     <span class="status-indicator status-open">
                         <span class="status-ping"></span>
                         <span class="status-dot"></span>
                     </span>
-                    <span class="status-text">Aberto agora</span>
+                    <span class="status-text">${statusText}</span>
                 `;
                 statusEl.className = 'open-status open';
             } else {
@@ -530,6 +721,11 @@ function updateWhatsApp() {
             }
         }
     } catch (e) {
-        // Falha silenciosa
+        console.error('Erro ao atualizar status:', e);
     }
 }
+
+// Atualizar a cada 30 segundos para contagem regressiva mais precisa
+document.addEventListener('DOMContentLoaded', function() {
+    setInterval(updateWhatsApp, 30000);
+});
