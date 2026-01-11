@@ -7,36 +7,52 @@
     <title>Pizza Burger Almeirim | Pizzaria, Hambúrgueres e Kebab em Almeirim</title>
     <meta name="description" content="Pizza Burger Almeirim 🍕 Pizzas artesanais, hambúrgueres e kebabs. Take-away e delivery em Almeirim. Encomende facilmente pelo WhatsApp.">
     <meta name="author" content="Pizza Burger Almeirim">
+    <meta name="keywords" content="pizza, hamburguer, kebab, almeirim, takeaway, delivery, whatsapp, pizzaria, hamburgueria">
+    <meta name="robots" content="index, follow">
+    <meta name="theme-color" content="#EF6C32">
 
     <!-- Open Graph -->
     <meta property="og:title" content="Pizza Burger Almeirim">
     <meta property="og:description" content="Pizzas artesanais e hambúrgueres feitos na hora. Take-away e delivery todos os dias.">
     <meta property="og:type" content="website">
     <meta property="og:image" content="images/logo.png">
-    <meta property="og:url" content="https://pizzaburger.pt">
+    <meta property="og:url" content="https://pizzaburguer.pt">
     <meta property="og:site_name" content="Pizza Burger Almeirim">
+    <meta property="og:locale" content="pt_PT">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Pizza Burger Almeirim">
+    <meta name="twitter:description" content="Pizzas artesanais e hambúrgueres feitos na hora. Take-away e delivery todos os dias.">
+    <meta name="twitter:image" content="images/logo.png">
 
     <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon.png">
+    <link rel="apple-touch-icon" href="images/logo.png">
 
-    <!-- Fonts -->
+    <!-- Fonts - Preload for performance -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
     <!-- Icons -->
-    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://unpkg.com/lucide@latest" defer></script>
 
     <!-- CSS -->
     <link rel="stylesheet" href="style.css">
 
-    <!-- SEO Schema -->
+    <!-- SEO Schema - Enhanced -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
       "@type": "Restaurant",
       "name": "Pizza Burger Almeirim",
-      "image": "https://pizzaburger.pt/images/logo.png",
+      "image": "https://pizzaburguer.pt/images/logo.png",
+      "description": "Pizzas artesanais, hambúrgueres e kebabs em Almeirim. Take-away e delivery.",
+      "@id": "https://pizzaburguer.pt",
+      "url": "https://pizzaburguer.pt",
+      "telephone": "+351243046828",
       "address": {
         "@type": "PostalAddress",
         "streetAddress": "Avenida Dom João I LT 48",
@@ -44,36 +60,79 @@
         "postalCode": "2080-014",
         "addressCountry": "PT"
       },
-      "telephone": "+351243046828",
-      "servesCuisine": ["Pizza", "Hambúrgueres", "Kebab"],
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": 39.2106,
+        "longitude": -8.6286
+      },
+      "servesCuisine": ["Pizza", "Hambúrgueres", "Kebab", "Fast Food"],
       "priceRange": "€€",
-      "url": "https://pizzaburger.pt",
-      "openingHours": [
-        "Mo-Su 12:00-15:00",
-        "Mo-Su 19:00-23:30"
-      ]
+      "paymentAccepted": "Cash, Credit Card, Multibanco",
+      "currenciesAccepted": "EUR",
+      "openingHoursSpecification": [
+        {
+          "@type": "OpeningHoursSpecification",
+          "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
+          "opens": "12:00",
+          "closes": "15:00"
+        },
+        {
+          "@type": "OpeningHoursSpecification",
+          "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
+          "opens": "19:00",
+          "closes": "23:30"
+        }
+      ],
+      "hasMenu": {
+        "@type": "Menu",
+        "hasMenuSection": [
+          {
+            "@type": "MenuSection",
+            "name": "Pizzas",
+            "description": "Pizzas artesanais com ingredientes frescos"
+          },
+          {
+            "@type": "MenuSection",
+            "name": "Hambúrgueres",
+            "description": "Hambúrgueres suculentos feitos na hora"
+          },
+          {
+            "@type": "MenuSection",
+            "name": "Kebab",
+            "description": "Kebabs autênticos"
+          }
+        ]
+      },
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "4.8",
+        "reviewCount": "250"
+      }
     }
     </script>
 </head>
 
 <body>
+    <!-- Skip to main content - Accessibility -->
+    <a href="#main-content" class="skip-link">Saltar para o conteúdo</a>
+
     <!-- Hero Section -->
-    <section class="hero-section" id="hero">
-        <div class="hero-backgrounds">
+    <section class="hero-section" id="hero" role="banner">
+        <div class="hero-backgrounds" aria-hidden="true">
             <div class="hero-bg active" style="background-image: url('images/pizza-hero.jpg')"></div>
             <div class="hero-bg" style="background-image: url('images/burger-hero.jpg')"></div>
             <div class="hero-bg" style="background-image: url('images/kebab-hero.jpg')"></div>
         </div>
         <div class="hero-overlay"></div>
 
-        <div class="hero-indicators">
-            <button class="indicator active" data-index="0"></button>
-            <button class="indicator" data-index="1"></button>
-            <button class="indicator" data-index="2"></button>
-        </div>
+        <nav class="hero-indicators" aria-label="Slider de imagens">
+            <button class="indicator active" data-index="0" aria-label="Imagem 1 - Pizza" aria-current="true"></button>
+            <button class="indicator" data-index="1" aria-label="Imagem 2 - Hambúrguer"></button>
+            <button class="indicator" data-index="2" aria-label="Imagem 3 - Kebab"></button>
+        </nav>
 
         <div class="hero-content">
-            <img src="images/logo.png" alt="Pizza Burger Logo" class="hero-logo animate-fade-in">
+            <img src="images/logo.png" alt="Pizza Burger Almeirim - Logo" class="hero-logo animate-fade-in" width="144" height="144">
 
             <h1 class="hero-title animate-fade-in" style="animation-delay: 0.1s">
                 Pizza Burguer Almeirim
@@ -91,325 +150,346 @@
             <div class="hero-ctas animate-fade-in" style="animation-delay: 0.4s">
                 <a href="https://wa.me/351243046828?text=Ol%C3%A1%20%F0%9F%91%8B%20Gostava%20de%20fazer%20um%20pedido."
                    class="btn btn-whatsapp btn-lg"
-                   target="_blank">
-                    <i data-lucide="message-circle"></i>
+                   target="_blank"
+                   rel="noopener noreferrer"
+                   aria-label="Encomendar via WhatsApp">
+                    <i data-lucide="message-circle" aria-hidden="true"></i>
                     Encomendar via WhatsApp
                 </a>
 
-                <a href="tel:+351243046828" class="btn btn-phone btn-lg">
-                    <i data-lucide="phone"></i>
+                <a href="tel:+351243046828" class="btn btn-phone btn-lg" aria-label="Ligar para 243 046 828">
+                    <i data-lucide="phone" aria-hidden="true"></i>
                     Ligar 243 046 828
                 </a>
 
-                <a href="#menu" class="btn btn-menu btn-lg">
+                <a href="#menu" class="btn btn-menu btn-lg" aria-label="Ver menu completo">
                     📋 Ver Menu
                 </a>
             </div>
         </div>
 
-        <a href="#quem-somos" class="scroll-indicator">
-            <i data-lucide="chevron-down"></i>
+        <a href="#quem-somos" class="scroll-indicator" aria-label="Scroll para próxima secção">
+            <i data-lucide="chevron-down" aria-hidden="true"></i>
         </a>
     </section>
 
-    <!-- About Section -->
-    <section class="about-section" id="quem-somos">
-        <div class="container">
-            <div class="about-icon scroll-reveal">
-                <i data-lucide="chef-hat"></i>
-            </div>
-
-            <h2 class="about-title scroll-reveal" data-delay="100">
-                Mais sabor, menos complicações.
-            </h2>
-
-            <p class="about-text scroll-reveal" data-delay="200">
-                Na <span class="text-primary font-semibold">Pizza Burguer</span>
-                apostamos em ingredientes de qualidade, receitas simples
-                e atendimento rápido.
-                Queremos que faças o teu pedido em segundos
-                e desfrutes de uma refeição incrível.
-            </p>
-        </div>
-    </section>
-
-    <!-- Favorites Section -->
-    <section class="favorites-section">
-        <div class="container container-lg">
-            <div class="section-header scroll-reveal">
-                <span class="emoji">🔥</span>
-                <h2>Os favoritos dos clientes</h2>
-            </div>
-
-            <div class="favorites-grid">
-                <div class="favorite-card scroll-reveal" data-delay="0">
-                    <img src="images/pizza-hero.jpg" alt="Pizza Especial">
-                    <div class="favorite-overlay"></div>
-                    <span class="favorite-badge">🔥 Popular</span>
-                    <div class="favorite-content">
-                        <h3>Pizza Especial</h3>
-                        <p>A mais pedida</p>
-                    </div>
+    <!-- Main Content -->
+    <main id="main-content">
+        <!-- About Section -->
+        <section class="about-section" id="quem-somos" aria-labelledby="about-title">
+            <div class="container">
+                <div class="about-icon scroll-reveal" aria-hidden="true">
+                    <i data-lucide="chef-hat"></i>
                 </div>
 
-                <div class="favorite-card scroll-reveal" data-delay="100">
-                    <img src="images/burger-hero.jpg" alt="Duplo Cheese">
-                    <div class="favorite-overlay"></div>
-                    <span class="favorite-badge">🔥 Popular</span>
-                    <div class="favorite-content">
-                        <h3>Duplo Cheese</h3>
-                        <p>Irresistível</p>
-                    </div>
+                <h2 id="about-title" class="about-title scroll-reveal" data-delay="100">
+                    Mais sabor, menos complicações.
+                </h2>
+
+                <p class="about-text scroll-reveal" data-delay="200">
+                    Na <span class="text-primary font-semibold">Pizza Burguer</span>
+                    apostamos em ingredientes de qualidade, receitas simples
+                    e atendimento rápido.
+                    Queremos que faças o teu pedido em segundos
+                    e desfrutes de uma refeição incrível.
+                </p>
+            </div>
+        </section>
+
+        <!-- Favorites Section -->
+        <section class="favorites-section" aria-labelledby="favorites-title">
+            <div class="container container-lg">
+                <header class="section-header scroll-reveal">
+                    <span class="emoji" aria-hidden="true">🔥</span>
+                    <h2 id="favorites-title">Os favoritos dos clientes</h2>
+                </header>
+
+                <div class="favorites-grid" role="list">
+                    <article class="favorite-card scroll-reveal" data-delay="0" role="listitem">
+                        <img src="images/pizza-hero.jpg" alt="Pizza Especial - A mais pedida" loading="lazy" width="400" height="300">
+                        <div class="favorite-overlay"></div>
+                        <span class="favorite-badge">🔥 Popular</span>
+                        <div class="favorite-content">
+                            <h3>Pizza Especial</h3>
+                            <p>A mais pedida</p>
+                        </div>
+                    </article>
+
+                    <article class="favorite-card scroll-reveal" data-delay="100" role="listitem">
+                        <img src="images/burger-hero.jpg" alt="Duplo Cheese - Hambúrguer irresistível" loading="lazy" width="400" height="300">
+                        <div class="favorite-overlay"></div>
+                        <span class="favorite-badge">🔥 Popular</span>
+                        <div class="favorite-content">
+                            <h3>Duplo Cheese</h3>
+                            <p>Irresistível</p>
+                        </div>
+                    </article>
+
+                    <article class="favorite-card scroll-reveal" data-delay="200" role="listitem">
+                        <img src="images/kebab-hero.jpg" alt="Kebab Menu - Completo e saboroso" loading="lazy" width="400" height="300">
+                        <div class="favorite-overlay"></div>
+                        <span class="favorite-badge">🔥 Popular</span>
+                        <div class="favorite-content">
+                            <h3>Kebab Menu</h3>
+                            <p>Completo e saboroso</p>
+                        </div>
+                    </article>
                 </div>
 
-                <div class="favorite-card scroll-reveal" data-delay="200">
-                    <img src="images/kebab-hero.jpg" alt="Kebab Menu">
-                    <div class="favorite-overlay"></div>
-                    <span class="favorite-badge">🔥 Popular</span>
-                    <div class="favorite-content">
-                        <h3>Kebab Menu</h3>
-                        <p>Completo e saboroso</p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="text-center scroll-reveal" data-delay="400">
-                <a href="https://wa.me/351243046828?text=Ol%C3%A1%20%F0%9F%91%8B%20Gostava%20de%20fazer%20um%20pedido."
-                   class="btn btn-whatsapp btn-lg"
-                   target="_blank">
-                    <i data-lucide="message-circle"></i>
-                    Pedir agora
-                </a>
-            </div>
-        </div>
-    </section>
-
-    <!-- Menu Section -->
-    <section class="menu-section" id="menu">
-        <div class="container container-lg">
-            <h2 class="section-title scroll-reveal">📋 O nosso menu</h2>
-            <p class="section-subtitle scroll-reveal">Toca numa categoria para ver os produtos</p>
-
-            <!-- Category Tabs -->
-            <div class="menu-tabs scroll-reveal" data-delay="100">
-                <button class="menu-tab active" data-category="pizzas">🍕 Pizzas</button>
-                <button class="menu-tab" data-category="hamburgueres">🍔 Hambúrgueres</button>
-                <button class="menu-tab" data-category="kebab">🌯 Kebab & Tostas</button>
-                <button class="menu-tab" data-category="menus">🍟 Menus Completos</button>
-                <button class="menu-tab" data-category="entradas">🥣 Entradas & Diversos</button>
-                <button class="menu-tab" data-category="massas">🍝 Massas</button>
-                <button class="menu-tab" data-category="saladas">🥗 Saladas</button>
-                <button class="menu-tab" data-category="extras">🥤 Bebidas</button>
-                <button class="menu-tab" data-category="sobremesas">🍰 Sobremesas</button>
-            </div>
-
-            <!-- Size Legend -->
-            <div class="size-legend scroll-reveal" id="sizeLegend">
-                <span class="font-medium">P</span> = Pequena &nbsp;|&nbsp; 
-                <span class="font-medium">M</span> = Média &nbsp;|&nbsp; 
-                <span class="font-medium">F</span> = Familiar
-            </div>
-
-            <!-- Menu Items Container -->
-            <div class="menu-items" id="menuItems"></div>
-
-            <div class="text-center scroll-reveal" data-delay="300">
-                <a href="https://wa.me/351243046828?text=Ol%C3%A1%20%F0%9F%91%8B%20Gostava%20de%20fazer%20um%20pedido."
-                   class="btn btn-whatsapp btn-lg"
-                   target="_blank">
-                    <i data-lucide="message-circle"></i>
-                    Fazer pedido pelo WhatsApp
-                </a>
-            </div>
-        </div>
-    </section>
-
-    <!-- How to Order Section -->
-    <section class="how-to-order-section">
-        <div class="container">
-            <h2 class="section-title scroll-reveal">📲 Simples e rápido</h2>
-            <p class="section-subtitle scroll-reveal">Como encomendar</p>
-
-            <div class="steps">
-                <div class="step scroll-reveal" data-delay="0">
-                    <div class="step-number">1</div>
-                    <div class="step-content">
-                        <i data-lucide="clipboard-list"></i>
-                        <span>Escolhe o que vais comer</span>
-                    </div>
-                </div>
-
-                <div class="step scroll-reveal" data-delay="150">
-                    <div class="step-number">2</div>
-                    <div class="step-content">
-                        <i data-lucide="message-circle"></i>
-                        <span>Envia o pedido no WhatsApp</span>
-                    </div>
-                </div>
-
-                <div class="step scroll-reveal" data-delay="300">
-                    <div class="step-number">3</div>
-                    <div class="step-content">
-                        <i data-lucide="truck"></i>
-                        <span>Levanta no restaurante ou recebe em casa</span>
-                    </div>
+                <div class="text-center scroll-reveal" data-delay="400">
+                    <a href="https://wa.me/351243046828?text=Ol%C3%A1%20%F0%9F%91%8B%20Gostava%20de%20fazer%20um%20pedido."
+                       class="btn btn-whatsapp btn-lg"
+                       target="_blank"
+                       rel="noopener noreferrer"
+                       aria-label="Pedir agora via WhatsApp">
+                        <i data-lucide="message-circle" aria-hidden="true"></i>
+                        Pedir agora
+                    </a>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- Reviews Section -->
-    <section class="reviews-section">
-        <div class="container container-xl">
-            <div class="section-header scroll-reveal">
-                <i data-lucide="message-square"></i>
-                <h2>O que dizem os clientes</h2>
-            </div>
+        <!-- Menu Section -->
+        <section class="menu-section" id="menu" aria-labelledby="menu-title">
+            <div class="container container-lg">
+                <h2 id="menu-title" class="section-title scroll-reveal">📋 O nosso menu</h2>
+                <p class="section-subtitle scroll-reveal">Toca numa categoria para ver os produtos</p>
 
-            <div class="reviews-carousel scroll-reveal" data-delay="100">
-                <div class="reviews-track" id="reviewsTrack"></div>
-            </div>
+                <!-- Category Tabs -->
+                <nav class="menu-tabs scroll-reveal" data-delay="100" role="tablist" aria-label="Categorias do menu">
+                    <button class="menu-tab active" data-category="pizzas" role="tab" aria-selected="true" aria-controls="menuItems">🍕 Pizzas</button>
+                    <button class="menu-tab" data-category="hamburgueres" role="tab" aria-selected="false" aria-controls="menuItems">🍔 Hambúrgueres</button>
+                    <button class="menu-tab" data-category="kebab" role="tab" aria-selected="false" aria-controls="menuItems">🌯 Kebab & Tostas</button>
+                    <button class="menu-tab" data-category="menus" role="tab" aria-selected="false" aria-controls="menuItems">🍟 Menus Completos</button>
+                    <button class="menu-tab" data-category="entradas" role="tab" aria-selected="false" aria-controls="menuItems">🥣 Entradas & Diversos</button>
+                    <button class="menu-tab" data-category="massas" role="tab" aria-selected="false" aria-controls="menuItems">🍝 Massas</button>
+                    <button class="menu-tab" data-category="saladas" role="tab" aria-selected="false" aria-controls="menuItems">🥗 Saladas</button>
+                    <button class="menu-tab" data-category="extras" role="tab" aria-selected="false" aria-controls="menuItems">🥤 Bebidas</button>
+                    <button class="menu-tab" data-category="sobremesas" role="tab" aria-selected="false" aria-controls="menuItems">🍰 Sobremesas</button>
+                </nav>
 
-            <div class="carousel-dots" id="carouselDots"></div>
-        </div>
-    </section>
+                <!-- Size Legend -->
+                <div class="size-legend scroll-reveal" id="sizeLegend" aria-label="Legenda de tamanhos">
+                    <span class="font-medium">P</span> = Pequena &nbsp;|&nbsp; 
+                    <span class="font-medium">M</span> = Média &nbsp;|&nbsp; 
+                    <span class="font-medium">F</span> = Familiar
+                </div>
 
-    <!-- Gallery Section -->
-    <section class="gallery-section">
-        <div class="container container-lg">
-            <div class="section-header scroll-reveal">
-                <i data-lucide="camera"></i>
-                <h2>Galeria</h2>
-            </div>
-            <p class="section-subtitle scroll-reveal">Veja os nossos pratos e o nosso espaço</p>
+                <!-- Menu Items Container -->
+                <div class="menu-items" id="menuItems" role="tabpanel" aria-live="polite"></div>
 
-            <div class="gallery-grid">
-                <div class="gallery-item scroll-reveal" data-delay="0">
-                    <img src="images/gallery-table.jpg" alt="Mesa com pizzas italianas">
-                </div>
-                <div class="gallery-item scroll-reveal" data-delay="75">
-                    <img src="images/pizza-hero.jpg" alt="Pizza Margherita">
-                </div>
-                <div class="gallery-item scroll-reveal" data-delay="150">
-                    <img src="images/burger-hero.jpg" alt="Hambúrguer gourmet">
-                </div>
-                <div class="gallery-item scroll-reveal" data-delay="225">
-                    <img src="images/kebab-hero.jpg" alt="Kebab">
-                </div>
-                <div class="gallery-item scroll-reveal" data-delay="300">
-                    <img src="images/gallery-fries.jpg" alt="Batatas fritas">
-                </div>
-                <div class="gallery-item scroll-reveal" data-delay="375">
-                    <img src="images/gallery-pasta.jpg" alt="Esparguete Carbonara">
-                </div>
-                <div class="gallery-item scroll-reveal" data-delay="450">
-                    <img src="images/gallery-dessert.jpg" alt="Brownie com gelado">
+                <div class="text-center scroll-reveal" data-delay="300">
+                    <a href="https://wa.me/351243046828?text=Ol%C3%A1%20%F0%9F%91%8B%20Gostava%20de%20fazer%20um%20pedido."
+                       class="btn btn-whatsapp btn-lg"
+                       target="_blank"
+                       rel="noopener noreferrer"
+                       aria-label="Fazer pedido pelo WhatsApp">
+                        <i data-lucide="message-circle" aria-hidden="true"></i>
+                        Fazer pedido pelo WhatsApp
+                    </a>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- Location Section -->
-    <section class="location-section" id="localizacao">
-        <div class="container">
-            <h2 class="section-title scroll-reveal">
-                <span class="emoji">📍</span>
-                Onde estamos
-            </h2>
+        <!-- How to Order Section -->
+        <section class="how-to-order-section" aria-labelledby="howto-title">
+            <div class="container">
+                <h2 id="howto-title" class="section-title scroll-reveal">📲 Simples e rápido</h2>
+                <p class="section-subtitle scroll-reveal">Como encomendar</p>
 
-            <div class="location-cards">
-                <div class="location-card scroll-reveal" data-delay="100">
-                    <div class="location-icon">
-                        <i data-lucide="map-pin"></i>
-                    </div>
-                    <div class="location-info">
-                        <h3>Morada</h3>
-                        <p>Avenida Dom João I LT 48, 2080-014 Almeirim</p>
-                    </div>
+                <ol class="steps" role="list">
+                    <li class="step scroll-reveal" data-delay="0">
+                        <div class="step-number" aria-hidden="true">1</div>
+                        <div class="step-content">
+                            <i data-lucide="clipboard-list" aria-hidden="true"></i>
+                            <span>Escolhe o que vais comer</span>
+                        </div>
+                    </li>
+
+                    <li class="step scroll-reveal" data-delay="150">
+                        <div class="step-number" aria-hidden="true">2</div>
+                        <div class="step-content">
+                            <i data-lucide="message-circle" aria-hidden="true"></i>
+                            <span>Envia o pedido no WhatsApp</span>
+                        </div>
+                    </li>
+
+                    <li class="step scroll-reveal" data-delay="300">
+                        <div class="step-number" aria-hidden="true">3</div>
+                        <div class="step-content">
+                            <i data-lucide="truck" aria-hidden="true"></i>
+                            <span>Levanta no restaurante ou recebe em casa</span>
+                        </div>
+                    </li>
+                </ol>
+            </div>
+        </section>
+
+        <!-- Reviews Section -->
+        <section class="reviews-section" aria-labelledby="reviews-title">
+            <div class="container container-xl">
+                <header class="section-header scroll-reveal">
+                    <i data-lucide="message-square" aria-hidden="true"></i>
+                    <h2 id="reviews-title">O que dizem os clientes</h2>
+                </header>
+
+                <div class="reviews-carousel scroll-reveal" data-delay="100" aria-label="Avaliações de clientes">
+                    <div class="reviews-track" id="reviewsTrack" role="list"></div>
                 </div>
 
-                <div class="location-card scroll-reveal" data-delay="200">
-                    <div class="location-icon">
-                        <i data-lucide="phone"></i>
-                    </div>
-                    <div class="location-info">
-                        <h3>Telefone (toca para ligar)</h3>
+                <nav class="carousel-dots" id="carouselDots" role="tablist" aria-label="Navegação de avaliações"></nav>
+            </div>
+        </section>
+
+        <!-- Gallery Section -->
+        <section class="gallery-section" aria-labelledby="gallery-title">
+            <div class="container container-lg">
+                <header class="section-header scroll-reveal">
+                    <i data-lucide="camera" aria-hidden="true"></i>
+                    <h2 id="gallery-title">Galeria</h2>
+                </header>
+                <p class="section-subtitle scroll-reveal">Veja os nossos pratos e o nosso espaço</p>
+
+                <div class="gallery-grid" role="list">
+                    <figure class="gallery-item scroll-reveal" data-delay="0" role="listitem">
+                        <img src="images/gallery-table.jpg" alt="Mesa com pizzas italianas servidas" loading="lazy" width="400" height="400">
+                    </figure>
+                    <figure class="gallery-item scroll-reveal" data-delay="75" role="listitem">
+                        <img src="images/pizza-hero.jpg" alt="Pizza Margherita fresca" loading="lazy" width="400" height="400">
+                    </figure>
+                    <figure class="gallery-item scroll-reveal" data-delay="150" role="listitem">
+                        <img src="images/burger-hero.jpg" alt="Hambúrguer gourmet com queijo" loading="lazy" width="400" height="400">
+                    </figure>
+                    <figure class="gallery-item scroll-reveal" data-delay="225" role="listitem">
+                        <img src="images/kebab-hero.jpg" alt="Kebab tradicional" loading="lazy" width="400" height="400">
+                    </figure>
+                    <figure class="gallery-item scroll-reveal" data-delay="300" role="listitem">
+                        <img src="images/gallery-fries.jpg" alt="Batatas fritas crocantes" loading="lazy" width="400" height="400">
+                    </figure>
+                    <figure class="gallery-item scroll-reveal" data-delay="375" role="listitem">
+                        <img src="images/gallery-pasta.jpg" alt="Esparguete Carbonara cremoso" loading="lazy" width="400" height="400">
+                    </figure>
+                    <figure class="gallery-item scroll-reveal" data-delay="450" role="listitem">
+                        <img src="images/gallery-dessert.jpg" alt="Brownie com gelado de baunilha" loading="lazy" width="400" height="400">
+                    </figure>
+                </div>
+            </div>
+        </section>
+
+        <!-- Location Section -->
+        <section class="location-section" id="localizacao" aria-labelledby="location-title">
+            <div class="container">
+                <h2 id="location-title" class="section-title scroll-reveal">
+                    <span class="emoji" aria-hidden="true">📍</span>
+                    Onde estamos
+                </h2>
+
+                <div class="location-cards">
+                    <article class="location-card scroll-reveal" data-delay="100">
+                        <div class="location-icon" aria-hidden="true">
+                            <i data-lucide="map-pin"></i>
+                        </div>
+                        <div class="location-info">
+                            <h3>Morada</h3>
+                            <address>
+                                <a href="https://maps.google.com/?q=Pizza+Burger+Almeirim,+Avenida+Dom+João+I,+Almeirim" 
+                                   target="_blank" 
+                                   rel="noopener noreferrer"
+                                   aria-label="Abrir localização no Google Maps">
+                                    Avenida Dom João I LT 48, 2080-014 Almeirim
+                                </a>
+                            </address>
+                        </div>
+                    </article>
+
+                    <article class="location-card scroll-reveal" data-delay="200">
+                        <div class="location-icon" aria-hidden="true">
+                            <i data-lucide="phone"></i>
+                        </div>
+                        <div class="location-info">
+                            <h3>Telefone (toca para ligar)</h3>
+                            <p>
+                                <a href="tel:+351243046828" aria-label="Ligar para 243 046 828">243 046 828</a>
+                                <span class="separator" aria-hidden="true">|</span>
+                                <a href="tel:+351914962991" aria-label="Ligar para 914 962 991">914 962 991</a>
+                            </p>
+                        </div>
+                    </article>
+
+                    <article class="location-card scroll-reveal" data-delay="300">
+                        <div class="location-icon" aria-hidden="true">
+                            <i data-lucide="clock"></i>
+                        </div>
+                        <div class="location-info">
+                            <h3>Horário</h3>
+                            <div class="schedule">
+                                <div class="schedule-row">
+                                    <span>Todos os dias</span>
+                                    <time class="hours">12:00 – 15:00</time>
+                                </div>
+                                <div class="schedule-row">
+                                    <span>Todos os dias</span>
+                                    <time class="hours">19:00 – 23:30</time>
+                                </div>
+                                <div class="schedule-row">
+                                    <span>Feriados</span>
+                                    <span class="hours">Encerrado</span>
+                                </div>
+                            </div>
+                            <div class="open-status" id="openStatus" role="status" aria-live="polite"></div>
+                        </div>
+                    </article>
+                </div>
+
+                <!-- SEO Text -->
+                <aside class="seo-text">
+                    <div class="container">
                         <p>
-                            <a href="tel:+351243046828">243 046 828</a>
-                            <span class="separator">|</span>
-                            <a href="tel:+351914962991">914 962 991</a>
+                            A <strong>Pizza Burger Almeirim</strong> é uma pizzaria
+                            e hamburgueria em <strong>Almeirim</strong>,
+                            especializada em pizzas artesanais, hambúrgueres
+                            suculentos, kebab e pratos para take-away e delivery.
+                            Fazemos encomendas rápidas via WhatsApp, com serviço
+                            de almoço e jantar em Almeirim.
                         </p>
                     </div>
+                </aside>
+
+                <!-- Google Maps -->
+                <div class="map-container">
+                    <iframe
+                        src="https://www.google.com/maps?q=Pizza%20Burger%20Almeirim%2C%20Avenida%20Dom%20Jo%C3%A3o%20I%2C%20Almeirim&output=embed"
+                        width="100%"
+                        height="350"
+                        style="border:0;"
+                        loading="lazy"
+                        referrerpolicy="no-referrer-when-downgrade"
+                        allowfullscreen
+                        title="Localização Pizza Burger Almeirim no Google Maps">
+                    </iframe>
                 </div>
 
-                <div class="location-card scroll-reveal" data-delay="300">
-                    <div class="location-icon">
-                        <i data-lucide="clock"></i>
-                    </div>
-                    <div class="location-info">
-                        <h3>Horário</h3>
-                        <div class="schedule">
-                            <div class="schedule-row">
-                                <span>Todos os dias</span>
-                                <span class="hours">12:00 – 15:00</span>
-                            </div>
-                            <div class="schedule-row">
-                                <span>Todos os dias</span>
-                                <span class="hours">19:00 – 23:30</span>
-                            </div>
-                            <div class="schedule-row">
-                                <span>Feriados</span>
-                                <span class="hours">Encerrado</span>
-                            </div>
-                        </div>
-                        <div class="open-status" id="openStatus"></div>
-                    </div>
+                <div class="location-ctas scroll-reveal" data-delay="500">
+                    <a href="https://wa.me/351243046828?text=Ol%C3%A1%20%F0%9F%91%8B%20Gostava%20de%20fazer%20um%20pedido."
+                       class="btn btn-whatsapp btn-lg btn-full"
+                       target="_blank"
+                       rel="noopener noreferrer"
+                       aria-label="Falar connosco via WhatsApp">
+                        <i data-lucide="message-circle" aria-hidden="true"></i>
+                        Falar connosco agora
+                    </a>
+
+                    <a href="tel:+351243046828" class="btn btn-phone btn-lg btn-full" aria-label="Ligar agora">
+                        <i data-lucide="phone" aria-hidden="true"></i>
+                        Ligar agora
+                    </a>
                 </div>
             </div>
-
-            <!-- SEO Text -->
-            <section class="seo-text">
-                <div class="container">
-                    <p>
-                        A <strong>Pizza Burger Almeirim</strong> é uma pizzaria
-                        e hamburgueria em <strong>Almeirim</strong>,
-                        especializada em pizzas artesanais, hambúrgueres
-                        suculentos, kebab e pratos para take-away e delivery.
-                        Fazemos encomendas rápidas via WhatsApp, com serviço
-                        de almoço e jantar em Almeirim.
-                    </p>
-                </div>
-            </section>
-
-            <!-- Google Maps -->
-            <iframe
-                src="https://www.google.com/maps?q=Pizza%20Burger%20Almeirim%2C%20Avenida%20Dom%20Jo%C3%A3o%20I%2C%20Almeirim&output=embed"
-                width="100%"
-                height="350"
-                style="border:0;"
-                loading="lazy"
-                referrerpolicy="no-referrer-when-downgrade"
-                allowfullscreen>
-            </iframe>
-
-            <div class="location-ctas scroll-reveal" data-delay="500">
-                <a href="https://wa.me/351243046828?text=Ol%C3%A1%20%F0%9F%91%8B%20Gostava%20de%20fazer%20um%20pedido."
-                   class="btn btn-whatsapp btn-lg btn-full"
-                   target="_blank">
-                    <i data-lucide="message-circle"></i>
-                    Falar connosco agora
-                </a>
-
-                <a href="tel:+351243046828" class="btn btn-phone btn-lg btn-full">
-                    <i data-lucide="phone"></i>
-                    Ligar agora
-                </a>
-            </div>
-        </div>
-    </section>
+        </section>
+    </main>
 
     <!-- Footer -->
-    <footer class="footer">
+    <footer class="footer" role="contentinfo">
         <div class="container">
             <p class="footer-title">
                 Pizza Burger © <span id="currentYear"></span>
@@ -425,8 +505,9 @@
        class="sticky-whatsapp"
        id="stickyWhatsApp"
        target="_blank"
+       rel="noopener noreferrer"
        aria-label="Encomendar via WhatsApp">
-        <i data-lucide="message-circle"></i>
+        <i data-lucide="message-circle" aria-hidden="true"></i>
     </a>
 
     <!-- JavaScript -->
