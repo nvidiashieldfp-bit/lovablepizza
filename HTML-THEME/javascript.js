@@ -1,30 +1,50 @@
 /**
- * Pizza Burger Almeirim - JavaScript
- * ===================================
- * REGRAS ABSOLUTAS:
- * - NÃO alterar estrutura HTML
- * - NÃO criar ou remover elementos
- * - Só alterar textContent, classList, href
+ * Pizza Burger Almeirim - JavaScript v3.1
+ * ========================================
+ * Features:
+ * - Hero slider with auto-advance
+ * - Scroll reveal animations
+ * - Interactive menu with categories
+ * - Reviews carousel with auto-play
+ * - Business hours with holidays system
+ * - WhatsApp countdown (23:00-23:30)
+ * - Accessibility improvements
  */
 
+'use strict';
+
+/* =========================
+   INITIALIZATION
+   ========================= */
+
 document.addEventListener('DOMContentLoaded', function () {
-    lucide.createIcons();
+    // Initialize Lucide icons
+    if (typeof lucide !== 'undefined') {
+        lucide.createIcons();
+    }
+    
+    // Initialize all components
     initHeroSlider();
     initScrollReveal();
     initMenu();
     initReviewsCarousel();
     initCurrentYear();
     
+    // Initialize business hours system
     updateWhatsApp();
-    setInterval(updateWhatsApp, 60000);
+    setInterval(updateWhatsApp, 30000); // Update every 30 seconds for countdown precision
 });
 
-/**
- * Hero Background Slider
- */
+/* =========================
+   HERO BACKGROUND SLIDER
+   ========================= */
+
 function initHeroSlider() {
     const backgrounds = document.querySelectorAll('.hero-bg');
     const indicators = document.querySelectorAll('.indicator');
+    
+    if (!backgrounds.length || !indicators.length) return;
+    
     let currentIndex = 0;
     let interval;
 
@@ -34,6 +54,7 @@ function initHeroSlider() {
         });
         indicators.forEach((ind, i) => {
             ind.classList.toggle('active', i === index);
+            ind.setAttribute('aria-current', i === index ? 'true' : 'false');
         });
         currentIndex = index;
     }
@@ -47,27 +68,62 @@ function initHeroSlider() {
         interval = setInterval(nextSlide, 5000);
     }
 
+    function stopAutoAdvance() {
+        clearInterval(interval);
+    }
+
+    // Click handlers for indicators
     indicators.forEach((indicator, index) => {
         indicator.addEventListener('click', () => {
-            clearInterval(interval);
+            stopAutoAdvance();
             goToSlide(index);
             startAutoAdvance();
         });
+        
+        // Keyboard support
+        indicator.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                stopAutoAdvance();
+                goToSlide(index);
+                startAutoAdvance();
+            }
+        });
     });
+
+    // Pause on hover/focus for accessibility
+    const heroSection = document.getElementById('hero');
+    if (heroSection) {
+        heroSection.addEventListener('mouseenter', stopAutoAdvance);
+        heroSection.addEventListener('mouseleave', startAutoAdvance);
+        heroSection.addEventListener('focusin', stopAutoAdvance);
+        heroSection.addEventListener('focusout', startAutoAdvance);
+    }
 
     startAutoAdvance();
 }
 
-/**
- * Scroll Reveal Animation
- */
+/* =========================
+   SCROLL REVEAL ANIMATION
+   ========================= */
+
 function initScrollReveal() {
     const elements = document.querySelectorAll('.scroll-reveal');
+    
+    if (!elements.length) return;
+    
+    // Check for reduced motion preference
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    
+    if (prefersReducedMotion) {
+        elements.forEach(el => el.classList.add('revealed'));
+        return;
+    }
     
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
-                const delay = entry.target.getAttribute('data-delay') || 0;
+                const delay = parseInt(entry.target.getAttribute('data-delay')) || 0;
                 setTimeout(() => {
                     entry.target.classList.add('revealed');
                 }, delay);
@@ -82,9 +138,10 @@ function initScrollReveal() {
     elements.forEach(el => observer.observe(el));
 }
 
-/**
- * Menu Data - UPDATED
- */
+/* =========================
+   MENU DATA & RENDERING
+   ========================= */
+
 const menuData = {
     pizzas: {
         title: "Pizzas",
@@ -226,51 +283,54 @@ function initMenu() {
     const menuItemsContainer = document.getElementById('menuItems');
     const sizeLegend = document.getElementById('sizeLegend');
 
+    if (!tabs.length || !menuItemsContainer) return;
+
     function renderMenuItems(category) {
         const data = menuData[category];
+        if (!data) return;
+        
         menuItemsContainer.innerHTML = '';
 
-        if (category === 'pizzas') {
-            sizeLegend.classList.remove('hidden');
-        } else {
-            sizeLegend.classList.add('hidden');
+        // Show/hide size legend for pizzas
+        if (sizeLegend) {
+            sizeLegend.classList.toggle('hidden', category !== 'pizzas');
         }
 
         data.items.forEach((item, index) => {
-            const itemEl = document.createElement('div');
+            const itemEl = document.createElement('article');
             itemEl.className = 'menu-item scroll-reveal revealed';
             itemEl.style.animationDelay = `${index * 40}ms`;
 
             let priceHTML = '';
             if (item.prices) {
                 priceHTML = `
-                    <div class="menu-item-prices">
+                    <div class="menu-item-prices" aria-label="Preços por tamanho">
                         ${item.prices.map(p => `
                             <div class="price-column">
-                                <div class="price-size">${p.size}</div>
+                                <div class="price-size" aria-label="Tamanho ${p.size === 'P' ? 'Pequena' : p.size === 'M' ? 'Média' : 'Familiar'}">${p.size}</div>
                                 <div class="price-value">${p.price}</div>
                             </div>
                         `).join('')}
                     </div>
                 `;
             } else {
-                priceHTML = `<span class="menu-item-price-single">${item.price}</span>`;
+                priceHTML = `<span class="menu-item-price-single" aria-label="Preço">${item.price}</span>`;
             }
 
             let badgeHTML = '';
             if (item.badge) {
                 const badgeClass = item.badge === 'Popular' ? 'popular' : 
                                    item.badge === 'Novo' ? 'novo' : 'promo';
-                badgeHTML = `<span class="menu-item-badge ${badgeClass}">🔥 ${item.badge}</span>`;
+                badgeHTML = `<span class="menu-item-badge ${badgeClass}" aria-label="${item.badge}">🔥 ${item.badge}</span>`;
             }
 
             itemEl.innerHTML = `
                 <div class="menu-item-content">
                     <div class="menu-item-header">
-                        <span class="menu-item-name">${item.name}</span>
+                        <span class="menu-item-name">${escapeHtml(item.name)}</span>
                         ${badgeHTML}
                     </div>
-                    ${item.description ? `<p class="menu-item-description">${item.description}</p>` : ''}
+                    ${item.description ? `<p class="menu-item-description">${escapeHtml(item.description)}</p>` : ''}
                 </div>
                 ${priceHTML}
             `;
@@ -279,20 +339,42 @@ function initMenu() {
         });
     }
 
+    // Tab click handlers
     tabs.forEach(tab => {
         tab.addEventListener('click', () => {
-            tabs.forEach(t => t.classList.remove('active'));
+            tabs.forEach(t => {
+                t.classList.remove('active');
+                t.setAttribute('aria-selected', 'false');
+            });
             tab.classList.add('active');
+            tab.setAttribute('aria-selected', 'true');
             renderMenuItems(tab.getAttribute('data-category'));
+        });
+        
+        // Keyboard navigation
+        tab.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                tab.click();
+            }
         });
     });
 
+    // Initialize with pizzas
     renderMenuItems('pizzas');
 }
 
-/**
- * Reviews Carousel
- */
+// Utility function to escape HTML
+function escapeHtml(text) {
+    const div = document.createElement('div');
+    div.textContent = text;
+    return div.innerHTML;
+}
+
+/* =========================
+   REVIEWS CAROUSEL
+   ========================= */
+
 const reviews = [
     { text: "Comida excelente e atendimento rápido! Recomendo a todos.", author: "Maria S.", rating: 5 },
     { text: "As melhores pizzas da zona! Sempre fresquinhas e saborosas.", author: "João P.", rating: 5 },
@@ -310,37 +392,45 @@ function initReviewsCarousel() {
     const track = document.getElementById('reviewsTrack');
     const dotsContainer = document.getElementById('carouselDots');
     
+    if (!track || !dotsContainer) return;
+    
+    // Build review cards
     reviews.forEach((review, index) => {
-        const card = document.createElement('div');
+        const card = document.createElement('article');
         card.className = 'review-card';
+        card.setAttribute('role', 'listitem');
         
         const stars = Array(review.rating).fill('').map(() => 
-            '<i data-lucide="star"></i>'
+            '<i data-lucide="star" aria-hidden="true"></i>'
         ).join('');
         
         card.innerHTML = `
             <div class="review-card-inner">
-                <div class="review-stars">${stars}</div>
-                <p class="review-text">"${review.text}"</p>
-                <p class="review-author">— ${review.author}</p>
+                <div class="review-stars" aria-label="${review.rating} estrelas">${stars}</div>
+                <blockquote class="review-text">"${escapeHtml(review.text)}"</blockquote>
+                <p class="review-author">— ${escapeHtml(review.author)}</p>
             </div>
         `;
         
         track.appendChild(card);
     });
 
-    lucide.createIcons();
+    // Re-initialize icons for stars
+    if (typeof lucide !== 'undefined') {
+        lucide.createIcons();
+    }
+
+    // Carousel state
+    let currentSlide = 0;
+    let slidesPerView = getSlidesPerView();
+    let totalSlides = Math.ceil(reviews.length / slidesPerView);
+    let autoplayInterval;
 
     function getSlidesPerView() {
         if (window.innerWidth >= 768) return 3;
         if (window.innerWidth >= 640) return 2;
         return 1;
     }
-
-    let currentSlide = 0;
-    let slidesPerView = getSlidesPerView();
-    let totalSlides = Math.ceil(reviews.length / slidesPerView);
-    let autoplayInterval;
 
     function renderDots() {
         dotsContainer.innerHTML = '';
@@ -349,7 +439,9 @@ function initReviewsCarousel() {
         for (let i = 0; i < totalSlides; i++) {
             const dot = document.createElement('button');
             dot.className = `carousel-dot ${i === currentSlide ? 'active' : ''}`;
-            dot.setAttribute('aria-label', `Ir para grupo ${i + 1}`);
+            dot.setAttribute('aria-label', `Ir para grupo ${i + 1} de ${totalSlides}`);
+            dot.setAttribute('role', 'tab');
+            dot.setAttribute('aria-selected', i === currentSlide ? 'true' : 'false');
             dot.addEventListener('click', () => goToSlide(i));
             dotsContainer.appendChild(dot);
         }
@@ -362,11 +454,12 @@ function initReviewsCarousel() {
         
         document.querySelectorAll('.carousel-dot').forEach((dot, i) => {
             dot.classList.toggle('active', i === currentSlide);
+            dot.setAttribute('aria-selected', i === currentSlide ? 'true' : 'false');
         });
     }
 
     function goToSlide(index) {
-        currentSlide = index;
+        currentSlide = Math.max(0, Math.min(index, totalSlides - 1));
         updateCarousel();
         resetAutoplay();
     }
@@ -385,25 +478,39 @@ function initReviewsCarousel() {
         startAutoplay();
     }
 
+    // Initialize
     renderDots();
     updateCarousel();
     startAutoplay();
 
+    // Handle resize
+    let resizeTimer;
     window.addEventListener('resize', () => {
-        const newSlidesPerView = getSlidesPerView();
-        if (newSlidesPerView !== slidesPerView) {
-            slidesPerView = newSlidesPerView;
-            totalSlides = Math.ceil(reviews.length / slidesPerView);
-            currentSlide = Math.min(currentSlide, totalSlides - 1);
-            renderDots();
-            updateCarousel();
-        }
+        clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(() => {
+            const newSlidesPerView = getSlidesPerView();
+            if (newSlidesPerView !== slidesPerView) {
+                slidesPerView = newSlidesPerView;
+                totalSlides = Math.ceil(reviews.length / slidesPerView);
+                currentSlide = Math.min(currentSlide, totalSlides - 1);
+                renderDots();
+                updateCarousel();
+            }
+        }, 150);
     });
+
+    // Pause autoplay on hover for accessibility
+    const reviewsSection = track.closest('.reviews-section');
+    if (reviewsSection) {
+        reviewsSection.addEventListener('mouseenter', () => clearInterval(autoplayInterval));
+        reviewsSection.addEventListener('mouseleave', startAutoplay);
+    }
 }
 
-/**
- * Footer Year - Auto-update
- */
+/* =========================
+   FOOTER YEAR AUTO-UPDATE
+   ========================= */
+
 function initCurrentYear() {
     const yearEl = document.getElementById('currentYear');
     if (yearEl) {
@@ -412,9 +519,10 @@ function initCurrentYear() {
 }
 
 /* =========================
-   WHATSAPP SCHEDULER COM FERIADOS E CONTAGEM REGRESSIVA
+   BUSINESS HOURS SYSTEM
    ========================= */
 
+// Opening hours configuration (0 = Sunday, 6 = Saturday)
 const openingHours = {
     0: [{ start: 12, end: 15 }, { start: 19, end: 23.5 }], // Domingo
     1: [{ start: 12, end: 15 }, { start: 19, end: 23.5 }], // Segunda
@@ -425,7 +533,11 @@ const openingHours = {
     6: [{ start: 12, end: 15 }, { start: 19, end: 23.5 }]  // Sábado
 };
 
-// Feriados fixos portugueses (dia, mês, nome, fechado)
+/* =========================
+   PORTUGUESE HOLIDAYS SYSTEM
+   ========================= */
+
+// Fixed Portuguese holidays (day, month, name, closed flag)
 const FIXED_HOLIDAYS = [
     { day: 1, month: 1, name: "Ano Novo", closed: true },
     { day: 25, month: 4, name: "Dia da Liberdade", closed: true },
@@ -440,7 +552,11 @@ const FIXED_HOLIDAYS = [
     { day: 26, month: 12, name: "Dia seguinte ao Natal", closed: true }
 ];
 
-// Calcular Páscoa (algoritmo de Gauss)
+/**
+ * Calculate Easter date using Gauss algorithm
+ * @param {number} year - The year
+ * @returns {Date} - Easter Sunday date
+ */
 function getEasterDate(year) {
     const a = year % 19;
     const b = Math.floor(year / 100);
@@ -459,12 +575,16 @@ function getEasterDate(year) {
     return new Date(year, month - 1, day);
 }
 
-// Feriados móveis baseados na Páscoa
+/**
+ * Get movable holidays based on Easter
+ * @param {number} year - The year
+ * @returns {Array} - Array of movable holidays
+ */
 function getMovableHolidays(year) {
     const easter = getEasterDate(year);
     const holidays = [];
     
-    // Sexta-feira Santa (2 dias antes da Páscoa)
+    // Good Friday (2 days before Easter)
     const goodFriday = new Date(easter);
     goodFriday.setDate(easter.getDate() - 2);
     holidays.push({ 
@@ -474,7 +594,7 @@ function getMovableHolidays(year) {
         closed: true 
     });
     
-    // Páscoa
+    // Easter Sunday
     holidays.push({ 
         day: easter.getDate(), 
         month: easter.getMonth() + 1, 
@@ -482,7 +602,7 @@ function getMovableHolidays(year) {
         closed: true 
     });
     
-    // Corpo de Deus (60 dias após Páscoa)
+    // Corpus Christi (60 days after Easter)
     const corpusChristi = new Date(easter);
     corpusChristi.setDate(easter.getDate() + 60);
     holidays.push({ 
@@ -495,45 +615,58 @@ function getMovableHolidays(year) {
     return holidays;
 }
 
-// Verificar se é feriado
+/**
+ * Check if a date is a holiday
+ * @param {Date} date - The date to check
+ * @returns {Object|null} - Holiday info or null
+ */
 function getHolidayInfo(date) {
     const day = date.getDate();
     const month = date.getMonth() + 1;
     const year = date.getFullYear();
     
-    // Verificar feriados fixos
+    // Check fixed holidays
     const fixedHoliday = FIXED_HOLIDAYS.find(h => h.day === day && h.month === month);
-    if (fixedHoliday) {
-        return fixedHoliday;
-    }
+    if (fixedHoliday) return fixedHoliday;
     
-    // Verificar feriados móveis
+    // Check movable holidays
     const movableHolidays = getMovableHolidays(year);
     const movableHoliday = movableHolidays.find(h => h.day === day && h.month === month);
-    if (movableHoliday) {
-        return movableHoliday;
-    }
+    if (movableHoliday) return movableHoliday;
     
     return null;
 }
 
+/**
+ * Get current time as decimal hours
+ * @returns {number} - Current time as decimal (e.g., 14.5 = 14:30)
+ */
 function nowDecimal() {
     const d = new Date();
     return d.getHours() + d.getMinutes() / 60;
 }
 
+/**
+ * Format decimal hours to HH:MM string
+ * @param {number} h - Decimal hours
+ * @returns {string} - Formatted time string
+ */
 function formatHour(h) {
     const hours = Math.floor(h);
     const mins = Math.round((h - hours) * 60);
     return String(hours).padStart(2, "0") + ":" + String(mins).padStart(2, "0");
 }
 
+/**
+ * Find next open slot
+ * @returns {Object|null} - Next slot info or null
+ */
 function nextSlot() {
     const now = new Date();
     const t = nowDecimal();
     const todaySlots = openingHours[now.getDay()] || [];
     
-    // Verificar se hoje é feriado fechado
+    // Check if today is a closed holiday
     const todayHoliday = getHolidayInfo(now);
     if (!todayHoliday || !todayHoliday.closed) {
         for (const s of todaySlots) {
@@ -543,16 +676,14 @@ function nextSlot() {
         }
     }
 
-    // Procurar próximo dia aberto
+    // Find next open day
     for (let i = 1; i <= 14; i++) {
         const d = new Date(now);
         d.setDate(now.getDate() + i);
         
-        // Verificar se é feriado fechado
+        // Check if it's a closed holiday
         const holiday = getHolidayInfo(d);
-        if (holiday && holiday.closed) {
-            continue;
-        }
+        if (holiday && holiday.closed) continue;
         
         const slots = openingHours[d.getDay()] || [];
         if (slots.length) {
@@ -565,16 +696,20 @@ function nextSlot() {
     return null;
 }
 
+/**
+ * Get current business hours state
+ * @returns {Object} - Business hours state
+ */
 function getBusinessHoursState() {
     const now = new Date();
     const t = nowDecimal();
     const todaySlots = openingHours[now.getDay()] || [];
     
-    // Verificar se é feriado
+    // Check for holiday
     const holiday = getHolidayInfo(now);
     const isHolidayClosed = holiday && holiday.closed;
     
-    // Verificar se está aberto (ignorando feriados)
+    // Check if currently open
     let isOpen = false;
     let minutesUntilClose = null;
     let isClosingVeryLate = false;
@@ -585,7 +720,7 @@ function getBusinessHoursState() {
                 isOpen = true;
                 minutesUntilClose = Math.round((slot.end - t) * 60);
                 
-                // Período das 23:00 às 23:30 - últimos 30 minutos
+                // Last 30 minutes before closing (23:00-23:30)
                 if (slot.end === 23.5 && t >= 23) {
                     isClosingVeryLate = true;
                 }
@@ -594,7 +729,7 @@ function getBusinessHoursState() {
         }
     }
     
-    // Calcular mensagem de contagem regressiva
+    // Build countdown message
     let countdownMessage = null;
     if (isClosingVeryLate && minutesUntilClose !== null) {
         countdownMessage = `⏱️ Fecha em ${minutesUntilClose} min`;
@@ -615,86 +750,102 @@ function getBusinessHoursState() {
     };
 }
 
+/* =========================
+   WHATSAPP STATUS UPDATE
+   ========================= */
+
 function updateWhatsApp() {
     try {
         const state = getBusinessHoursState();
         const statusEl = document.getElementById('openStatus');
 
+        // Update WhatsApp buttons
         document.querySelectorAll(".btn-whatsapp").forEach(btn => {
             if (!btn.dataset.original) btn.dataset.original = btn.innerHTML;
 
             if (state.isClosed) {
-                // Fechado
+                // Closed state
                 let closedText = "Fechado";
-                if (state.isHolidayClosed) {
+                if (state.isHolidayClosed && state.holidayName) {
                     closedText = `⛔ Fechado (${state.holidayName})`;
                 } else if (state.nextSlot) {
                     closedText = `⛔ Fechado · Abre ${state.nextSlot.label} às ${state.nextSlot.time}`;
                 }
-                btn.innerHTML = `<i data-lucide="message-circle"></i> ${closedText}`;
+                btn.innerHTML = `<i data-lucide="message-circle" aria-hidden="true"></i> ${closedText}`;
                 btn.style.pointerEvents = "none";
                 btn.style.opacity = "0.6";
                 btn.classList.add('disabled');
-                lucide.createIcons();
+                btn.setAttribute('aria-disabled', 'true');
             } else if (state.isClosingVeryLate && state.countdownMessage) {
-                // Aberto mas a fechar em breve
-                btn.innerHTML = `<i data-lucide="message-circle"></i> Encomendar agora ${state.countdownMessage}`;
+                // Closing soon state
+                btn.innerHTML = `<i data-lucide="message-circle" aria-hidden="true"></i> Encomendar agora ${state.countdownMessage}`;
                 btn.style.pointerEvents = "auto";
                 btn.style.opacity = "1";
                 btn.classList.remove('disabled');
                 btn.classList.add('closing-soon');
-                lucide.createIcons();
+                btn.removeAttribute('aria-disabled');
             } else {
-                // Aberto normalmente
+                // Normal open state
                 btn.innerHTML = btn.dataset.original;
                 btn.style.pointerEvents = "auto";
                 btn.style.opacity = "1";
                 btn.classList.remove('disabled', 'closing-soon');
+                btn.removeAttribute('aria-disabled');
             }
         });
 
-        // Atualizar botões de telefone
+        // Re-initialize Lucide icons
+        if (typeof lucide !== 'undefined') {
+            lucide.createIcons();
+        }
+
+        // Update phone buttons
         document.querySelectorAll(".btn-phone").forEach(btn => {
             if (state.isClosed) {
                 btn.style.pointerEvents = "none";
                 btn.style.opacity = "0.6";
+                btn.setAttribute('aria-disabled', 'true');
             } else {
                 btn.style.pointerEvents = "auto";
                 btn.style.opacity = "1";
+                btn.removeAttribute('aria-disabled');
             }
         });
 
-        // Atualizar sticky WhatsApp
+        // Update sticky WhatsApp button
         document.querySelectorAll(".sticky-whatsapp").forEach(btn => {
-            // Remover badge anterior
+            // Remove existing countdown badge
             const existingBadge = btn.querySelector('.countdown-badge');
             if (existingBadge) existingBadge.remove();
             
             if (state.isClosed) {
                 btn.classList.add('disabled');
                 btn.style.display = 'none';
+                btn.setAttribute('aria-hidden', 'true');
             } else {
                 btn.classList.remove('disabled');
                 btn.style.display = 'flex';
+                btn.removeAttribute('aria-hidden');
                 
-                // Adicionar badge de contagem regressiva
+                // Add countdown badge if closing soon
                 if (state.isClosingVeryLate && state.countdownMessage) {
                     const badge = document.createElement('span');
                     badge.className = 'countdown-badge';
                     badge.textContent = state.countdownMessage;
+                    badge.setAttribute('aria-live', 'polite');
                     btn.appendChild(badge);
                 }
             }
         });
 
-        // Atualizar status com animação
+        // Update status indicator
         if (statusEl) {
             if (state.isHolidayClosed) {
                 statusEl.innerHTML = `
-                    <span class="status-indicator status-closed">
+                    <span class="status-indicator status-closed" aria-hidden="true">
                         <span class="status-dot"></span>
                     </span>
-                    <span class="status-text">Fechado (${state.holidayName})</span>
+                    <span class="status-text">Fechado (${escapeHtml(state.holidayName || 'Feriado')})</span>
                 `;
                 statusEl.className = 'open-status closed';
             } else if (state.isOpen) {
@@ -703,7 +854,7 @@ function updateWhatsApp() {
                     statusText = `Aberto · ${state.countdownMessage}`;
                 }
                 statusEl.innerHTML = `
-                    <span class="status-indicator status-open">
+                    <span class="status-indicator status-open" aria-hidden="true">
                         <span class="status-ping"></span>
                         <span class="status-dot"></span>
                     </span>
@@ -711,11 +862,15 @@ function updateWhatsApp() {
                 `;
                 statusEl.className = 'open-status open';
             } else {
+                let statusText = 'Fechado';
+                if (state.nextSlot) {
+                    statusText = `Fechado · Abre ${state.nextSlot.label} às ${state.nextSlot.time}`;
+                }
                 statusEl.innerHTML = `
-                    <span class="status-indicator status-closed">
+                    <span class="status-indicator status-closed" aria-hidden="true">
                         <span class="status-dot"></span>
                     </span>
-                    <span class="status-text">Fechado</span>
+                    <span class="status-text">${statusText}</span>
                 `;
                 statusEl.className = 'open-status closed';
             }
@@ -724,8 +879,3 @@ function updateWhatsApp() {
         console.error('Erro ao atualizar status:', e);
     }
 }
-
-// Atualizar a cada 30 segundos para contagem regressiva mais precisa
-document.addEventListener('DOMContentLoaded', function() {
-    setInterval(updateWhatsApp, 30000);
-});
